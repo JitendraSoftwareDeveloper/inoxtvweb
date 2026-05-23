@@ -1,0 +1,7 @@
+# InoxTV Website - robots.txt
+# https://www.inoxtv.com/robots.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.inoxtv.com/sitemap.xml

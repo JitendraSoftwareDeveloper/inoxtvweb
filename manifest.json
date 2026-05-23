@@ -1,0 +1,26 @@
+{
+  "name": "InoxTV",
+  "short_name": "InoxTV",
+  "description": "Premium IPTV Player for Android Mobile & TV",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1020",
+  "theme_color": "#E91E90",
+  "icons": [
+    {
+      "src": "images/mobile-icon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/tv-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
