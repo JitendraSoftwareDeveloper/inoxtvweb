@@ -5,12 +5,25 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
-  initScrollReveal();
+  initEnhancedScrollReveal();
   initMobileNav();
   initSmoothScroll();
   initScrollDepthTracking();
   initDownloadTracking();
+  initParallaxScroll();
+  assignStaggerIndices();
 });
+
+/* --- Assign stagger indices to grid children --- */
+function assignStaggerIndices() {
+  const grids = document.querySelectorAll('.features-grid, .platform-grid, .playlist-grid, .languages-grid');
+  grids.forEach(grid => {
+    grid.classList.add('stagger-children');
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.setProperty('--stagger-index', i);
+    });
+  });
+}
 
 /* --- Navbar Scroll Effect --- */
 function initNavbar() {
@@ -27,31 +40,90 @@ function initNavbar() {
   onScroll();
 }
 
-/* --- Scroll Reveal with Intersection Observer --- */
-function initScrollReveal() {
-  const reveals = document.querySelectorAll('.reveal');
+/* --- Enhanced Scroll Reveal with Bi-directional Animations --- */
+function initEnhancedScrollReveal() {
+  const revealSelectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-rotate';
+  const reveals = document.querySelectorAll(revealSelectors);
   if (!reveals.length) return;
+
+  // Observe elements — animate in when scrolling into view,
+  // reset when scrolling out so they re-animate on return
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Track section views in GA4
+
+        // Mark parent section as revealed for glow line + badge pop
+        const section = entry.target.closest('.section');
+        if (section) section.classList.add('section-revealed');
+
+        // GA4: track section views
         const sectionId = entry.target.closest('section')?.id;
-        if (sectionId) {
+        if (sectionId && entry.target.classList.contains('section-header')) {
           trackEvent('section_view', { section_name: sectionId });
         }
-        // Track feature card views
+        // GA4: track feature card views
         if (entry.target.classList.contains('feature-card')) {
           const featureName = entry.target.querySelector('h3')?.textContent;
           if (featureName) {
             trackEvent('feature_view', { feature_name: featureName });
           }
         }
-        observer.unobserve(entry.target);
+      } else {
+        // Reset when element leaves viewport — enables re-animation on scroll back
+        entry.target.classList.remove('visible');
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
   reveals.forEach(el => observer.observe(el));
+
+  // Also observe sections for the glow-line effect
+  document.querySelectorAll('.section').forEach(section => {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-revealed');
+        } else {
+          entry.target.classList.remove('section-revealed');
+        }
+      });
+    }, { threshold: 0.05 });
+    sectionObserver.observe(section);
+  });
+}
+
+/* --- Parallax-lite on scroll --- */
+function initParallaxScroll() {
+  const heroLogo = document.querySelector('.hero-logo');
+  const heroBanner = document.querySelector('.hero-banner');
+  const orbs = document.querySelectorAll('.bg-particles .orb');
+  if (!heroLogo && !heroBanner && !orbs.length) return;
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const vh = window.innerHeight;
+
+        // Subtle parallax on hero elements — only when hero is visible
+        if (scrollY < vh * 1.5) {
+          if (heroLogo) heroLogo.style.transform = `scale(1) translateY(${scrollY * 0.12}px)`;
+          if (heroBanner) heroBanner.style.transform = `translateY(${scrollY * 0.06}px)`;
+        }
+
+        // Shift orbs slightly based on scroll for depth
+        orbs.forEach((orb, i) => {
+          const speed = 0.02 + i * 0.015;
+          orb.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 /* --- Mobile Navigation --- */

@@ -461,3 +461,136 @@ ul { list-style: none; }
 @media (min-width: 769px) and (max-width: 1024px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* =============================================
+   Privacy Policy Page Styles
+   ============================================= */
+.privacy-hero {
+  position: relative; z-index: 1; padding: 160px 24px 60px; text-align: center;
+}
+.privacy-hero-content h1 {
+  font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800; margin-bottom: 12px;
+}
+.privacy-effective {
+  color: var(--color-text-muted); font-size: 1rem;
+}
+.privacy-effective strong { color: var(--color-text-secondary); }
+.privacy-section { padding-top: 20px; }
+.privacy-document {
+  max-width: 820px; margin: 0 auto;
+}
+.privacy-block {
+  background: var(--color-surface-glass); border: 1px solid var(--color-border-glass);
+  border-radius: var(--radius-card); padding: 36px 32px; margin-bottom: 24px;
+  transition: all var(--transition-smooth);
+}
+.privacy-block:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.privacy-block h2 {
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+}
+.privacy-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px; font-size: 0.95rem;
+  font-weight: 700; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(233,30,144,0.2), rgba(139,92,246,0.2));
+  border: 1px solid rgba(233, 30, 144, 0.25);
+  color: var(--color-accent-pink);
+}
+.privacy-block h3 {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 600;
+  margin: 24px 0 10px; color: var(--color-accent-blue);
+}
+.privacy-block p {
+  color: var(--color-text-secondary); font-size: 0.95rem; line-height: 1.75;
+  margin-bottom: 12px;
+}
+.privacy-block ul {
+  margin: 8px 0 16px 8px; list-style: none;
+}
+.privacy-block ul li {
+  color: var(--color-text-secondary); font-size: 0.93rem; line-height: 1.7;
+  padding: 4px 0 4px 20px; position: relative;
+}
+.privacy-block ul li::before {
+  content: ''; position: absolute; left: 0; top: 12px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-purple));
+}
+.privacy-block code {
+  background: rgba(139, 92, 246, 0.15); padding: 2px 8px;
+  border-radius: 4px; font-size: 0.88rem; color: var(--color-accent-purple);
+}
+.privacy-contact-box {
+  background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 12px; padding: 20px 24px; margin: 16px 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.privacy-contact-box strong { color: var(--color-text-primary); font-size: 0.95rem; }
+.privacy-contact-box a { color: var(--color-accent-pink); font-size: 0.93rem; }
+.privacy-back {
+  text-align: center; margin-top: 48px; padding-bottom: 32px;
+}
+
+/* =============================================
+   Enhanced Scroll Animations
+   ============================================= */
+
+/* Directional reveals */
+.reveal-left { opacity: 0; transform: translateX(-60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-right { opacity: 0; transform: translateX(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-scale { opacity: 0; transform: scale(0.85); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-blur { opacity: 0; filter: blur(12px); transform: translateY(20px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-rotate { opacity: 0; transform: perspective(800px) rotateX(8deg) translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+.reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+.reveal-blur.visible { opacity: 1; filter: blur(0); transform: translateY(0); }
+.reveal-rotate.visible { opacity: 1; transform: perspective(800px) rotateX(0) translateY(0); }
+
+/* Stagger children animation */
+.stagger-children .reveal { transition-delay: calc(var(--stagger-index, 0) * 0.1s); }
+
+/* Section divider glow line */
+.section::after {
+  content: ''; display: block; width: 80px; height: 3px; margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--color-accent-pink), var(--color-accent-purple), transparent);
+  border-radius: 2px; opacity: 0; transition: opacity 0.6s ease 0.3s;
+  position: relative; bottom: -50px;
+}
+.section.section-revealed::after { opacity: 0.6; }
+
+/* Parallax-lite effect for section badges */
+.section-badge {
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+.section.section-revealed .section-badge {
+  animation: badgePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes badgePop {
+  0% { transform: scale(0.8) translateY(10px); opacity: 0; }
+  60% { transform: scale(1.05) translateY(-2px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Floating animation for cards on hover after reveal */
+.feature-card.visible, .platform-card.visible, .playlist-card.visible {
+  animation: subtleFloat 6s ease-in-out infinite;
+  animation-delay: calc(var(--stagger-index, 0) * 0.5s);
+}
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.feature-card.visible:hover, .platform-card.visible:hover, .playlist-card.visible:hover {
+  animation: none;
+}
+
+@media (max-width: 768px) {
+  .privacy-block { padding: 24px 20px; }
+  .privacy-hero { padding: 120px 16px 40px; }
+}
