@@ -102,6 +102,24 @@
     "installUrl": "https://play.google.com/store/apps/details?id=in.inoxtv.tv"
   }
   </script>
+
+  <!-- Structured Data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is InoxTV and how does it work?","acceptedAnswer":{"@type":"Answer","text":"InoxTV is a premium IPTV player application for Android Mobile and Android TV. It allows you to stream live TV channels, movies, and TV shows by connecting to your IPTV service provider's playlist."}},
+      {"@type":"Question","name":"Is InoxTV free to download?","acceptedAnswer":{"@type":"Answer","text":"Yes! InoxTV is completely free to download from the Google Play Store for both Android Mobile and Android TV."}},
+      {"@type":"Question","name":"What playlist formats does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports M3U/M3U8, Xtream Codes, and Stalker Portal — the three major IPTV playlist formats."}},
+      {"@type":"Question","name":"Can I use InoxTV on both my phone and TV?","acceptedAnswer":{"@type":"Answer","text":"Yes! InoxTV has two dedicated versions — one for Android phones/tablets and another for Android TV with DPAD navigation."}},
+      {"@type":"Question","name":"Does InoxTV have an Electronic Program Guide (EPG)?","acceptedAnswer":{"@type":"Answer","text":"Yes, InoxTV includes a full EPG showing current, past, and upcoming programs with reminders and details."}},
+      {"@type":"Question","name":"How many playlists can I add to InoxTV?","acceptedAnswer":{"@type":"Answer","text":"We recommend adding up to 5 playlists to InoxTV for the best performance. While each playlist can contain thousands of channels, keeping it to 5 ensures smooth loading, fast EPG updates, and optimal app responsiveness."}},
+      {"@type":"Question","name":"Does InoxTV support parental controls?","acceptedAnswer":{"@type":"Answer","text":"Yes, InoxTV has built-in parental controls with secure PIN protection to restrict content access."}},
+      {"@type":"Question","name":"What languages does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports 19 languages including English, Hindi, Arabic, French, German, Spanish, Russian, Turkish, and more."}}
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Skip to content (a11y) -->
@@ -125,8 +143,8 @@
         <ul class="navbar-nav" id="navbar-nav" role="menubar">
           <li role="none"><a href="#features" role="menuitem">Features</a></li>
           <li role="none"><a href="#platforms" role="menuitem">Platforms</a></li>
-          <li role="none"><a href="#playlists" role="menuitem">Playlists</a></li>
-          <li role="none"><a href="#languages" role="menuitem">Languages</a></li>
+          <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
+          <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
           <li role="none"><a href="#download" role="menuitem" class="nav-cta">Download</a></li>
         </ul>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -308,6 +326,75 @@
       </div>
     </section>
 
+    <!-- ===== SCREENSHOT GALLERY SECTION ===== -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">Gallery</span>
+          <h2 class="section-title">See InoxTV <span class="gradient-text">In Action</span></h2>
+          <p class="section-desc">Explore how InoxTV looks and feels on both Mobile and TV. A premium experience designed for every screen.</p>
+        </div>
+
+        <!-- Gallery Tabs -->
+        <div class="gallery-tabs reveal" id="gallery-tabs">
+          <button class="gallery-tab active" data-gallery-tab="mobile" id="gallery-tab-mobile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+            Mobile App
+          </button>
+          <button class="gallery-tab" data-gallery-tab="tv" id="gallery-tab-tv">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v14z"/></svg>
+            TV App
+          </button>
+        </div>
+
+        <!-- Mobile Gallery -->
+        <div class="gallery-slider-wrapper reveal" id="gallery-mobile" data-gallery="mobile">
+          <button class="gallery-arrow gallery-arrow-left" data-gallery-arrow="mobile-left" aria-label="Previous screenshot">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <div class="gallery-track-container">
+            <div class="gallery-track" id="gallery-track-mobile">
+              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot.png" alt="InoxTV Mobile - Home Screen" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot1.png" alt="InoxTV Mobile - Live TV Channels" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot2.png" alt="InoxTV Mobile - TV Guide EPG" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot3.png" alt="InoxTV Mobile - Movies Library" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot4.png" alt="InoxTV Mobile - Player View" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot5.png" alt="InoxTV Mobile - Settings" loading="lazy"></div>
+            </div>
+          </div>
+          <button class="gallery-arrow gallery-arrow-right" data-gallery-arrow="mobile-right" aria-label="Next screenshot">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </button>
+          <div class="gallery-dots" id="gallery-dots-mobile"></div>
+        </div>
+
+        <!-- TV Gallery -->
+        <div class="gallery-slider-wrapper reveal" id="gallery-tv" data-gallery="tv" style="display:none;">
+          <button class="gallery-arrow gallery-arrow-left" data-gallery-arrow="tv-left" aria-label="Previous screenshot">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <div class="gallery-track-container">
+            <div class="gallery-track" id="gallery-track-tv">
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/1.png" alt="InoxTV TV - Home Screen" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/2.png" alt="InoxTV TV - Channel List" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/3.png" alt="InoxTV TV - Live Player" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/4.png" alt="InoxTV TV - EPG Guide" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/5.png" alt="InoxTV TV - Movies Catalog" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/6.png" alt="InoxTV TV - Series Browser" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/7.png" alt="InoxTV TV - Search Results" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/8.png" alt="InoxTV TV - Settings Panel" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/9.png" alt="InoxTV TV - Multiview Mode" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/10.png" alt="InoxTV TV - Favorites" loading="lazy"></div>
+            </div>
+          </div>
+          <button class="gallery-arrow gallery-arrow-right" data-gallery-arrow="tv-right" aria-label="Next screenshot">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </button>
+          <div class="gallery-dots" id="gallery-dots-tv"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== PLAYLISTS SECTION ===== -->
     <section class="section" id="playlists">
       <div class="container">
@@ -368,6 +455,134 @@
       </div>
     </section>
 
+    <!-- ===== FAQ SECTION ===== -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">FAQ</span>
+          <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+          <p class="section-desc">Got questions? We've got answers. Here are the most common things people ask about InoxTV.</p>
+        </div>
+        <div class="faq-list" id="faq-list">
+
+          <div class="faq-item reveal" id="faq-1">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is InoxTV and how does it work?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>InoxTV is a premium IPTV player application for Android Mobile and Android TV. It allows you to stream live TV channels, movies, and TV shows by connecting to your IPTV service provider's playlist. Simply add your M3U playlist URL, Xtream Codes credentials, or Stalker Portal details, and start watching instantly.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-2">
+            <button class="faq-question" aria-expanded="false">
+              <span>Is InoxTV free to download?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! InoxTV is completely free to download from the Google Play Store for both Android Mobile and Android TV. The app itself is free — you just need an IPTV subscription or playlist from your service provider to watch content.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-3">
+            <button class="faq-question" aria-expanded="false">
+              <span>What playlist formats does InoxTV support?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>InoxTV supports all three major IPTV playlist formats:</p>
+              <ul>
+                <li><strong>M3U / M3U8:</strong> Import via URL or local file. The most widely used format.</li>
+                <li><strong>Xtream Codes:</strong> Connect with server URL, username, and password for categorized live TV, VOD, and series.</li>
+                <li><strong>Stalker Portal:</strong> Connect using portal URL and MAC address with full STB emulation.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-4">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can I use InoxTV on both my phone and TV?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely! InoxTV has two dedicated versions — one optimized for Android phones and tablets with touch controls, and another designed specifically for Android TV with DPAD remote control navigation. Both versions share the same powerful feature set with interfaces tailored for each platform.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-5">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does InoxTV have an Electronic Program Guide (EPG)?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, InoxTV includes a full-featured Electronic Program Guide (EPG) that shows current, past, and upcoming programs for your channels. You can set EPG reminders, view program details, and quickly jump to any channel from the guide. EPG data is loaded automatically from your playlist provider.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-6">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can I watch multiple channels at once?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! InoxTV offers a Multiview feature that lets you watch multiple channels simultaneously on a single screen — perfect for sports fans who want to follow multiple games at once. On mobile, you can also use Picture-in-Picture (PiP) mode to keep watching while using other apps.</p>
+            </div>
+          </div>
+
+          <div class="faq-item faq-item-recommended reveal" id="faq-7">
+            <div class="faq-recommended-badge">⭐ Recommended</div>
+            <button class="faq-question" aria-expanded="false">
+              <span>How many playlists can I add to InoxTV?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>We recommend adding up to <strong>5 playlists</strong> to InoxTV for the best experience. Here's why this is the ideal number:</p>
+              <ul>
+                <li><strong>Optimal Performance:</strong> Each playlist can contain thousands of channels, movies, and series. Keeping it to 5 ensures the app remains fast and responsive.</li>
+                <li><strong>Faster EPG Updates:</strong> With fewer playlists, the Electronic Program Guide loads and refreshes much more quickly, so your TV guide is always up to date.</li>
+                <li><strong>Smooth Navigation:</strong> Browsing between categories, searching across channels, and switching playlists stays buttery smooth with 5 or fewer playlists.</li>
+                <li><strong>Lower Memory Usage:</strong> The app uses less device memory and storage, which is especially important on Android TV boxes with limited RAM.</li>
+                <li><strong>Reliable Auto-Updates:</strong> Playlist auto-update scheduling works most reliably when managing up to 5 playlists, ensuring your content is always fresh.</li>
+              </ul>
+              <p class="faq-playlist-note">💡 <strong>Tip:</strong> You can add playlists in any combination of formats — for example, 2 M3U playlists, 2 Xtream Codes, and 1 Stalker Portal. InoxTV handles all three formats seamlessly!</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-8">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I backup and restore my playlists?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>InoxTV includes a built-in backup and restore feature. Go to <strong>Settings → Backup & Restore</strong> to create a backup file that saves all your playlists, favorites, settings, and preferences. You can restore this backup on any device to instantly get your entire setup back.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-9">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does InoxTV support parental controls?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, InoxTV has built-in parental controls that let you restrict access to certain content with a secure PIN. You can lock specific channels or categories to ensure a safe viewing experience for children. The PIN is required to unlock restricted content.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-10">
+            <button class="faq-question" aria-expanded="false">
+              <span>What languages does InoxTV support?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>InoxTV supports 19 languages for the full application interface: English, Hindi, Arabic, French, German, Spanish, Russian, Turkish, Italian, Dutch, Polish, Portuguese, Bulgarian, Greek, Danish, Swedish, Slovak, Ukrainian, and Indonesian. The app automatically detects your device language on first launch.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ===== DOWNLOAD CTA SECTION ===== -->
     <section class="section download-section" id="download">
       <div class="container">
@@ -411,6 +626,8 @@
         <div class="footer-links">
           <a href="#features">Features</a>
           <a href="#platforms">Platforms</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#faq">FAQ</a>
           <a href="#download">Download</a>
           <a href="privacy.html" data-track="privacy">Privacy Policy</a>
         </div>
