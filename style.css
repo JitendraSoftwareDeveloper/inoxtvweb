@@ -816,10 +816,286 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-  .faq-question { padding: 16px 18px; font-size: 0.92rem; }
+    .faq-question { padding: 16px 18px; font-size: 0.92rem; }
   .faq-answer { padding: 0 18px; }
   .faq-item.open .faq-answer { padding: 0 18px 18px; }
   .faq-recommended-badge { margin: 12px 0 0 18px; }
   .faq-playlist-item { flex-direction: column; gap: 10px; }
   .faq-playlist-num { min-width: 28px; height: 28px; font-size: 0.8rem; }
+}
+
+/* =============================================
+   Share Section (Inline)
+   ============================================= */
+.share-section {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(10, 36, 99, 0.5), rgba(139, 92, 246, 0.1));
+}
+.share-content { text-align: center; }
+.share-buttons-inline {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 40px;
+}
+.share-btn-inline {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px; border-radius: var(--radius-btn);
+  font-weight: 600; font-size: 1rem; color: #fff; text-decoration: none;
+  transition: all var(--transition-smooth); position: relative; overflow: hidden;
+  border: 1px solid transparent;
+}
+.share-btn-inline svg { flex-shrink: 0; }
+.share-btn-inline::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+.share-btn-inline:hover::before { left: 100%; }
+.share-btn-inline:hover { transform: translateY(-4px); color: #fff; }
+
+/* WhatsApp */
+.share-btn-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+}
+.share-btn-whatsapp:hover {
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.45);
+}
+
+/* Twitter / X */
+.share-btn-twitter {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.share-btn-twitter:hover {
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Facebook */
+.share-btn-facebook {
+  background: linear-gradient(135deg, #1877F2, #0C5DC7);
+  box-shadow: 0 4px 20px rgba(24, 119, 242, 0.25);
+}
+.share-btn-facebook:hover {
+  box-shadow: 0 8px 32px rgba(24, 119, 242, 0.45);
+}
+
+/* Email */
+.share-btn-email {
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-purple));
+  box-shadow: 0 4px 20px rgba(233, 30, 144, 0.25);
+}
+.share-btn-email:hover {
+  box-shadow: 0 8px 32px rgba(233, 30, 144, 0.45);
+}
+
+/* Reddit */
+.share-btn-reddit {
+  background: linear-gradient(135deg, #FF4500, #D93A00);
+  box-shadow: 0 4px 20px rgba(255, 69, 0, 0.25);
+}
+.share-btn-reddit:hover {
+  box-shadow: 0 8px 32px rgba(255, 69, 0, 0.45);
+}
+
+/* LinkedIn */
+.share-btn-linkedin {
+  background: linear-gradient(135deg, #0A66C2, #004182);
+  box-shadow: 0 4px 20px rgba(10, 102, 194, 0.25);
+}
+.share-btn-linkedin:hover {
+  box-shadow: 0 8px 32px rgba(10, 102, 194, 0.45);
+}
+
+/* Telegram */
+.share-btn-telegram {
+  background: linear-gradient(135deg, #2AABEE, #229ED9);
+  box-shadow: 0 4px 20px rgba(42, 171, 238, 0.25);
+}
+.share-btn-telegram:hover {
+  box-shadow: 0 8px 32px rgba(42, 171, 238, 0.45);
+}
+
+/* Copy Link */
+.share-btn-copylink {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer; font-family: var(--font-body);
+}
+.share-btn-copylink:hover {
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.share-btn-copylink.copied {
+  background: linear-gradient(135deg, #25D366, #128C7E) !important;
+  border-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .share-buttons-inline { flex-direction: column; align-items: center; }
+  .share-btn-inline { width: 100%; max-width: 280px; justify-content: center; }
+}
+
+/* =============================================
+   Floating Share Bar
+   ============================================= */
+.share-float {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 10px; z-index: 999;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.share-float.visible {
+  opacity: 1; pointer-events: auto;
+}
+
+.share-float-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 14px;
+  color: #fff; text-decoration: none;
+  transition: all var(--transition-smooth);
+  position: relative; overflow: hidden;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.share-float-btn svg { position: relative; z-index: 1; }
+.share-float-btn:hover {
+  transform: scale(1.15) translateX(4px);
+  color: #fff;
+}
+
+/* Floating — WhatsApp */
+.share-float-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+}
+.share-float-whatsapp:hover {
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+}
+
+/* Floating — Twitter / X */
+.share-float-twitter {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+.share-float-twitter:hover {
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.2);
+}
+
+/* Floating — Facebook */
+.share-float-facebook {
+  background: linear-gradient(135deg, #1877F2, #0C5DC7);
+}
+.share-float-facebook:hover {
+  box-shadow: 0 6px 24px rgba(24, 119, 242, 0.5);
+}
+
+/* Floating — Email */
+.share-float-email {
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-purple));
+}
+.share-float-email:hover {
+  box-shadow: 0 6px 24px rgba(233, 30, 144, 0.5);
+}
+
+/* Floating — Reddit */
+.share-float-reddit {
+  background: linear-gradient(135deg, #FF4500, #D93A00);
+}
+.share-float-reddit:hover {
+  box-shadow: 0 6px 24px rgba(255, 69, 0, 0.5);
+}
+
+/* Floating — LinkedIn */
+.share-float-linkedin {
+  background: linear-gradient(135deg, #0A66C2, #004182);
+}
+.share-float-linkedin:hover {
+  box-shadow: 0 6px 24px rgba(10, 102, 194, 0.5);
+}
+
+/* Floating — Telegram */
+.share-float-telegram {
+  background: linear-gradient(135deg, #2AABEE, #229ED9);
+}
+.share-float-telegram:hover {
+  box-shadow: 0 6px 24px rgba(42, 171, 238, 0.5);
+}
+
+/* Floating bar — stagger entrance */
+.share-float.visible .share-float-btn {
+  animation: shareFloatIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+.share-float.visible .share-float-btn:nth-child(1) { animation-delay: 0s; }
+.share-float.visible .share-float-btn:nth-child(2) { animation-delay: 0.06s; }
+.share-float.visible .share-float-btn:nth-child(3) { animation-delay: 0.12s; }
+.share-float.visible .share-float-btn:nth-child(4) { animation-delay: 0.18s; }
+.share-float.visible .share-float-btn:nth-child(5) { animation-delay: 0.24s; }
+.share-float.visible .share-float-btn:nth-child(6) { animation-delay: 0.30s; }
+.share-float.visible .share-float-btn:nth-child(7) { animation-delay: 0.36s; }
+
+@keyframes shareFloatIn {
+  from { opacity: 0; transform: translateX(-20px) scale(0.8); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* Tooltip on hover (desktop only) */
+@media (min-width: 769px) {
+  .share-float-btn::after {
+    content: attr(title); position: absolute; left: calc(100% + 10px);
+    white-space: nowrap; padding: 6px 14px; border-radius: 8px;
+    background: rgba(11, 16, 32, 0.95); color: #fff; font-size: 0.8rem;
+    font-weight: 500; pointer-events: none; opacity: 0;
+    transform: translateX(-8px); transition: all 0.25s ease;
+    border: 1px solid var(--color-border-glass);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  .share-float-btn:hover::after {
+    opacity: 1; transform: translateX(0);
+  }
+}
+
+/* Mobile: bottom bar */
+@media (max-width: 768px) {
+  .share-float {
+    left: 0; top: auto; bottom: 0; transform: none;
+    flex-direction: row; justify-content: center;
+    width: 100%; gap: 0;
+    background: rgba(11, 16, 32, 0.92);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--color-border-glass);
+    padding: 10px 0;
+    border-radius: 0;
+  }
+  .share-float-btn {
+    width: 42px; height: 40px; border-radius: 10px;
+    border: none; box-shadow: none;
+    background: transparent;
+  }
+  .share-float-btn:hover {
+    transform: scale(1.1) translateX(0);
+  }
+  .share-float-whatsapp { color: #25D366; }
+  .share-float-twitter { color: #E7E9EA; }
+  .share-float-facebook { color: #1877F2; }
+  .share-float-reddit { color: #FF4500; }
+  .share-float-linkedin { color: #0A66C2; }
+  .share-float-telegram { color: #2AABEE; }
+  .share-float-email { color: var(--color-accent-pink); }
+  .share-float-whatsapp:hover { background: rgba(37, 211, 102, 0.15); color: #25D366; }
+  .share-float-twitter:hover { background: rgba(255, 255, 255, 0.1); color: #E7E9EA; }
+  .share-float-facebook:hover { background: rgba(24, 119, 242, 0.15); color: #1877F2; }
+  .share-float-reddit:hover { background: rgba(255, 69, 0, 0.15); color: #FF4500; }
+  .share-float-linkedin:hover { background: rgba(10, 102, 194, 0.15); color: #0A66C2; }
+  .share-float-telegram:hover { background: rgba(42, 171, 238, 0.15); color: #2AABEE; }
+  .share-float-email:hover { background: rgba(233, 30, 144, 0.15); color: var(--color-accent-pink); }
+
+  /* Adjust footer padding so it doesn't get hidden behind the bar */
+  .footer { padding-bottom: 72px; }
+
+  @keyframes shareFloatIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
 }

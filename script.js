@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   assignStaggerIndices();
   initGallery();
   initFAQ();
+  initShareButtons();
 });
 
 /* --- Assign stagger indices to grid children --- */
@@ -510,4 +511,101 @@ function typewriter(element, text, speed = 50) {
     }
   };
   type();
+}
+
+/* =============================================
+   Social Share Buttons
+   ============================================= */
+function initShareButtons() {
+  const shareUrl = 'https://inoxtv.com';
+  const shareTitle = 'InoxTV — Premium IPTV Player for Android';
+  const shareText = 'Check out InoxTV! The most powerful IPTV player for Android Mobile & TV. Watch live TV, movies, and shows with a premium experience. Download free from Google Play Store!';
+
+  // Build share URLs
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl)}`;
+  const redditUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareTitle)}`;
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+  const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+  const emailUrl = `mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareText + '\n\n' + shareUrl)}`;
+
+  // Apply URLs to all share buttons (both inline and floating)
+  const btnMap = [
+    { selectors: ['#share-inline-whatsapp', '#share-float-whatsapp'], url: whatsappUrl, platform: 'whatsapp' },
+    { selectors: ['#share-inline-reddit', '#share-float-reddit'], url: redditUrl, platform: 'reddit' },
+    { selectors: ['#share-inline-twitter', '#share-float-twitter'], url: twitterUrl, platform: 'twitter' },
+    { selectors: ['#share-inline-facebook', '#share-float-facebook'], url: facebookUrl, platform: 'facebook' },
+    { selectors: ['#share-inline-linkedin', '#share-float-linkedin'], url: linkedinUrl, platform: 'linkedin' },
+    { selectors: ['#share-inline-telegram', '#share-float-telegram'], url: telegramUrl, platform: 'telegram' },
+    { selectors: ['#share-inline-email', '#share-float-email'], url: emailUrl, platform: 'email' },
+  ];
+
+  btnMap.forEach(({ selectors, url, platform }) => {
+    selectors.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) {
+        el.href = url;
+        el.addEventListener('click', (e) => {
+          if (platform !== 'email') {
+            e.preventDefault();
+            window.open(url, '_blank', 'noopener,noreferrer,width=600,height=500');
+          }
+          trackEvent('share_click', { platform, location: sel.includes('float') ? 'floating_bar' : 'inline_section' });
+        });
+      }
+    });
+  });
+
+  // Copy Link button handler
+  const copyBtn = document.getElementById('share-inline-copylink');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const label = copyBtn.querySelector('span');
+        const originalText = label.textContent;
+        label.textContent = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        trackEvent('share_click', { platform: 'copy_link', location: 'inline_section' });
+        setTimeout(() => {
+          label.textContent = originalText;
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const input = document.createElement('input');
+        input.value = shareUrl;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        const label = copyBtn.querySelector('span');
+        label.textContent = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          label.textContent = 'Copy Link';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  }
+
+  // Floating bar visibility — show after scrolling past hero
+  const shareFloat = document.getElementById('share-float');
+  if (shareFloat) {
+    const hero = document.getElementById('hero');
+    let isVisible = false;
+
+    const checkVisibility = () => {
+      const threshold = hero ? hero.offsetHeight * 0.7 : 400;
+      const shouldShow = window.scrollY > threshold;
+      if (shouldShow !== isVisible) {
+        isVisible = shouldShow;
+        shareFloat.classList.toggle('visible', shouldShow);
+      }
+    };
+
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+    checkVisibility();
+  }
 }
