@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  InoxTV VMAP ad-rules document.
+
+  Purpose: define a pre-roll plus a mid-roll EVERY 10 MINUTES, then let Google Ad
+  Manager fill each break with real, monetized VAST ads.
+
+  Why a single static file works for any movie length:
+    IMA schedules only the ad breaks whose timeOffset is <= the content duration.
+    A break at 20:00:00 in a 95-minute movie is simply never reached, with no error.
+    So this one file gives "a mid-roll every 10 min for the whole movie, scaled to its
+    length" without needing a per-title dynamic endpoint. The ceiling here is 24 hours
+    (144 mid-rolls) which covers any realistic VOD, including merged full-series files.
+
+  Each <AdTagURI> points at the GAM VAST endpoint (output=vast, NO ad_rule) so GAM does
+  the actual ad selection / monetization for every break. allowMultipleAds="false" keeps
+  it to ONE ad per break (no back-to-back pod). correlator is left empty on purpose: the
+  IMA SDK appends a fresh correlator per request to defeat ad caching.
+
+  Serve this file with Content-Type: application/xml (or text/xml) over HTTPS.
+-->
+<vmap:VMAP xmlns:vmap="http://www.iab.net/videosuite/vmap" version="1.0">
+
+  <vmap:AdBreak timeOffset="start" breakType="linear" breakId="preroll">
+    <vmap:AdSource id="preroll-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="00:10:00" breakType="linear" breakId="midroll-1">
+    <vmap:AdSource id="midroll-1-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="00:20:00" breakType="linear" breakId="midroll-2">
+    <vmap:AdSource id="midroll-2-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="00:30:00" breakType="linear" breakId="midroll-3">
+    <vmap:AdSource id="midroll-3-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="00:40:00" breakType="linear" breakId="midroll-4">
+    <vmap:AdSource id="midroll-4-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="00:50:00" breakType="linear" breakId="midroll-5">
+    <vmap:AdSource id="midroll-5-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="01:00:00" breakType="linear" breakId="midroll-6">
+    <vmap:AdSource id="midroll-6-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="01:10:00" breakType="linear" breakId="midroll-7">
+    <vmap:AdSource id="midroll-7-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="01:20:00" breakType="linear" breakId="midroll-8">
+    <vmap:AdSource id="midroll-8-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="01:30:00" breakType="linear" breakId="midroll-9">
+    <vmap:AdSource id="midroll-9-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="01:40:00" breakType="linear" breakId="midroll-10">
+    <vmap:AdSource id="midroll-10-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="01:50:00" breakType="linear" breakId="midroll-11">
+    <vmap:AdSource id="midroll-11-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="02:00:00" breakType="linear" breakId="midroll-12">
+    <vmap:AdSource id="midroll-12-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="02:10:00" breakType="linear" breakId="midroll-13">
+    <vmap:AdSource id="midroll-13-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="02:20:00" breakType="linear" breakId="midroll-14">
+    <vmap:AdSource id="midroll-14-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="02:30:00" breakType="linear" breakId="midroll-15">
+    <vmap:AdSource id="midroll-15-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="02:40:00" breakType="linear" breakId="midroll-16">
+    <vmap:AdSource id="midroll-16-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="02:50:00" breakType="linear" breakId="midroll-17">
+    <vmap:AdSource id="midroll-17-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="03:00:00" breakType="linear" breakId="midroll-18">
+    <vmap:AdSource id="midroll-18-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="03:10:00" breakType="linear" breakId="midroll-19">
+    <vmap:AdSource id="midroll-19-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="03:20:00" breakType="linear" breakId="midroll-20">
+    <vmap:AdSource id="midroll-20-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="03:30:00" breakType="linear" breakId="midroll-21">
+    <vmap:AdSource id="midroll-21-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="03:40:00" breakType="linear" breakId="midroll-22">
+    <vmap:AdSource id="midroll-22-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="03:50:00" breakType="linear" breakId="midroll-23">
+    <vmap:AdSource id="midroll-23-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="04:00:00" breakType="linear" breakId="midroll-24">
+    <vmap:AdSource id="midroll-24-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="04:10:00" breakType="linear" breakId="midroll-25">
+    <vmap:AdSource id="midroll-25-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="04:20:00" breakType="linear" breakId="midroll-26">
+    <vmap:AdSource id="midroll-26-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="04:30:00" breakType="linear" breakId="midroll-27">
+    <vmap:AdSource id="midroll-27-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="04:40:00" breakType="linear" breakId="midroll-28">
+    <vmap:AdSource id="midroll-28-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="04:50:00" breakType="linear" breakId="midroll-29">
+    <vmap:AdSource id="midroll-29-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="05:00:00" breakType="linear" breakId="midroll-30">
+    <vmap:AdSource id="midroll-30-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="05:10:00" breakType="linear" breakId="midroll-31">
+    <vmap:AdSource id="midroll-31-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="05:20:00" breakType="linear" breakId="midroll-32">
+    <vmap:AdSource id="midroll-32-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="05:30:00" breakType="linear" breakId="midroll-33">
+    <vmap:AdSource id="midroll-33-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="05:40:00" breakType="linear" breakId="midroll-34">
+    <vmap:AdSource id="midroll-34-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="05:50:00" breakType="linear" breakId="midroll-35">
+    <vmap:AdSource id="midroll-35-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="06:00:00" breakType="linear" breakId="midroll-36">
+    <vmap:AdSource id="midroll-36-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="06:10:00" breakType="linear" breakId="midroll-37">
+    <vmap:AdSource id="midroll-37-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="06:20:00" breakType="linear" breakId="midroll-38">
+    <vmap:AdSource id="midroll-38-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="06:30:00" breakType="linear" breakId="midroll-39">
+    <vmap:AdSource id="midroll-39-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="06:40:00" breakType="linear" breakId="midroll-40">
+    <vmap:AdSource id="midroll-40-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="06:50:00" breakType="linear" breakId="midroll-41">
+    <vmap:AdSource id="midroll-41-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="07:00:00" breakType="linear" breakId="midroll-42">
+    <vmap:AdSource id="midroll-42-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="07:10:00" breakType="linear" breakId="midroll-43">
+    <vmap:AdSource id="midroll-43-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="07:20:00" breakType="linear" breakId="midroll-44">
+    <vmap:AdSource id="midroll-44-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="07:30:00" breakType="linear" breakId="midroll-45">
+    <vmap:AdSource id="midroll-45-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="07:40:00" breakType="linear" breakId="midroll-46">
+    <vmap:AdSource id="midroll-46-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="07:50:00" breakType="linear" breakId="midroll-47">
+    <vmap:AdSource id="midroll-47-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="08:00:00" breakType="linear" breakId="midroll-48">
+    <vmap:AdSource id="midroll-48-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="08:10:00" breakType="linear" breakId="midroll-49">
+    <vmap:AdSource id="midroll-49-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="08:20:00" breakType="linear" breakId="midroll-50">
+    <vmap:AdSource id="midroll-50-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="08:30:00" breakType="linear" breakId="midroll-51">
+    <vmap:AdSource id="midroll-51-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="08:40:00" breakType="linear" breakId="midroll-52">
+    <vmap:AdSource id="midroll-52-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="08:50:00" breakType="linear" breakId="midroll-53">
+    <vmap:AdSource id="midroll-53-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="09:00:00" breakType="linear" breakId="midroll-54">
+    <vmap:AdSource id="midroll-54-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="09:10:00" breakType="linear" breakId="midroll-55">
+    <vmap:AdSource id="midroll-55-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="09:20:00" breakType="linear" breakId="midroll-56">
+    <vmap:AdSource id="midroll-56-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="09:30:00" breakType="linear" breakId="midroll-57">
+    <vmap:AdSource id="midroll-57-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="09:40:00" breakType="linear" breakId="midroll-58">
+    <vmap:AdSource id="midroll-58-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="09:50:00" breakType="linear" breakId="midroll-59">
+    <vmap:AdSource id="midroll-59-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="10:00:00" breakType="linear" breakId="midroll-60">
+    <vmap:AdSource id="midroll-60-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="10:10:00" breakType="linear" breakId="midroll-61">
+    <vmap:AdSource id="midroll-61-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="10:20:00" breakType="linear" breakId="midroll-62">
+    <vmap:AdSource id="midroll-62-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="10:30:00" breakType="linear" breakId="midroll-63">
+    <vmap:AdSource id="midroll-63-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="10:40:00" breakType="linear" breakId="midroll-64">
+    <vmap:AdSource id="midroll-64-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="10:50:00" breakType="linear" breakId="midroll-65">
+    <vmap:AdSource id="midroll-65-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="11:00:00" breakType="linear" breakId="midroll-66">
+    <vmap:AdSource id="midroll-66-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="11:10:00" breakType="linear" breakId="midroll-67">
+    <vmap:AdSource id="midroll-67-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="11:20:00" breakType="linear" breakId="midroll-68">
+    <vmap:AdSource id="midroll-68-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="11:30:00" breakType="linear" breakId="midroll-69">
+    <vmap:AdSource id="midroll-69-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="11:40:00" breakType="linear" breakId="midroll-70">
+    <vmap:AdSource id="midroll-70-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="11:50:00" breakType="linear" breakId="midroll-71">
+    <vmap:AdSource id="midroll-71-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="12:00:00" breakType="linear" breakId="midroll-72">
+    <vmap:AdSource id="midroll-72-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="12:10:00" breakType="linear" breakId="midroll-73">
+    <vmap:AdSource id="midroll-73-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="12:20:00" breakType="linear" breakId="midroll-74">
+    <vmap:AdSource id="midroll-74-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="12:30:00" breakType="linear" breakId="midroll-75">
+    <vmap:AdSource id="midroll-75-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="12:40:00" breakType="linear" breakId="midroll-76">
+    <vmap:AdSource id="midroll-76-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="12:50:00" breakType="linear" breakId="midroll-77">
+    <vmap:AdSource id="midroll-77-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="13:00:00" breakType="linear" breakId="midroll-78">
+    <vmap:AdSource id="midroll-78-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="13:10:00" breakType="linear" breakId="midroll-79">
+    <vmap:AdSource id="midroll-79-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="13:20:00" breakType="linear" breakId="midroll-80">
+    <vmap:AdSource id="midroll-80-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="13:30:00" breakType="linear" breakId="midroll-81">
+    <vmap:AdSource id="midroll-81-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="13:40:00" breakType="linear" breakId="midroll-82">
+    <vmap:AdSource id="midroll-82-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="13:50:00" breakType="linear" breakId="midroll-83">
+    <vmap:AdSource id="midroll-83-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="14:00:00" breakType="linear" breakId="midroll-84">
+    <vmap:AdSource id="midroll-84-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="14:10:00" breakType="linear" breakId="midroll-85">
+    <vmap:AdSource id="midroll-85-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="14:20:00" breakType="linear" breakId="midroll-86">
+    <vmap:AdSource id="midroll-86-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="14:30:00" breakType="linear" breakId="midroll-87">
+    <vmap:AdSource id="midroll-87-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="14:40:00" breakType="linear" breakId="midroll-88">
+    <vmap:AdSource id="midroll-88-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="14:50:00" breakType="linear" breakId="midroll-89">
+    <vmap:AdSource id="midroll-89-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="15:00:00" breakType="linear" breakId="midroll-90">
+    <vmap:AdSource id="midroll-90-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="15:10:00" breakType="linear" breakId="midroll-91">
+    <vmap:AdSource id="midroll-91-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="15:20:00" breakType="linear" breakId="midroll-92">
+    <vmap:AdSource id="midroll-92-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="15:30:00" breakType="linear" breakId="midroll-93">
+    <vmap:AdSource id="midroll-93-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="15:40:00" breakType="linear" breakId="midroll-94">
+    <vmap:AdSource id="midroll-94-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="15:50:00" breakType="linear" breakId="midroll-95">
+    <vmap:AdSource id="midroll-95-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="16:00:00" breakType="linear" breakId="midroll-96">
+    <vmap:AdSource id="midroll-96-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="16:10:00" breakType="linear" breakId="midroll-97">
+    <vmap:AdSource id="midroll-97-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="16:20:00" breakType="linear" breakId="midroll-98">
+    <vmap:AdSource id="midroll-98-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="16:30:00" breakType="linear" breakId="midroll-99">
+    <vmap:AdSource id="midroll-99-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="16:40:00" breakType="linear" breakId="midroll-100">
+    <vmap:AdSource id="midroll-100-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="16:50:00" breakType="linear" breakId="midroll-101">
+    <vmap:AdSource id="midroll-101-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="17:00:00" breakType="linear" breakId="midroll-102">
+    <vmap:AdSource id="midroll-102-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="17:10:00" breakType="linear" breakId="midroll-103">
+    <vmap:AdSource id="midroll-103-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="17:20:00" breakType="linear" breakId="midroll-104">
+    <vmap:AdSource id="midroll-104-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="17:30:00" breakType="linear" breakId="midroll-105">
+    <vmap:AdSource id="midroll-105-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="17:40:00" breakType="linear" breakId="midroll-106">
+    <vmap:AdSource id="midroll-106-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="17:50:00" breakType="linear" breakId="midroll-107">
+    <vmap:AdSource id="midroll-107-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="18:00:00" breakType="linear" breakId="midroll-108">
+    <vmap:AdSource id="midroll-108-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="18:10:00" breakType="linear" breakId="midroll-109">
+    <vmap:AdSource id="midroll-109-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="18:20:00" breakType="linear" breakId="midroll-110">
+    <vmap:AdSource id="midroll-110-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="18:30:00" breakType="linear" breakId="midroll-111">
+    <vmap:AdSource id="midroll-111-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="18:40:00" breakType="linear" breakId="midroll-112">
+    <vmap:AdSource id="midroll-112-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="18:50:00" breakType="linear" breakId="midroll-113">
+    <vmap:AdSource id="midroll-113-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="19:00:00" breakType="linear" breakId="midroll-114">
+    <vmap:AdSource id="midroll-114-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="19:10:00" breakType="linear" breakId="midroll-115">
+    <vmap:AdSource id="midroll-115-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="19:20:00" breakType="linear" breakId="midroll-116">
+    <vmap:AdSource id="midroll-116-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="19:30:00" breakType="linear" breakId="midroll-117">
+    <vmap:AdSource id="midroll-117-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="19:40:00" breakType="linear" breakId="midroll-118">
+    <vmap:AdSource id="midroll-118-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="19:50:00" breakType="linear" breakId="midroll-119">
+    <vmap:AdSource id="midroll-119-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="20:00:00" breakType="linear" breakId="midroll-120">
+    <vmap:AdSource id="midroll-120-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="20:10:00" breakType="linear" breakId="midroll-121">
+    <vmap:AdSource id="midroll-121-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="20:20:00" breakType="linear" breakId="midroll-122">
+    <vmap:AdSource id="midroll-122-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="20:30:00" breakType="linear" breakId="midroll-123">
+    <vmap:AdSource id="midroll-123-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="20:40:00" breakType="linear" breakId="midroll-124">
+    <vmap:AdSource id="midroll-124-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="20:50:00" breakType="linear" breakId="midroll-125">
+    <vmap:AdSource id="midroll-125-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="21:00:00" breakType="linear" breakId="midroll-126">
+    <vmap:AdSource id="midroll-126-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="21:10:00" breakType="linear" breakId="midroll-127">
+    <vmap:AdSource id="midroll-127-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="21:20:00" breakType="linear" breakId="midroll-128">
+    <vmap:AdSource id="midroll-128-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="21:30:00" breakType="linear" breakId="midroll-129">
+    <vmap:AdSource id="midroll-129-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="21:40:00" breakType="linear" breakId="midroll-130">
+    <vmap:AdSource id="midroll-130-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="21:50:00" breakType="linear" breakId="midroll-131">
+    <vmap:AdSource id="midroll-131-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="22:00:00" breakType="linear" breakId="midroll-132">
+    <vmap:AdSource id="midroll-132-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="22:10:00" breakType="linear" breakId="midroll-133">
+    <vmap:AdSource id="midroll-133-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="22:20:00" breakType="linear" breakId="midroll-134">
+    <vmap:AdSource id="midroll-134-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="22:30:00" breakType="linear" breakId="midroll-135">
+    <vmap:AdSource id="midroll-135-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="22:40:00" breakType="linear" breakId="midroll-136">
+    <vmap:AdSource id="midroll-136-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="22:50:00" breakType="linear" breakId="midroll-137">
+    <vmap:AdSource id="midroll-137-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="23:00:00" breakType="linear" breakId="midroll-138">
+    <vmap:AdSource id="midroll-138-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="23:10:00" breakType="linear" breakId="midroll-139">
+    <vmap:AdSource id="midroll-139-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="23:20:00" breakType="linear" breakId="midroll-140">
+    <vmap:AdSource id="midroll-140-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="23:30:00" breakType="linear" breakId="midroll-141">
+    <vmap:AdSource id="midroll-141-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="23:40:00" breakType="linear" breakId="midroll-142">
+    <vmap:AdSource id="midroll-142-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="23:50:00" breakType="linear" breakId="midroll-143">
+    <vmap:AdSource id="midroll-143-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+  <vmap:AdBreak timeOffset="24:00:00" breakType="linear" breakId="midroll-144">
+    <vmap:AdSource id="midroll-144-ad" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3"><![CDATA[https://pubads.g.doubleclick.net/gampad/ads?iu=/22853635592/InoxTV_App_Mobile_TV&description_url=https%3A%2F%2Finoxtv.com&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=]]></vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+
+</vmap:VMAP>
