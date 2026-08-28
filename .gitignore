@@ -1,0 +1,40 @@
+# OS / filesystem junk
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors & IDEs
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+
+# Logs & temp
+*.log
+npm-debug.log*
+*.tmp
+*.bak
+*.orig
+
+# Tooling (none needed to build this site — it is plain HTML/CSS/JS)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# NOTE: do NOT ignore images/*.webp or images/og-image.jpg.
+# The <picture> elements in index.html/privacy.html and the two LCP
+# <link rel="preload"> tags reference the .webp files directly, and the
+# Open Graph / Twitter tags reference og-image.jpg. If those files are not
+# committed they 404 on GitHub Pages: every visitor silently falls back to
+# the ~35 MB of PNGs, and link previews break.

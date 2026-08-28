@@ -18,7 +18,7 @@ Build a premium, animated, single-page landing website for **InoxTV** — a prem
 ### 1.3 Domain & URLs
 | Item | Value |
 |------|-------|
-| Production Domain | `https://www.inoxtv.com` |
+| Production Domain | `https://inoxtv.com` |
 | Privacy Policy | `https://sites.google.com/view/inoxtvpolicy` |
 | Mobile Play Store | `https://play.google.com/store/apps/details?id=in.inoxtv.mobile` |
 | TV Play Store | `https://play.google.com/store/apps/details?id=in.inoxtv.tv` |
@@ -201,16 +201,16 @@ Each feature is displayed as an animated card with an SVG icon, title, and descr
 
 #### Canonical URL
 ```html
-<link rel="canonical" href="https://www.inoxtv.com/">
+<link rel="canonical" href="https://inoxtv.com/">
 ```
 
 ### 5.2 Open Graph Tags (Facebook, LinkedIn, WhatsApp)
 ```html
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.inoxtv.com/">
+<meta property="og:url" content="https://inoxtv.com/">
 <meta property="og:title" content="InoxTV — Premium IPTV Player for Android Mobile & TV">
 <meta property="og:description" content="Watch live TV, movies, and shows with the most feature-rich IPTV player. Available for Android Mobile and Android TV.">
-<meta property="og:image" content="https://www.inoxtv.com/images/og-image.png">
+<meta property="og:image" content="https://inoxtv.com/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="InoxTV">
@@ -222,7 +222,7 @@ Each feature is displayed as an animated card with an SVG icon, title, and descr
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="InoxTV — Premium IPTV Player for Android Mobile & TV">
 <meta name="twitter:description" content="Watch live TV, movies, and shows. Download InoxTV free from Google Play Store.">
-<meta name="twitter:image" content="https://www.inoxtv.com/images/og-image.png">
+<meta name="twitter:image" content="https://inoxtv.com/images/og-image.png">
 ```
 
 ### 5.4 Structured Data (JSON-LD)
@@ -233,8 +233,8 @@ Each feature is displayed as an animated card with an SVG icon, title, and descr
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "InoxTV",
-  "url": "https://www.inoxtv.com",
-  "logo": "https://www.inoxtv.com/images/logo.png",
+  "url": "https://inoxtv.com",
+  "logo": "https://inoxtv.com/images/logo.png",
   "description": "Premium IPTV Player for Android"
 }
 ```
@@ -273,14 +273,14 @@ Each feature is displayed as an animated card with an SVG icon, title, and descr
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "InoxTV",
-  "url": "https://www.inoxtv.com"
+  "url": "https://inoxtv.com"
 }
 ```
 
 ### 5.5 Technical SEO Files
 
 #### sitemap.xml
-- Lists `https://www.inoxtv.com/` as the primary URL
+- Lists `https://inoxtv.com/` as the primary URL
 - `<lastmod>` set to current date
 - `<changefreq>monthly</changefreq>`
 - `<priority>1.0</priority>`
@@ -289,7 +289,7 @@ Each feature is displayed as an animated card with an SVG icon, title, and descr
 ```
 User-agent: *
 Allow: /
-Sitemap: https://www.inoxtv.com/sitemap.xml
+Sitemap: https://inoxtv.com/sitemap.xml
 ```
 
 ### 5.6 Performance SEO
@@ -338,9 +338,9 @@ Sitemap: https://www.inoxtv.com/sitemap.xml
 | `cta_click` | Click on any CTA button | `cta_location`: section name |
 
 ### 6.3 Google Search Console Setup
-1. Add property `https://www.inoxtv.com` in [Google Search Console](https://search.google.com/search-console)
+1. Add property `https://inoxtv.com` in [Google Search Console](https://search.google.com/search-console)
 2. Verify ownership via DNS TXT record, HTML file upload, or meta tag
-3. Submit `sitemap.xml` URL: `https://www.inoxtv.com/sitemap.xml`
+3. Submit `sitemap.xml` URL: `https://inoxtv.com/sitemap.xml`
 4. Request indexing of the homepage
 5. Monitor Core Web Vitals, coverage, and enhancement reports
 
@@ -358,7 +358,7 @@ Sitemap: https://www.inoxtv.com/sitemap.xml
 #### Appearance on Google Search
 ```
 InoxTV — Premium IPTV Player for Android Mobile & TV
-https://www.inoxtv.com
+https://inoxtv.com
 InoxTV is a premium IPTV player for Android Mobile and Android TV.
 Watch live TV channels, movies, and TV shows with EPG, multiview, PiP...
 ```

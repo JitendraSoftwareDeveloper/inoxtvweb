@@ -15,7 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initFAQ();
   initShareButtons();
+  initDownloaderCode();
+  initFooterYear();
 });
+
+/* --- Does the visitor prefer reduced motion? (a11y) --- */
+function prefersReducedMotion() {
+  return typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/* --- Keep the footer copyright year current --- */
+function initFooterYear() {
+  const el = document.getElementById('footer-year');
+  if (el) el.textContent = new Date().getFullYear();
+}
 
 /* --- Assign stagger indices to grid children --- */
 function assignStaggerIndices() {
@@ -94,6 +108,8 @@ function initEnhancedScrollReveal() {
 
 /* --- Parallax-lite on scroll --- */
 function initParallaxScroll() {
+  // JS-driven motion — CSS can't suppress inline transforms, so opt out here.
+  if (prefersReducedMotion()) return;
   const heroLogo = document.querySelector('.hero-logo');
   const heroBanner = document.querySelector('.hero-banner');
   const orbs = document.querySelectorAll('.bg-particles .orb');
@@ -164,7 +180,7 @@ function initSmoothScroll() {
         e.preventDefault();
         const navHeight = document.getElementById('navbar')?.offsetHeight || 70;
         const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
       }
     });
   });
@@ -185,6 +201,47 @@ function initScrollDepthTracking() {
       }
     });
   }, { passive: true });
+}
+
+/* --- Downloader App Code Copy (Fire TV section) --- */
+function initDownloaderCode() {
+  const btn = document.getElementById('downloader-copy-btn');
+  if (!btn) return;
+  const code = btn.getAttribute('data-code') || '';
+  const label = btn.querySelector('span');
+  const originalText = label ? label.textContent : '';
+
+  const showCopied = () => {
+    if (label) label.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    trackEvent('downloader_code_copy', { code });
+    setTimeout(() => {
+      if (label) label.textContent = originalText;
+      btn.classList.remove('copied');
+    }, 2000);
+  };
+
+  btn.addEventListener('click', () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(showCopied).catch(() => {
+        legacyCopy(code);
+        showCopied();
+      });
+    } else {
+      legacyCopy(code);
+      showCopied();
+    }
+  });
+}
+
+/* --- Clipboard fallback for older browsers --- */
+function legacyCopy(text) {
+  const input = document.createElement('input');
+  input.value = text;
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand('copy');
+  document.body.removeChild(input);
 }
 
 /* --- Download Button Tracking --- */
@@ -324,6 +381,8 @@ function initGallery() {
   function startAutoPlay(type) {
     const g = galleries[type];
     stopAutoPlay(type);
+    // Respect the OS "reduce motion" setting — never auto-advance.
+    if (prefersReducedMotion()) return;
     g.autoPlayTimer = setInterval(() => {
       goNext(type);
     }, 4000);
@@ -348,9 +407,13 @@ function initGallery() {
       const target = tab.getAttribute('data-gallery-tab');
       activeGallery = target;
 
-      // Update tab styles
-      document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+      // Update tab styles + expose the active state to screen readers
+      document.querySelectorAll('.gallery-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-pressed', 'true');
 
       // Show/hide galleries
       Object.keys(galleries).forEach(key => {
@@ -413,14 +476,24 @@ function initGallery() {
     }, { passive: true });
   });
 
-  // Pause autoplay on hover
+  // Pause autoplay on hover, and on keyboard focus (a11y: WCAG 2.2.2)
   Object.keys(galleries).forEach(type => {
     const g = galleries[type];
     if (!g.wrapper) return;
+    const resume = () => { if (type === activeGallery) startAutoPlay(type); };
     g.wrapper.addEventListener('mouseenter', () => stopAutoPlay(type));
-    g.wrapper.addEventListener('mouseleave', () => {
-      if (type === activeGallery) startAutoPlay(type);
-    });
+    g.wrapper.addEventListener('mouseleave', resume);
+    g.wrapper.addEventListener('focusin', () => stopAutoPlay(type));
+    g.wrapper.addEventListener('focusout', resume);
+  });
+
+  // Pause autoplay while the tab is in the background (saves battery/CPU)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      Object.keys(galleries).forEach(t => stopAutoPlay(t));
+    } else {
+      startAutoPlay(activeGallery);
+    }
   });
 
   // Initialize

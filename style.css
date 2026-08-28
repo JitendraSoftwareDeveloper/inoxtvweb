@@ -3,8 +3,9 @@
    Premium dark-themed animated landing page
    ============================================= */
 
-/* --- Google Fonts Import --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap');
+/* --- Google Fonts ---
+   Loaded via <link> in the document <head> (not @import) so the browser can
+   fetch the font CSS in parallel with this stylesheet instead of after it. --- */
 
 /* --- CSS Custom Properties --- */
 :root {
@@ -43,6 +44,10 @@ body {
 a { color: var(--color-accent-blue); text-decoration: none; transition: color var(--transition-smooth); }
 a:hover { color: var(--color-accent-pink); }
 img { max-width: 100%; height: auto; display: block; }
+/* <picture> is only a wrapper for the WebP <source>; it must not generate a box,
+   or the img stops being the flex/grid item and `margin: 0 auto`, `width: 100%`
+   and `max-height: 100%` on the img would resolve against the wrapper instead. */
+picture { display: contents; }
 ul { list-style: none; }
 
 /* --- Skip Link (a11y) --- */
@@ -417,6 +422,109 @@ ul { list-style: none; }
   transition: all var(--transition-smooth);
 }
 .download-card:hover .play-icon { opacity: 1; transform: translateX(4px); }
+.download-alt {
+  margin-top: 28px; font-size: 0.95rem; color: var(--color-text-secondary);
+}
+.download-alt a {
+  color: var(--color-accent-pink); font-weight: 600;
+  border-bottom: 1px solid rgba(233, 30, 144, 0.35);
+  transition: all var(--transition-smooth);
+}
+.download-alt a:hover {
+  color: var(--color-accent-purple); border-bottom-color: var(--color-accent-purple);
+}
+
+/* --- Fire TV / Firestick Sideload Section --- */
+.firestick-section {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.35), rgba(233, 30, 144, 0.08));
+}
+.firestick-content { position: relative; z-index: 2; text-align: center; }
+.firestick-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px; margin-top: 48px; text-align: left;
+}
+.firestick-card {
+  display: flex; flex-direction: column; gap: 16px; padding: 32px;
+  background: var(--color-surface-glass); border: 1px solid var(--color-border-glass);
+  border-radius: var(--radius-card); backdrop-filter: blur(12px);
+  transition: all var(--transition-smooth);
+}
+.firestick-card:hover {
+  transform: translateY(-4px); border-color: rgba(233, 30, 144, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+.firestick-card-head { display: flex; align-items: center; gap: 12px; }
+.firestick-step-num {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: 0.95rem; color: #fff;
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-purple));
+}
+.firestick-card h3 {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+}
+.firestick-card p { color: var(--color-text-secondary); font-size: 0.95rem; }
+.downloader-code-box {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 20px 24px; border-radius: var(--radius-card);
+  background: rgba(11, 16, 32, 0.6); border: 1px dashed rgba(233, 30, 144, 0.4);
+}
+.downloader-code {
+  font-family: var(--font-display); font-size: clamp(1.9rem, 5vw, 2.6rem);
+  font-weight: 800; letter-spacing: 4px; line-height: 1;
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.downloader-copy-btn {
+  display: inline-flex; align-items: center; gap: 8px; margin-left: auto;
+  padding: 10px 18px; border-radius: var(--radius-btn); cursor: pointer;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; color: #fff;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid var(--color-border-glass);
+  transition: all var(--transition-smooth);
+}
+.downloader-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.16); border-color: rgba(233, 30, 144, 0.4);
+}
+.downloader-copy-btn.copied {
+  background: linear-gradient(135deg, #25D366, #128C7E); border-color: transparent;
+}
+.firestick-steps { display: grid; gap: 8px; }
+.firestick-steps li {
+  position: relative; padding-left: 22px;
+  color: var(--color-text-secondary); font-size: 0.92rem;
+}
+.firestick-steps li::before {
+  content: '\25B8'; position: absolute; left: 0; color: var(--color-accent-pink);
+}
+.btn-apk {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  margin-top: auto; padding: 18px 28px; border-radius: var(--radius-btn);
+  font-weight: 700; font-size: 1rem; color: #fff; text-decoration: none;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-purple));
+  box-shadow: 0 4px 20px rgba(233, 30, 144, 0.25);
+  transition: all var(--transition-smooth);
+}
+.btn-apk::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.5s ease;
+}
+.btn-apk:hover::before { left: 100%; }
+.btn-apk:hover {
+  transform: translateY(-3px); color: #fff;
+  box-shadow: 0 10px 34px rgba(233, 30, 144, 0.45);
+}
+.btn-apk svg { width: 22px; height: 22px; flex-shrink: 0; }
+.firestick-card .apk-meta {
+  text-align: center; color: var(--color-text-muted); font-size: 0.82rem;
+}
+@media (max-width: 768px) {
+  .firestick-grid { grid-template-columns: 1fr; }
+  .firestick-card { padding: 24px; }
+  .downloader-copy-btn { margin-left: 0; }
+  .btn-apk { width: 100%; }
+}
 
 /* --- Footer --- */
 .footer {
@@ -623,9 +731,10 @@ ul { list-style: none; }
 }
 .gallery-slide {
   flex-shrink: 0; padding: 0 8px; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center;
 }
 .gallery-slide img {
-  width: 100%; height: auto; border-radius: 12px;
+  width: auto; max-width: 100%; height: auto; border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   object-fit: contain;
@@ -636,11 +745,11 @@ ul { list-style: none; }
 }
 
 /* Mobile screenshots — show 3 at a time (portrait phone) */
-.gallery-slide-mobile { width: calc(100% / 3); }
-.gallery-slide-mobile img { max-height: 420px; margin: 0 auto; }
+.gallery-slide-mobile { width: calc(100% / 3); height: 420px; }
+.gallery-slide-mobile img { max-height: 100%; }
 /* TV screenshots — show 2 at a time (landscape TV) */
-.gallery-slide-tv { width: 50%; }
-.gallery-slide-tv img { max-height: 340px; margin: 0 auto; }
+.gallery-slide-tv { width: 50%; height: 340px; }
+.gallery-slide-tv img { max-height: 100%; }
 
 /* Gallery Arrows */
 .gallery-arrow {
@@ -684,10 +793,8 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-  .gallery-slide-mobile { width: 80%; }
-  .gallery-slide-mobile img { max-height: 360px; }
-  .gallery-slide-tv { width: 90%; }
-  .gallery-slide-tv img { max-height: 260px; }
+  .gallery-slide-mobile { width: 80%; height: 360px; }
+  .gallery-slide-tv { width: 90%; height: 260px; }
   .gallery-arrow {
     width: 36px; height: 36px;
   }
@@ -697,10 +804,8 @@ ul { list-style: none; }
   .gallery-tab { padding: 10px 20px; font-size: 0.85rem; }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
-  .gallery-slide-mobile { width: calc(100% / 3); }
-  .gallery-slide-mobile img { max-height: 380px; }
-  .gallery-slide-tv { width: 50%; }
-  .gallery-slide-tv img { max-height: 300px; }
+  .gallery-slide-mobile { width: calc(100% / 3); height: 380px; }
+  .gallery-slide-tv { width: 50%; height: 300px; }
 }
 
 /* =============================================
@@ -1097,5 +1202,39 @@ ul { list-style: none; }
   @keyframes shareFloatIn {
     from { opacity: 0; transform: translateY(10px) scale(0.9); }
     to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+}
+
+/* =============================================
+   Reduced Motion (a11y — WCAG 2.3.3)
+   Honours the OS "reduce motion" setting: kills the looping
+   background orbs, the scroll-reveal travel, and the shimmer /
+   float animations, while leaving the layout fully intact.
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  /* Continuously animated decoration — remove entirely */
+  .bg-particles,
+  .scroll-indicator { display: none; }
+  /* Reveal-on-scroll elements must stay visible even if never animated */
+  .reveal, .reveal-left, .reveal-right,
+  .reveal-scale, .reveal-blur, .reveal-rotate {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  /* Carousel jumps instead of sliding */
+  .gallery-track { transition: none !important; }
+  /* Suppress hover lift/scale so nothing moves under the pointer */
+  .feature-card:hover, .platform-card:hover, .playlist-card:hover,
+  .download-card:hover, .firestick-card:hover, .lang-chip:hover,
+  .gallery-slide img:hover, .btn-apk:hover, .btn-download:hover,
+  .share-btn-inline:hover {
+    transform: none !important;
   }
 }

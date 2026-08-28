@@ -6,8 +6,8 @@
 
   <!-- Primary SEO -->
   <title>InoxTV — Premium IPTV Player for Android Mobile & TV | Live TV, Movies, Shows</title>
-  <meta name="description" content="InoxTV is a premium IPTV player for Android Mobile and Android TV. Watch live TV channels, movies, and TV shows with EPG, multiview, PiP, voice search, and 18 language support. Download free from Google Play Store.">
-  <meta name="keywords" content="InoxTV, IPTV player, Android TV, live TV, IPTV app, M3U player, Xtream Codes, Stalker Portal, EPG, TV guide, multiview, picture in picture, Android IPTV, free IPTV player, premium IPTV">
+  <meta name="description" content="InoxTV is a premium IPTV player for Android Mobile, Android TV and Fire TV Stick. Watch live TV channels, movies, and TV shows with EPG, multiview, PiP, voice search, and 19 language support. Download free from Google Play Store.">
+  <meta name="keywords" content="InoxTV, IPTV player, Android TV, live TV, IPTV app, M3U player, Xtream Codes, Stalker Portal, EPG, TV guide, multiview, picture in picture, Android IPTV, free IPTV player, premium IPTV, Firestick IPTV, Fire TV Stick, InoxTV APK, Downloader code, sideload IPTV">
   <meta name="author" content="InoxTV">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://inoxtv.com/">
@@ -31,7 +31,8 @@
   <meta property="og:url" content="https://inoxtv.com/">
   <meta property="og:title" content="InoxTV — Premium IPTV Player for Android Mobile & TV">
   <meta property="og:description" content="Watch live TV, movies, and shows with the most feature-rich IPTV player. Available for Android Mobile and Android TV.">
-  <meta property="og:image" content="https://inoxtv.com/images/og-image.png">
+  <meta property="og:image" content="https://inoxtv.com/images/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="InoxTV Premium IPTV Player for Android Mobile and TV">
@@ -45,12 +46,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="InoxTV — Premium IPTV Player for Android Mobile & TV">
   <meta name="twitter:description" content="Watch live TV, movies, and shows. Download InoxTV free from Google Play Store.">
-  <meta name="twitter:image" content="https://inoxtv.com/images/og-image.png">
+  <meta name="twitter:image" content="https://inoxtv.com/images/og-image.jpg">
   <meta name="twitter:image:alt" content="InoxTV Premium IPTV Player for Android">
 
-  <!-- Favicons -->
+  <!-- Favicons & PWA Manifest -->
   <link rel="icon" type="image/png" href="images/mobile-icon.png">
   <link rel="apple-touch-icon" href="images/logo.png">
+  <link rel="manifest" href="manifest.json">
 
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,11 +61,18 @@
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
+  <!-- Fonts (loaded here instead of @import in CSS to avoid a render-blocking request chain) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap">
+
+  <!-- Preload above-the-fold imagery (LCP). Typed as WebP so browsers without
+       WebP support skip the preload and fetch the PNG via <picture> instead. -->
+  <link rel="preload" as="image" href="images/logo.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="images/banner.webp" type="image/webp" fetchpriority="high">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 
   <!-- Google Analytics 4 -->
-  <!-- ⚠️ Replace G-XXXXXXXXXX with your real GA4 Measurement ID -->
   <!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 	<script>
@@ -131,9 +140,10 @@
     "name": "InoxTV TV",
     "operatingSystem": "Android TV",
     "applicationCategory": "MultimediaApplication",
-    "description": "Premium IPTV player for Android TV with DPAD-optimized navigation.",
+    "description": "Premium IPTV player for Android TV, Fire TV Stick and Fire TV Cube with DPAD-optimized navigation.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "installUrl": "https://play.google.com/store/apps/details?id=in.inoxtv.tv"
+    "installUrl": "https://play.google.com/store/apps/details?id=in.inoxtv.tv",
+    "downloadUrl": "https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk"
   }
   </script>
 
@@ -150,7 +160,9 @@
       {"@type":"Question","name":"Does InoxTV have an Electronic Program Guide (EPG)?","acceptedAnswer":{"@type":"Answer","text":"Yes, InoxTV includes a full EPG showing current, past, and upcoming programs with reminders and details."}},
       {"@type":"Question","name":"How many playlists can I add to InoxTV?","acceptedAnswer":{"@type":"Answer","text":"We recommend adding up to 5 playlists to InoxTV for the best performance. While each playlist can contain thousands of channels, keeping it to 5 ensures smooth loading, fast EPG updates, and optimal app responsiveness."}},
       {"@type":"Question","name":"Does InoxTV support parental controls?","acceptedAnswer":{"@type":"Answer","text":"Yes, InoxTV has built-in parental controls with secure PIN protection to restrict content access."}},
-      {"@type":"Question","name":"What languages does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports 19 languages including English, Hindi, Arabic, French, German, Spanish, Russian, Turkish, and more."}}
+      {"@type":"Question","name":"What languages does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports 19 languages including English, Hindi, Arabic, French, German, Spanish, Russian, Turkish, and more."}},
+      {"@type":"Question","name":"How do I install InoxTV on an Amazon Fire TV Stick?","acceptedAnswer":{"@type":"Answer","text":"Fire TV devices do not carry the Google Play Store, so InoxTV is sideloaded. Install the free Downloader app from the Amazon Appstore, enable Apps from Unknown Sources under Settings > My Fire TV > Developer Options, open Downloader and enter code 2910810, then choose Install once the APK finishes downloading. You can also download the Android TV APK directly from the InoxTV website."}},
+      {"@type":"Question","name":"What is the InoxTV Downloader code?","acceptedAnswer":{"@type":"Answer","text":"The Downloader app code for InoxTV is 2910810. Enter it in the Downloader app on your Fire TV Stick to fetch the official signed Android TV APK, the same file as the direct APK download link on the InoxTV website."}}
     ]
   }
   </script>
@@ -171,7 +183,7 @@
     <nav class="navbar" id="navbar" aria-label="Main navigation">
       <div class="container">
         <a href="#" class="navbar-logo" aria-label="InoxTV Home">
-          <img src="images/logo.png" alt="InoxTV Logo" width="40" height="40">
+          <picture><source srcset="images/logo.webp" type="image/webp"><img src="images/logo.png" alt="InoxTV Logo" width="40" height="40"></picture>
           <span>Inox<span style="color:var(--color-accent-pink)">tv</span></span>
         </a>
         <ul class="navbar-nav" id="navbar-nav" role="menubar">
@@ -194,7 +206,7 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="hero">
       <div class="hero-content">
-        <img src="images/logo.png" alt="InoxTV - Premium IPTV Player" class="hero-logo" width="140" height="140">
+        <picture><source srcset="images/logo.webp" type="image/webp"><img src="images/logo.png" alt="InoxTV - Premium IPTV Player" class="hero-logo" width="140" height="140"></picture>
         <h1><span class="brand-inox">Inox</span><span class="brand-tv">tv</span></h1>
         <p class="hero-tagline">Entertainment. <span class="highlight">Anytime. Anywhere.</span></p>
         <p class="hero-subtitle">The most powerful IPTV player for Android. Stream live TV channels, movies, and TV shows with a premium experience on your Mobile and TV.</p>
@@ -208,7 +220,7 @@
             Download for TV
           </a>
         </div>
-        <img src="images/banner.png" alt="InoxTV app showcasing live TV, movies, and shows on Android TV with remote control" class="hero-banner" width="900" height="466" loading="eager">
+        <picture><source srcset="images/banner.webp" type="image/webp"><img src="images/banner.png" alt="InoxTV app showcasing live TV, movies, and shows on Android TV with remote control" class="hero-banner" width="900" height="466" loading="eager"></picture>
       </div>
       <div class="scroll-indicator" aria-hidden="true">
         <div class="mouse"><div class="wheel"></div></div>
@@ -323,7 +335,7 @@
         </div>
         <div class="platform-grid">
           <div class="platform-card reveal reveal-delay-1" id="platform-mobile">
-            <img src="images/mobile-icon.png" alt="InoxTV Mobile App Icon" class="platform-icon" width="80" height="80">
+            <picture><source srcset="images/mobile-icon.webp" type="image/webp"><img src="images/mobile-icon.png" alt="InoxTV Mobile App Icon" class="platform-icon" width="80" height="80"></picture>
             <h3>Android Mobile</h3>
             <p>Touch-optimized interface designed for phones and tablets with gesture controls.</p>
             <ul class="platform-features-list">
@@ -339,7 +351,7 @@
             </a>
           </div>
           <div class="platform-card reveal reveal-delay-2" id="platform-tv">
-            <img src="images/tv-icon.png" alt="InoxTV TV App Icon" class="platform-icon" width="80" height="80">
+            <picture><source srcset="images/tv-icon.webp" type="image/webp"><img src="images/tv-icon.png" alt="InoxTV TV App Icon" class="platform-icon" width="80" height="80"></picture>
             <h3>Android TV</h3>
             <p>DPAD-optimized interface designed for big-screen entertainment with remote control navigation.</p>
             <ul class="platform-features-list">
@@ -369,12 +381,12 @@
 
         <!-- Gallery Tabs -->
         <div class="gallery-tabs reveal" id="gallery-tabs">
-          <button class="gallery-tab active" data-gallery-tab="mobile" id="gallery-tab-mobile">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+          <button class="gallery-tab active" data-gallery-tab="mobile" id="gallery-tab-mobile" aria-pressed="true" aria-controls="gallery-mobile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
             Mobile App
           </button>
-          <button class="gallery-tab" data-gallery-tab="tv" id="gallery-tab-tv">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v14z"/></svg>
+          <button class="gallery-tab" data-gallery-tab="tv" id="gallery-tab-tv" aria-pressed="false" aria-controls="gallery-tv">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v14z"/></svg>
             TV App
           </button>
         </div>
@@ -386,12 +398,14 @@
           </button>
           <div class="gallery-track-container">
             <div class="gallery-track" id="gallery-track-mobile">
-              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot.png" alt="InoxTV Mobile - Home Screen" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot1.png" alt="InoxTV Mobile - Live TV Channels" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot2.png" alt="InoxTV Mobile - TV Guide EPG" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot3.png" alt="InoxTV Mobile - Movies Library" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot4.png" alt="InoxTV Mobile - Player View" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-mobile"><img src="images/screenshots/mob/screenshot5.png" alt="InoxTV Mobile - Settings" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot.webp" type="image/webp"><img src="images/screenshots/mob/screenshot.png" alt="InoxTV Mobile - Home Screen" loading="lazy" width="1080" height="1920"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot1.webp" type="image/webp"><img src="images/screenshots/mob/screenshot1.png" alt="InoxTV Mobile - Live TV Channels" loading="lazy" width="1080" height="1920"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot2.webp" type="image/webp"><img src="images/screenshots/mob/screenshot2.png" alt="InoxTV Mobile - TV Guide EPG" loading="lazy" width="1080" height="1920"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot3.webp" type="image/webp"><img src="images/screenshots/mob/screenshot3.png" alt="InoxTV Mobile - Movies Library" loading="lazy" width="1080" height="1920"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot4.webp" type="image/webp"><img src="images/screenshots/mob/screenshot4.png" alt="InoxTV Mobile - Player View" loading="lazy" width="1080" height="1920"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot5.webp" type="image/webp"><img src="images/screenshots/mob/screenshot5.png" alt="InoxTV Mobile - Settings" loading="lazy" width="1080" height="1920"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot6.webp" type="image/webp"><img src="images/screenshots/mob/screenshot6.png" alt="InoxTV Mobile - Movie Details with Cast, Synopsis and Full Movie Catalogue" loading="lazy" width="941" height="1672"></picture></div>
+              <div class="gallery-slide gallery-slide-mobile"><picture><source srcset="images/screenshots/mob/screenshot7.webp" type="image/webp"><img src="images/screenshots/mob/screenshot7.png" alt="InoxTV Mobile - Landscape View of Movie Details and Poster Grid" loading="lazy" width="1672" height="941"></picture></div>
             </div>
           </div>
           <button class="gallery-arrow gallery-arrow-right" data-gallery-arrow="mobile-right" aria-label="Next screenshot">
@@ -407,16 +421,16 @@
           </button>
           <div class="gallery-track-container">
             <div class="gallery-track" id="gallery-track-tv">
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/1.png" alt="InoxTV TV - Home Screen" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/2.png" alt="InoxTV TV - Channel List" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/3.png" alt="InoxTV TV - Live Player" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/4.png" alt="InoxTV TV - EPG Guide" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/5.png" alt="InoxTV TV - Movies Catalog" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/6.png" alt="InoxTV TV - Series Browser" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/7.png" alt="InoxTV TV - Search Results" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/8.png" alt="InoxTV TV - Settings Panel" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/9.png" alt="InoxTV TV - Multiview Mode" loading="lazy"></div>
-              <div class="gallery-slide gallery-slide-tv"><img src="images/screenshots/tv/10.png" alt="InoxTV TV - Favorites" loading="lazy"></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/1.webp" type="image/webp"><img src="images/screenshots/tv/1.png" alt="InoxTV TV - Home Screen" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/2.webp" type="image/webp"><img src="images/screenshots/tv/2.png" alt="InoxTV TV - Channel List" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/3.webp" type="image/webp"><img src="images/screenshots/tv/3.png" alt="InoxTV TV - Live Player" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/4.webp" type="image/webp"><img src="images/screenshots/tv/4.png" alt="InoxTV TV - EPG Guide" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/5.webp" type="image/webp"><img src="images/screenshots/tv/5.png" alt="InoxTV TV - Movies Catalog" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/6.webp" type="image/webp"><img src="images/screenshots/tv/6.png" alt="InoxTV TV - Series Browser" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/7.webp" type="image/webp"><img src="images/screenshots/tv/7.png" alt="InoxTV TV - Search Results" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/8.webp" type="image/webp"><img src="images/screenshots/tv/8.png" alt="InoxTV TV - Settings Panel" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/9.webp" type="image/webp"><img src="images/screenshots/tv/9.png" alt="InoxTV TV - Multiview Mode" loading="lazy" width="1672" height="941"></picture></div>
+              <div class="gallery-slide gallery-slide-tv"><picture><source srcset="images/screenshots/tv/10.webp" type="image/webp"><img src="images/screenshots/tv/10.png" alt="InoxTV TV - Favorites" loading="lazy" width="1672" height="941"></picture></div>
             </div>
           </div>
           <button class="gallery-arrow gallery-arrow-right" data-gallery-arrow="tv-right" aria-label="Next screenshot">
@@ -611,6 +625,33 @@
             </div>
           </div>
 
+          <div class="faq-item reveal" id="faq-11">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I install InoxTV on an Amazon Fire TV Stick?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Fire TV devices don't carry the Google Play Store, so InoxTV is sideloaded instead:</p>
+              <ul>
+                <li>Install the free <strong>Downloader</strong> app from the Amazon Appstore.</li>
+                <li>Turn on <strong>Settings → My Fire TV → Developer Options → Apps from Unknown Sources</strong>.</li>
+                <li>Open Downloader, enter code <strong>2910810</strong>, and press <strong>Go</strong>.</li>
+                <li>Choose <strong>Install</strong> once the APK finishes downloading.</li>
+              </ul>
+              <p>You can also grab the APK directly from the <a href="#firestick">Fire TV section</a> above. The same build works on the Fire TV Stick, Fire TV Cube, and generic Android TV boxes.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-12">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is the InoxTV Downloader code?</span>
+              <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>The Downloader app code for InoxTV is <strong>2910810</strong>. Enter it in the Downloader app on your Fire TV Stick to fetch the official Android TV APK. The code points at our signed release build on GitHub — it is the same file as the direct APK link on this page, with no modifications or bundled extras.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -624,7 +665,7 @@
           <p class="section-desc">Get InoxTV free from Google Play Store. Available for both Android Mobile and Android TV.</p>
           <div class="download-buttons">
             <a href="https://play.google.com/store/apps/details?id=in.inoxtv.mobile&utm_source=inoxtv_website&utm_medium=organic&utm_campaign=play_store_download&utm_content=mobile" target="_blank" rel="noopener noreferrer" class="download-card" data-download="mobile" id="cta-download-mobile">
-              <img src="images/mobile-icon.png" alt="InoxTV Mobile" width="48" height="48">
+              <picture><source srcset="images/mobile-icon.webp" type="image/webp"><img src="images/mobile-icon.png" alt="InoxTV Mobile" width="48" height="48"></picture>
               <div class="download-card-text">
                 <small>Download for</small>
                 <strong>Android Mobile</strong>
@@ -632,13 +673,68 @@
               <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
             </a>
             <a href="https://play.google.com/store/apps/details?id=in.inoxtv.tv&utm_source=inoxtv_website&utm_medium=organic&utm_campaign=play_store_download&utm_content=tv" target="_blank" rel="noopener noreferrer" class="download-card" data-download="tv" id="cta-download-tv">
-              <img src="images/tv-icon.png" alt="InoxTV TV" width="48" height="48">
+              <picture><source srcset="images/tv-icon.webp" type="image/webp"><img src="images/tv-icon.png" alt="InoxTV TV" width="48" height="48"></picture>
               <div class="download-card-text">
                 <small>Download for</small>
                 <strong>Android TV</strong>
               </div>
               <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
             </a>
+          </div>
+          <p class="download-alt">On an Amazon Fire TV Stick? <a href="#firestick">Use Downloader code 2910810 or grab the APK &rarr;</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FIRE TV / FIRESTICK SIDELOAD SECTION ===== -->
+    <section class="section firestick-section" id="firestick">
+      <div class="container">
+        <div class="firestick-content reveal">
+          <span class="section-badge">Fire TV &amp; Firestick</span>
+          <h2 class="section-title">Install on <span class="gradient-text">Fire TV Stick</span></h2>
+          <p class="section-desc">No Play Store on your Firestick? Use the Downloader app code below, or download the Android TV APK directly.</p>
+
+          <div class="firestick-grid">
+
+            <div class="firestick-card">
+              <div class="firestick-card-head">
+                <span class="firestick-step-num">1</span>
+                <h3>Downloader App Code</h3>
+              </div>
+              <p>Open the <strong>Downloader</strong> app on your Fire TV Stick and enter this code:</p>
+              <div class="downloader-code-box">
+                <span class="downloader-code" id="downloader-code">2910810</span>
+                <button type="button" class="downloader-copy-btn" id="downloader-copy-btn" data-code="2910810" aria-label="Copy Downloader code 2910810">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                  <span>Copy Code</span>
+                </button>
+              </div>
+              <ul class="firestick-steps">
+                <li>Install <strong>Downloader</strong> from the Amazon Appstore.</li>
+                <li>Enable <em>Apps from Unknown Sources</em> in Settings &rarr; My Fire TV &rarr; Developer Options.</li>
+                <li>Enter the code above and press <strong>Go</strong>.</li>
+                <li>Choose <strong>Install</strong> when the APK finishes downloading.</li>
+              </ul>
+            </div>
+
+            <div class="firestick-card">
+              <div class="firestick-card-head">
+                <span class="firestick-step-num">2</span>
+                <h3>Direct APK Download</h3>
+              </div>
+              <p>Prefer to sideload yourself? Download the latest InoxTV Android TV APK straight from our GitHub releases.</p>
+              <ul class="firestick-steps">
+                <li>Works on Fire TV Stick, Fire TV Cube &amp; Android TV boxes.</li>
+                <li>Official signed release build &mdash; no modifications.</li>
+                <li>Transfer with Downloader, Send Files to TV, or a USB drive.</li>
+              </ul>
+              <a href="https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk" class="btn-apk" data-download="tv_apk" id="cta-download-apk" rel="noopener nofollow">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+                <span>Download APK for Fire TV</span>
+              </a>
+              <p class="apk-meta">tv-release.apk &middot; hosted on GitHub Releases</p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -721,7 +817,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="images/logo.png" alt="InoxTV" width="32" height="32">
+          <picture><source srcset="images/logo.webp" type="image/webp"><img src="images/logo.png" alt="InoxTV" width="32" height="32"></picture>
           <span>Inox<span style="color:var(--color-accent-pink)">tv</span></span>
         </div>
         <div class="footer-links">
@@ -730,11 +826,12 @@
           <a href="#gallery">Gallery</a>
           <a href="#faq">FAQ</a>
           <a href="#download">Download</a>
+          <a href="#firestick">Fire TV</a>
           <a href="privacy.html" data-track="privacy">Privacy Policy</a>
         </div>
       </div>
       <div class="footer-copy">
-        <p>&copy; 2026 InoxTV. All rights reserved. | Premium IPTV Experience</p>
+        <p>&copy; <span id="footer-year">2026</span> InoxTV. All rights reserved. | Premium IPTV Experience</p>
       </div>
     </div>
   </footer>

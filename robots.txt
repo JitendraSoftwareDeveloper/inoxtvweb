@@ -1,7 +1,11 @@
 # InoxTV Website - robots.txt
-# https://www.inoxtv.com/robots.txt
+# https://inoxtv.com/robots.txt
+#
+# Canonical host is the apex domain (see CNAME). The www subdomain is not
+# configured, so every absolute URL here must stay non-www or crawlers get
+# an unresolvable host.
 
 User-agent: *
 Allow: /
 
-Sitemap: https://www.inoxtv.com/sitemap.xml
+Sitemap: https://inoxtv.com/sitemap.xml
