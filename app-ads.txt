@@ -1,5 +1,8 @@
 google.com, pub-6161953663322185, DIRECT, f08c47fec0942fa0
 
+#Faceboock.com
+facebook.com, 1959779897999258, DIRECT, c3e20eee3f780d68
+
 # Adagio
 adagio.io, 1783, DIRECT
 adagio.io, 1783-OB, RESELLER
