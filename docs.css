@@ -150,7 +150,12 @@ a:hover { color: #a9caff; }
 }
 .site-logo-word span { color: var(--accent); }
 
-.site-nav { margin-left: auto; }
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-left: auto;
+}
 
 .site-nav ul {
   display: flex;
@@ -202,6 +207,91 @@ a:hover { color: #a9caff; }
   border-radius: 2px;
 }
 
+/* --------------------------------------------------------------------------
+   search field
+
+   A plain GET form pointed at /search/, so it needs no script and the hosted
+   search element is requested on the results page only. Two sizes: a compact
+   one in the masthead, a full-width one at the top of every hub.
+   -------------------------------------------------------------------------- */
+
+.site-search {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 2px;
+  padding: 2px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.site-search:focus-within { background: var(--card-hover); border-color: var(--accent-deep); }
+
+.site-search-field {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.35rem 0.5rem;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92rem;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.site-search-field::placeholder { color: var(--ink-3); }
+/* The wrapper already shows focus, and two rings on one control read as two
+   controls. */
+.site-search-field:focus { outline: none; }
+
+.site-search-go {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.9rem; height: 1.9rem;
+  padding: 0;
+  color: var(--ink-2);
+  font: inherit;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.site-search-go:hover { color: var(--ink); background: var(--card-hover); }
+.site-search-go svg { pointer-events: none; }
+
+.site-search--nav { width: clamp(9.5rem, 15vw, 12.5rem); }
+
+.site-search--hub {
+  width: 100%;
+  max-width: 34rem;
+  margin-top: 1.7rem;
+  padding: 3px;
+  border-radius: var(--r);
+}
+.site-search--hub .site-search-field { padding: 0.6rem 0.75rem; font-size: 1rem; }
+.site-search--hub .site-search-go {
+  grid-auto-flow: column;
+  gap: 0.45rem;
+  width: auto; height: 2.5rem;
+  padding-inline: 1rem;
+  color: #fff;
+  font-size: 0.94rem;
+  font-weight: 600;
+  background: var(--accent-deep);
+}
+.site-search--hub .site-search-go:hover { color: #fff; background: #4f8ef8; }
+.site-search-go-label { line-height: 1; }
+
+@media (max-width: 1000px) {
+  /* Five nav links and a field will not both fit between 861px and 1000px.
+     Search stays one tap away on every hub, in the footer and at /search/. */
+  .site-search--nav { display: none; }
+}
+
 @media (max-width: 860px) {
   .site-nav-toggle { display: grid; place-items: center; }
   .site-nav {
@@ -217,6 +307,15 @@ a:hover { color: #a9caff; }
   .site-nav ul { flex-direction: column; align-items: stretch; gap: 0.15rem; }
   .site-nav a { padding: 0.7rem 0.8rem; font-size: 1rem; }
   .site-nav a.nav-cta { margin: 0.45rem 0 0; text-align: center; }
+
+  /* Back in view once the panel is open, where there is a full row for it. */
+  .site-search--nav {
+    display: flex;
+    width: auto;
+    margin: 0.35rem 0 0.7rem;
+  }
+  .site-search--nav .site-search-field { padding: 0.55rem 0.7rem; font-size: 1rem; }
+  .site-search--nav .site-search-go { width: 2.3rem; height: 2.3rem; }
 }
 
 /* --------------------------------------------------------------------------
@@ -768,6 +867,91 @@ td code.hex {
 .hub-cards p { margin: 0; color: var(--ink-3); font-size: 0.9rem; line-height: 1.55; }
 
 /* --------------------------------------------------------------------------
+   search results
+
+   The hosted search element arrives carrying its own light theme, so these
+   rules put it back on the site's ground. Colour, spacing and borders only:
+   the markup, the ranking and the provider's own branding are left alone.
+   Several of its rules are !important at source, which is why these are.
+   -------------------------------------------------------------------------- */
+
+.cse-results { margin: 0 0 3rem; }
+
+.cse-results .gsc-control-cse {
+  padding: 0;
+  font-family: var(--font-body);
+  background: transparent !important;
+  border: 0 !important;
+}
+.cse-results .gsc-above-wrapper-area { border-bottom-color: var(--line) !important; }
+.cse-results .gsc-result-info,
+.cse-results .gsc-orderby-label,
+.cse-results .gsc-selected-option { color: var(--ink-3) !important; }
+
+.cse-results .gsc-webResult.gsc-result {
+  margin-bottom: 0.85rem;
+  padding: 1rem 1.15rem;
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--r);
+}
+.cse-results .gsc-webResult.gsc-result:hover {
+  background: var(--card-hover) !important;
+  border-color: var(--line-strong) !important;
+}
+.cse-results .gsc-table-result,
+.cse-results .gsc-thumbnail-inside,
+.cse-results .gsc-url-top { padding: 0; }
+
+.cse-results a.gs-title,
+.cse-results a.gs-title b {
+  color: var(--accent) !important;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.cse-results a.gs-title:hover,
+.cse-results a.gs-title:hover b { color: #a9caff !important; }
+
+.cse-results .gs-snippet,
+.cse-results .gs-no-results-result .gs-snippet,
+.cse-results .gs-error-result .gs-snippet {
+  color: var(--ink-2) !important;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  background: transparent !important;
+  border: 0 !important;
+}
+.cse-results .gs-snippet b { color: var(--ink) !important; }
+.cse-results .gs-visibleUrl,
+.cse-results .gs-visibleUrl-short,
+.cse-results .gs-visibleUrl-long { color: var(--ink-3) !important; }
+
+.cse-results .gsc-cursor-box {
+  margin: 1.6rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+.cse-results .gsc-cursor-page {
+  display: inline-block;
+  min-width: 2rem;
+  margin-right: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  color: var(--accent) !important;
+  text-align: center;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.cse-results .gsc-cursor-page.gsc-cursor-current-page {
+  color: #fff !important;
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+}
+
+/* --------------------------------------------------------------------------
    disclaimer band
    -------------------------------------------------------------------------- */
 
@@ -791,6 +975,66 @@ td code.hex {
   line-height: 1.6;
 }
 .band strong { color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   report an error
+
+   Sits below the article and above the footer on every page. The href is a
+   mailto built by build.py from that page's own address, so a correction
+   arrives already saying which page it is about. The address is spelled out
+   in the sentence as well: a television browser often has no mail client for
+   the button to hand off to.
+   -------------------------------------------------------------------------- */
+
+.page-report {
+  padding: 1.5rem 0;
+  background: var(--ground);
+}
+.page-report-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+.page-report-copy { flex: 1 1 22rem; min-width: 0; }
+.page-report-h {
+  margin: 0 0 0.3rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+.page-report-sub {
+  margin: 0;
+  max-width: 78ch;
+  color: var(--ink-3);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.page-report-btn {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.page-report-btn:hover {
+  color: #fff;
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+}
+.page-report-btn svg { flex: none; }
 
 /* --------------------------------------------------------------------------
    footer
@@ -1017,12 +1261,30 @@ td code.hex {
 }
 .ad-slot ins { display: block; }
 
+/* Ads have to be tellable apart from the article at a glance, so each one is
+   labelled above the unit rather than left to blend into the prose. Muted and
+   small: it identifies the block without competing with a real heading. */
+.ad-slot-label {
+  margin: 0 0 0.45rem;
+  color: var(--ink-3);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* Nothing came back for this slot, so take the label and the margins with it
+   instead of leaving a captioned gap in the middle of the article. Browsers
+   without :has() drop the rule and get the old collapsed-but-spaced slot. */
+.ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
+
 /* --------------------------------------------------------------------------
    print
    -------------------------------------------------------------------------- */
 
 @media print {
-  .site-head, .site-foot, .toc, .ad-slot, .related, .band, .share-rail { display: none !important; }
+  .site-head, .site-foot, .toc, .ad-slot, .related, .band, .share-rail,
+  .site-search, .page-report, .cse-results { display: none !important; }
   body { background: #fff; color: #111; }
   .doc-body, .doc-body p, .doc-body li { color: #111; }
   .doc-grid { display: block; }

@@ -553,6 +553,57 @@ ul { list-style: none; }
 .home-disclaimer a { color: var(--color-accent-blue); text-decoration: underline; }
 .home-disclaimer a:hover { color: var(--color-accent-pink); }
 
+/* ==========================================================================
+   REPORT AN ERROR
+   Sits between the page and the footer. The mailto is written out in the
+   markup rather than assembled by script, so it still works with scripting
+   off, and the address is spelled out in the sentence as well because a
+   television browser often has no mail app for the button to hand off to.
+   ========================================================================== */
+
+.page-report {
+  position: relative; z-index: 1; padding: 28px 0;
+  border-top: 1px solid var(--color-border-glass);
+}
+.page-report-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px 32px;
+}
+.page-report-copy { flex: 1 1 22rem; min-width: 0; }
+.page-report-h {
+  margin: 0 0 4px;
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+  color: var(--color-text-primary);
+}
+.page-report-sub {
+  margin: 0; max-width: 78ch;
+  font-size: 0.88rem; line-height: 1.6;
+  color: var(--color-text-muted);
+}
+.page-report-sub a { color: var(--color-accent-blue); text-decoration: underline; }
+.page-report-sub a:hover { color: var(--color-accent-pink); }
+
+.page-report-btn {
+  display: inline-flex; align-items: center; flex: none; gap: 8px;
+  padding: 11px 20px;
+  font-size: 0.94rem; font-weight: 600; text-decoration: none; white-space: nowrap;
+  color: var(--color-text-primary);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass);
+  border-radius: var(--radius-btn);
+  transition: all var(--transition-smooth);
+}
+.page-report-btn:hover {
+  color: #fff;
+  background: var(--color-accent-blue);
+  border-color: var(--color-accent-blue);
+}
+.page-report-btn:focus-visible {
+  outline: 3px solid #fff; outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(11, 16, 32, 0.92);
+}
+.page-report-btn svg { flex: none; }
+
 .footer {
   position: relative; z-index: 1; padding: 48px 0 32px;
   border-top: 1px solid var(--color-border-glass);
@@ -1292,6 +1343,10 @@ ul { list-style: none; }
 
   /* Adjust footer padding so it doesn't get hidden behind the bar */
   .footer { padding-bottom: 72px; }
+
+  /* A full-width button beats a small one floating under the sentence, and it
+     is the easier target on a phone. */
+  .page-report-btn { flex: 1 1 100%; justify-content: center; }
 
   @keyframes shareFloatIn {
     from { opacity: 0; transform: translateY(10px) scale(0.9); }

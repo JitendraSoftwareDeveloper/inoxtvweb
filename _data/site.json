@@ -7,12 +7,29 @@
   "support_window": "within 2 working days",
   "analytics_id": "G-KRV4ERFF8F",
   "ads_client": "ca-pub-6161953663322185",
+
+  "_ad_slot": "In-article unit id. The head loader ships on every page whatever this says; this only controls the two hand-placed units inside an article. Leave it empty until the account is approved, because the id does not exist before then and an empty one is broken ad code. Paste it here, run python build.py.",
+  "ad_slot": "",
+
+  "_cse_id": "Paste the hosted search engine id here, then run python build.py. While it is empty no search field, no /search/ page and no footer search link are written.",
+  "cse_id": "",
   "play_mobile": "https://play.google.com/store/apps/details?id=in.inoxtv.mobile",
   "play_tv": "https://play.google.com/store/apps/details?id=in.inoxtv.tv",
   "apk_tv": "https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk",
   "downloader_code": "2910810",
 
   "disclaimer": "InoxTV does not provide any sources of TV channels. To watch TV channels, add a playlist provided by your own IPTV service.",
+
+  "report_copy": {
+    "default": {
+      "heading": "Something wrong on this page?",
+      "sub": "A step that no longer matches the app, a label renamed in a later build, a setting that behaves differently on your device."
+    },
+    "search": {
+      "heading": "Search not finding it?",
+      "sub": "A phrase someone would reasonably type that turns up nothing useful here, or a result that answers a different question than the one you asked."
+    }
+  },
 
   "nav": [
     { "label": "Guides", "url": "/guides/" },
@@ -26,6 +43,7 @@
     {
       "heading": "Help centre",
       "links": [
+        { "label": "Search the help centre", "url": "/search/" },
         { "label": "Setup guides", "url": "/guides/" },
         { "label": "Features", "url": "/features/" },
         { "label": "Troubleshooting", "url": "/troubleshooting/" },

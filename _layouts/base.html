@@ -6,7 +6,7 @@
 
 <title>{{title}}</title>
 <meta name="description" content="{{description}}">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="robots" content="{{robots}}">
 <link rel="canonical" href="{{canonical}}">
 <meta name="theme-color" content="#0B1020">
 <meta name="color-scheme" content="dark">
@@ -48,6 +48,7 @@ gtag('js', new Date());
 gtag('config', '{{analytics_id}}');
 </script>
 {{ads_loader}}
+{{cse_loader}}
 {{jsonld}}
 </head>
 <body class="{{body_class}}">
@@ -56,6 +57,7 @@ gtag('config', '{{analytics_id}}');
 <main id="main">
 {{content}}
 </main>
+{{page_report}}
 {% include share-rail %}
 {% include footer %}
 <script src="/docs.js" defer></script>

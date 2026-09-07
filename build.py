@@ -9,6 +9,11 @@ registry so none of them can drift as pages are added.
 Adding a page is one new file in content/<section>/ plus a rebuild. Nothing
 else needs touching.
 
+Site search is off until "cse_id" in _data/site.json holds a hosted search
+engine id. With it set, the next build adds /search/, a field in the masthead
+and on every hub, and a footer link; with it empty none of those are written,
+so a search box that cannot answer anything never reaches the site.
+
     python build.py            build, then print a report
     python build.py --clean    delete previously generated output first
     python build.py --strict   exit 1 if anything was reported
@@ -50,6 +55,13 @@ MONTHS = ("January", "February", "March", "April", "May", "June", "July",
 
 # Phrasing that reads as piracy-adjacent to a policy reviewer. Checked against
 # the rendered page, not just the fragment, so a layout cannot smuggle it in.
+#
+# Every entry has to be unambiguous, because a false positive here trains
+# whoever runs the build to ignore the warnings. Protocol names (M3U, Xtream
+# Codes, Stalker Portal) are deliberately absent: those are formats the app
+# reads, and naming a format is not naming a source. "crack" is absent for the
+# same reason - audio crackles. So is "working playlist", which in these pages
+# means a playlist that already works, not one being handed out.
 BANNED = [
     "free iptv",
     "premium iptv",
@@ -57,6 +69,19 @@ BANNED = [
     "free channels",
     "watch free tv",
     "free live tv",
+    "unlimited channels",
+    "thousands of channels",
+    "no subscription needed",
+    "no subscription required",
+    "free playlist",
+    "playlist link below",
+    "playlist we provide",
+    "bypass geo",
+    "unblock channels",
+    "cracked apk",
+    "cracked version",
+    "torrent",
+    "pirated",
 ]
 
 
@@ -329,6 +354,7 @@ class Builder:
             links = "\n".join(
                 '          <li><a href="%s">%s</a></li>' % (l["url"], html.escape(l["label"]))
                 for l in col["links"]
+                if l["url"] != "/search/" or self.search_on()
             )
             blocks.append(
                 '      <div class="site-foot-col">\n'
@@ -337,14 +363,29 @@ class Builder:
             )
         return "\n".join(blocks)
 
+    def ad_slot_id(self, meta: dict) -> str:
+        """The in-article unit's id, or empty while there is no real one.
+
+        An <ins> with an empty data-ad-slot is broken ad code: the unit has no
+        identity, so it can never fill, and a reviewer sees containers that
+        render nothing. The id can only be created once the account is approved,
+        so until then the head loader ships alone and placement is left to the
+        automatic units, which need no id. Paste one into "ad_slot" and the next
+        build puts the two in-article units back.
+        """
+        return str(meta.get("ad_slot") or self.site.get("ad_slot") or "").strip()
+
     def ads_html(self, meta: dict, section: dict) -> str:
         """In-article slots, or nothing at all on a page without publisher content."""
         if not section.get("ads") or meta.get("ads") is False:
             return ""
+        slot = self.ad_slot_id(meta)
+        if not slot:
+            return ""
         return self.tpl.render(
             "partial",
             "ad-in-article",
-            {"ads_client": self.site["ads_client"], "ad_slot": meta.get("ad_slot", "")},
+            {"ads_client": self.site["ads_client"], "ad_slot": html.escape(slot, quote=True)},
         )
 
     # -- share -------------------------------------------------------------
@@ -370,6 +411,109 @@ class Builder:
             "share_email": "mailto:?subject=%s&body=%s" % (headline, long_form),
         }
         return {key: html.escape(value, quote=True) for key, value in targets.items()}
+
+    # -- report an error ---------------------------------------------------
+
+    def report_mail(self, canonical: str, h1: str) -> str:
+        """The mailto behind the report-an-error control on one page.
+
+        Prefilled with the page it was pressed on. Without that, a good share
+        of the corrections that arrive cannot be acted on, because nothing in
+        the message says which of thirty-odd pages it describes.
+        """
+        subject = quote("Error on: " + h1, safe="")
+        body = quote(
+            "Page: %s\n\n"
+            "What is wrong on this page:\n\n\n"
+            "Device and app version, if it matters:\n\n" % canonical,
+            safe="",
+        )
+        target = "mailto:%s?subject=%s&body=%s" % (
+            self.site["support_email"],
+            subject,
+            body,
+        )
+        return html.escape(target, quote=True)
+
+    def report_band(self, canonical: str, h1: str, variant: str = "default") -> str:
+        copy = self.site["report_copy"][variant]
+        return self.tpl.render(
+            "partial",
+            "page-report",
+            {
+                "report_h": html.escape(copy["heading"]),
+                "report_sub": copy["sub"],
+                "report_mail": self.report_mail(canonical, h1),
+                "support_email": self.site["support_email"],
+            },
+        )
+
+    # -- search ------------------------------------------------------------
+
+    SEARCH_ICON = (
+        '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none"'
+        ' stroke="currentColor" stroke-width="2" stroke-linecap="round">'
+        '<circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.3-4.3"></path></svg>'
+    )
+
+    SEARCH_PLACEHOLDER = {
+        "nav": "Search help",
+        "hub": "Search every page: buffering, playlist, TV guide",
+    }
+
+    def search_on(self) -> bool:
+        """Search ships only once a search engine id sits in _data/site.json.
+
+        A box that returns nothing is worse than no box, so the field, the
+        results page and the footer link are all built from this one flag.
+        """
+        return bool(str(self.site.get("cse_id") or "").strip())
+
+    def search_form(self, variant: str) -> str:
+        """A plain GET form aimed at /search/.
+
+        Deliberately not the hosted search-box widget: that needs the search
+        provider's script on all thirty-seven pages for a control most visitors
+        never touch. A form needs no script at all, so search keeps working
+        with JavaScript switched off and the third-party request happens on the
+        results page only.
+        """
+        if not self.search_on():
+            return ""
+        field = "q-" + variant
+        # One search landmark per page, and it is always the masthead one, so
+        # landmark navigation lands in the same place everywhere. The hero form
+        # on a hub submits to the same address and needs no second landmark.
+        role = ' role="search"' if variant == "nav" else ""
+        label = (
+            '<span class="sr-only">Search</span>'
+            if variant == "nav"
+            else '<span class="site-search-go-label">Search</span>'
+        )
+        return (
+            '<form class="site-search site-search--%s"%s'
+            ' action="/search/" method="get">\n'
+            '        <label class="sr-only" for="%s">Search the InoxTV help centre</label>\n'
+            '        <input class="site-search-field" type="search" id="%s" name="q"'
+            ' placeholder="%s" autocomplete="off" enterkeyhint="search">\n'
+            '        <button class="site-search-go" type="submit">%s%s</button>\n'
+            "      </form>"
+            % (
+                variant,
+                role,
+                field,
+                field,
+                html.escape(self.SEARCH_PLACEHOLDER[variant], quote=True),
+                self.SEARCH_ICON,
+                label,
+            )
+        )
+
+    def cse_loader(self) -> str:
+        if not self.search_on():
+            return ""
+        cx = html.escape(quote(str(self.site["cse_id"]).strip(), safe=":"), quote=True)
+        return '<script async src="https://cse.google.com/cse.js?cx=%s"></script>' % cx
 
     # -- structured data ---------------------------------------------------
 
@@ -467,17 +611,18 @@ class Builder:
     # -- rendering ---------------------------------------------------------
 
     def shell(self, *, title, description, canonical, og_type, body_class,
-              content, jsonld, current_section, ads, share) -> str:
-        # A page with no slot makes no ad request at all: loading the script
-        # where nothing can render it is pointless, and on a policy page it
-        # invites exactly the wrong reading.
-        ads_loader = ""
-        if ads:
-            ads_loader = (
-                '<script async src="https://pagead2.googlesyndication.com/pagead/js/'
-                'adsbygoogle.js?client=%s" crossorigin="anonymous"></script>'
-                % self.site["ads_client"]
-            )
+              content, jsonld, current_section, share, report,
+              robots="index, follow, max-image-preview:large, max-snippet:-1",
+              cse=False) -> str:
+        # The loader goes in the head of every page without exception, which is
+        # what the programme asks for: it is how the site is verified and how
+        # automatic placements reach pages that carry no hand-placed slot.
+        # Whether a page shows an ad is a separate decision, made by ads_html().
+        ads_loader = (
+            '<script async src="https://pagead2.googlesyndication.com/pagead/js/'
+            'adsbygoogle.js?client=%s" crossorigin="anonymous"></script>'
+            % self.site["ads_client"]
+        )
         return self.tpl.render(
             "layout",
             "base",
@@ -488,14 +633,18 @@ class Builder:
                 "canonical": canonical,
                 "base_url": self.base,
                 "og_type": og_type,
+                "robots": robots,
                 "body_class": body_class,
                 "analytics_id": self.site["analytics_id"],
                 "ads_loader": ads_loader,
+                "cse_loader": self.cse_loader() if cse else "",
                 "jsonld": jsonld,
                 "nav_links": self.nav_links(current_section),
+                "search_nav": self.search_form("nav"),
                 "footer_columns": self.footer_columns(),
                 "disclaimer": html.escape(self.site["disclaimer"]),
                 "content": content,
+                "page_report": report,
                 **share,
             },
         )
@@ -563,8 +712,8 @@ class Builder:
             content=rendered,
             jsonld=ld,
             current_section="" if is_policy else page["section"],
-            ads=bool(ads),
             share=share,
+            report=self.report_band(canonical, meta["h1"]),
         )
         self.emit(os.path.join(page["slug"], "index.html"), out)
         self.audit(page, out)
@@ -593,6 +742,7 @@ class Builder:
                 "breadcrumbs": breadcrumbs_html(trail),
                 "h1": html.escape(section["h1"]),
                 "lede": section.get("lede", ""),
+                "search_hero": self.search_form("hub"),
                 "content": "",
                 "groups": "\n".join(groups),
                 "disclaimer": html.escape(self.site["disclaimer"]),
@@ -626,13 +776,80 @@ class Builder:
             content=rendered,
             jsonld=ld,
             current_section=key,
-            ads=False,  # a hub is an index; the prose lives on the pages it links to
             share=self.share_links(canonical, section["h1"], section["description"]),
+            report=self.report_band(canonical, section["h1"]),
         )
         self.emit(os.path.join(key, "index.html"), out)
         self.hubs += 1
         if not pages:
             self.warn("hub /%s/ has no pages yet" % key)
+
+    def render_search(self) -> None:
+        """The one page that loads the hosted search script.
+
+        Results are read from ?q= in the address, so the boxes elsewhere on the
+        site stay plain forms and this page still works when it is reached from
+        a bookmark or a pasted link. It carries no ad slot and asks not to be
+        indexed: a results page has no content of its own to offer either one.
+        """
+        if not self.search_on():
+            return
+        url = "/search/"
+        canonical = self.base + url
+        h1 = "Search the help centre"
+        description = (
+            "Search every InoxTV setup guide, feature page and troubleshooting fix "
+            "for Android TV, Fire TV and Android phones in one place."
+        )
+        trail = [("Home", "/"), ("Search", url)]
+
+        cards = []
+        for key, section in self.site["sections"].items():
+            if section.get("hub") is False:
+                continue
+            if not any(p["section"] == key for p in self.pages):
+                continue
+            cards.append(
+                '        <li><a href="/%s/">\n          <h3>%s</h3>\n'
+                "          <p>%s</p>\n        </a></li>"
+                % (key, html.escape(section["title"]), html.escape(section["description"]))
+            )
+        browse = (
+            '    <section class="hub-group" aria-labelledby="g-browse">\n'
+            '      <h2 id="g-browse">Or work through a section</h2>\n'
+            '      <ul class="hub-cards">\n%s\n      </ul>\n    </section>' % "\n".join(cards)
+        )
+
+        rendered = self.tpl.render(
+            "layout",
+            "search",
+            {
+                "breadcrumbs": breadcrumbs_html(trail),
+                "h1": html.escape(h1),
+                "lede": "Everything in the help centre is indexed here: the setup "
+                        "guides, the feature pages, the key reference and every fix. "
+                        "Search for the message on screen or the setting you are "
+                        "looking at.",
+                "search_hero": self.search_form("hub"),
+                "groups": browse,
+                "disclaimer": html.escape(self.site["disclaimer"]),
+            },
+        )
+        out = self.shell(
+            title="Search InoxTV help and guides | InoxTV",
+            description=description,
+            canonical=canonical,
+            og_type="website",
+            body_class="page-hub page-search",
+            content=rendered,
+            jsonld=jsonld_block(self.breadcrumb_ld(trail)),
+            current_section="search",
+            share=self.share_links(canonical, h1, description),
+            report=self.report_band(canonical, h1, "search"),
+            robots="noindex, follow",
+            cse=True,
+        )
+        self.emit(os.path.join("search", "index.html"), out)
 
     @staticmethod
     def hub_group(heading: str, gid: str, members: list[dict]) -> str:
@@ -694,6 +911,13 @@ class Builder:
                 self.warn("%s: contains banned phrasing '%s'" % (page["slug"], phrase))
         if 'class="adsbygoogle"' in rendered and page["section"] == "policy":
             self.warn("%s: policy page must carry no ad slot" % page["slug"])
+        # The loader belongs in the head of every page without exception. Checked
+        # per page so that a layout edit cannot quietly drop it from one of them.
+        head = rendered[: rendered.lower().find("</head>")]
+        if "googlesyndication.com/pagead/js/adsbygoogle.js" not in head:
+            self.warn("%s: no ad loader in <head>" % page["slug"])
+        if 'data-ad-slot=""' in rendered:
+            self.warn("%s: ad unit with an empty slot id" % page["slug"])
 
     def check_links(self) -> None:
         """Warn on any root-relative href or img src that will 404.
@@ -708,6 +932,8 @@ class Builder:
             for key, section in self.site["sections"].items()
             if section.get("hub") is not False
         }
+        if self.search_on():
+            pages.add("/search/")
 
         for page in self.pages:
             targets = set(re.findall(r'(?:href|src)="(/[^"#]*)', page["body"]))
@@ -808,6 +1034,7 @@ class Builder:
             if section.get("hub") is False:
                 continue
             self.render_hub(key, section)
+        self.render_search()
         self.sitemap()
         self.check_links()
         self.check_reachability()
@@ -825,6 +1052,16 @@ class Builder:
             total = sum(p["words"] for p in pages)
             print("  %-16s %2d pages  %6d words" % (key, len(pages), total))
         print("  %-16s %6d words total" % ("", sum(p["words"] for p in self.pages)))
+        slot = self.ad_slot_id({})
+        if slot:
+            print("  ads              loader on every page + in-article unit %s" % slot)
+        else:
+            print("  ads              loader on every page, no in-article unit:")
+            print('                   set "ad_slot" in _data/site.json once approved')
+        if self.search_on():
+            print('  search           on, /search/ built')
+        else:
+            print('  search           off: set "cse_id" in _data/site.json to switch it on')
         if self.warnings:
             print("\n%d thing(s) to look at:" % len(self.warnings))
             for message in self.warnings:

@@ -12,9 +12,17 @@ Allow: /
 # it is not a page a visitor should land on from a search result.
 Disallow: /images/diagrams/preview.html
 
-# Working notes that live in the repo root. They are not site content and read
-# nothing like it, so keep them out of the index.
-Disallow: /inoxtv_website_plan.md
-Disallow: /inoxtv_adsense_plan.md
+# The advertising and measurement crawlers need every page that carries ads,
+# which is every page. Spelled out rather than left to the wildcard above: a
+# named agent ignores the * block entirely, so if a Disallow is ever added up
+# there for an unrelated reason, ad serving does not quietly break with it.
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
 
 Sitemap: https://inoxtv.com/sitemap.xml

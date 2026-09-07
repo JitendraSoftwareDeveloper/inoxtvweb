@@ -40,6 +40,36 @@
     });
   }
 
+  /* ---- search: carry the query back into the field --------------------- */
+  // The results element reads ?q= for itself. The form is static markup and
+  // cannot, so without this the box on /search/?q=buffering sits empty beside
+  // its own results, and editing a search means retyping it.
+  var queryString = window.location.search;
+
+  if (queryString.length > 1) {
+    var query = "";
+
+    queryString.slice(1).split("&").forEach(function (pair) {
+      var eq = pair.indexOf("=");
+      if ((eq === -1 ? pair : pair.slice(0, eq)) !== "q") return;
+      var raw = (eq === -1 ? "" : pair.slice(eq + 1)).replace(/\+/g, " ");
+      try {
+        query = decodeURIComponent(raw);
+      } catch (err) {
+        query = raw; // a hand-edited address can carry a stray percent sign
+      }
+    });
+
+    if (query) {
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".site-search-field"),
+        function (field) {
+          field.value = query;
+        }
+      );
+    }
+  }
+
   /* ---- table of contents: mark the section being read ----------------- */
   var toc = document.querySelector(".toc");
 
