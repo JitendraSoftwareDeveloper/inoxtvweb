@@ -349,13 +349,7 @@ class Builder:
 
     # -- share -------------------------------------------------------------
 
-    SHARE_NOTES = {
-        "doc": "If this answered it for you, the link will do the same for someone else.",
-        "hub": "A link straight to this section, rather than to the front page.",
-        "policy": "The direct address for this page, if you need to send it to anyone.",
-    }
-
-    def share_links(self, canonical: str, h1: str, summary: str, note: str) -> dict:
+    def share_links(self, canonical: str, h1: str, summary: str) -> dict:
         """Pre-built share targets for one page.
 
         Assembled here rather than in the browser for two reasons: every button
@@ -375,9 +369,7 @@ class Builder:
             "share_linkedin": "https://www.linkedin.com/sharing/share-offsite/?url=" + url,
             "share_email": "mailto:?subject=%s&body=%s" % (headline, long_form),
         }
-        ctx = {key: html.escape(value, quote=True) for key, value in targets.items()}
-        ctx["share_note"] = html.escape(self.SHARE_NOTES[note])
-        return ctx
+        return {key: html.escape(value, quote=True) for key, value in targets.items()}
 
     # -- structured data ---------------------------------------------------
 
@@ -475,7 +467,7 @@ class Builder:
     # -- rendering ---------------------------------------------------------
 
     def shell(self, *, title, description, canonical, og_type, body_class,
-              content, jsonld, current_section, ads) -> str:
+              content, jsonld, current_section, ads, share) -> str:
         # A page with no slot makes no ad request at all: loading the script
         # where nothing can render it is pointless, and on a policy page it
         # invites exactly the wrong reading.
@@ -504,6 +496,7 @@ class Builder:
                 "footer_columns": self.footer_columns(),
                 "disclaimer": html.escape(self.site["disclaimer"]),
                 "content": content,
+                **share,
             },
         )
 
@@ -526,6 +519,7 @@ class Builder:
             toc_items.append(("faq-h", "Questions people ask"))
         ads = self.ads_html(meta, section)
         body_out = insert_ads(body_out, ads)
+        share = self.share_links(canonical, meta["h1"], meta["description"])
 
         rendered = self.tpl.render(
             "layout",
@@ -541,12 +535,6 @@ class Builder:
                 "related": related_html(meta, self.registry, self.warn),
                 "toc": build_toc(toc_items),
                 "disclaimer": html.escape(self.site["disclaimer"]),
-                **self.share_links(
-                    canonical,
-                    meta["h1"],
-                    meta["description"],
-                    "policy" if is_policy else "doc",
-                ),
             },
         )
 
@@ -576,6 +564,7 @@ class Builder:
             jsonld=ld,
             current_section="" if is_policy else page["section"],
             ads=bool(ads),
+            share=share,
         )
         self.emit(os.path.join(page["slug"], "index.html"), out)
         self.audit(page, out)
@@ -607,9 +596,6 @@ class Builder:
                 "content": "",
                 "groups": "\n".join(groups),
                 "disclaimer": html.escape(self.site["disclaimer"]),
-                **self.share_links(
-                    canonical, section["h1"], section["description"], "hub"
-                ),
             },
         )
         ld = jsonld_block(
@@ -641,6 +627,7 @@ class Builder:
             jsonld=ld,
             current_section=key,
             ads=False,  # a hub is an index; the prose lives on the pages it links to
+            share=self.share_links(canonical, section["h1"], section["description"]),
         )
         self.emit(os.path.join(key, "index.html"), out)
         self.hubs += 1

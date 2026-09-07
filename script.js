@@ -590,10 +590,11 @@ function typewriter(element, text, speed = 50) {
    Social Share Buttons
    ============================================= */
 function initShareButtons() {
-  // A page that is not the home page states its own three values on the row;
-  // the defaults below are the home page's.
-  const row = document.getElementById('share-buttons-inline');
-  const own = row ? row.dataset : {};
+  // A page that is not the home page states its own three values, on whichever
+  // of the two share blocks it carries; the defaults below are the home page's.
+  const source = document.getElementById('share-buttons-inline') ||
+                 document.getElementById('share-float');
+  const own = source ? source.dataset : {};
   const shareUrl = own.shareUrl || 'https://inoxtv.com';
   const shareTitle = own.shareTitle || 'InoxTV — IPTV player for Android TV, Fire TV and mobile';
   const shareText = own.shareText || 'InoxTV plays your own M3U, Xtream Codes or Stalker Portal playlist on Android TV, Fire TV and Android phones, with a proper TV guide and remappable remote keys. Free on Google Play.';
@@ -634,52 +635,75 @@ function initShareButtons() {
     });
   });
 
-  // Copy Link button handler
-  const copyBtn = document.getElementById('share-inline-copylink');
-  if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        const label = copyBtn.querySelector('span');
-        const originalText = label.textContent;
-        label.textContent = '✓ Copied!';
-        copyBtn.classList.add('copied');
-        trackEvent('share_click', { platform: 'copy_link', location: 'inline_section' });
-        setTimeout(() => {
-          label.textContent = originalText;
-          copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(() => {
-        // Fallback for older browsers
-        const input = document.createElement('input');
-        input.value = shareUrl;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-        const label = copyBtn.querySelector('span');
-        label.textContent = '✓ Copied!';
-        copyBtn.classList.add('copied');
-        setTimeout(() => {
-          label.textContent = 'Copy Link';
-          copyBtn.classList.remove('copied');
+  // Copy Link — the inline button carries a text label and the floating one is
+  // an icon, so the outcome is written to whichever the button actually has,
+  // plus a live region for anyone listening rather than looking.
+  const status = document.getElementById('share-float-status');
+
+  const copyToClipboard = (text) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    // Older browsers, and any page served without a secure context.
+    return new Promise((resolve, reject) => {
+      const input = document.createElement('input');
+      input.value = text;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.top = '-1000px';
+      document.body.appendChild(input);
+      input.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(input);
+      if (ok) resolve(); else reject();
+    });
+  };
+
+  const wireCopyButton = (btn, location) => {
+    if (!btn) return;
+    const label = btn.querySelector('span');
+    const idle = label ? label.textContent : '';
+    let timer = null;
+    btn.addEventListener('click', () => {
+      copyToClipboard(shareUrl).then(() => {
+        btn.classList.add('copied');
+        if (label) label.textContent = '✓ Copied!';
+        if (status) status.textContent = 'Link copied to the clipboard';
+        trackEvent('share_click', { platform: 'copy_link', location });
+      }, () => {
+        if (label) label.textContent = 'Copy failed';
+        if (status) status.textContent = 'Could not copy the link';
+      }).then(() => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          btn.classList.remove('copied');
+          if (label) label.textContent = idle;
+          if (status) status.textContent = '';
         }, 2000);
       });
     });
-  }
+  };
+
+  wireCopyButton(document.getElementById('share-inline-copylink'), 'inline_section');
+  wireCopyButton(document.getElementById('share-float-copylink'), 'floating_bar');
 
   // System share sheet — the only route to whatever app the reader actually
   // uses, so it is offered wherever the browser provides one and stays hidden
   // where it does not.
-  const nativeBtn = document.getElementById('share-inline-native');
-  if (nativeBtn && navigator.share) {
-    nativeBtn.hidden = false;
-    nativeBtn.addEventListener('click', () => {
+  const wireNativeButton = (btn, location) => {
+    if (!btn || !navigator.share) return;
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
       navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).then(
-        () => trackEvent('share_click', { platform: 'system_sheet', location: 'inline_section' }),
+        () => trackEvent('share_click', { platform: 'system_sheet', location }),
         () => {}  // dismissing the sheet rejects too; nothing to report either way
       );
     });
-  }
+  };
+
+  wireNativeButton(document.getElementById('share-inline-native'), 'inline_section');
+  wireNativeButton(document.getElementById('share-float-native'), 'floating_bar');
 
   // Floating bar visibility — show after scrolling past hero
   const shareFloat = document.getElementById('share-float');

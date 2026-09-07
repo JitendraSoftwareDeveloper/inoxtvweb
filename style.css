@@ -1088,11 +1088,11 @@ ul { list-style: none; }
 .share-float {
   position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
   display: flex; flex-direction: column; gap: 10px; z-index: 999;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
 }
 .share-float.visible {
-  opacity: 1; pointer-events: auto;
+  opacity: 1; visibility: visible; pointer-events: auto;
 }
 
 .share-float-btn {
@@ -1100,11 +1100,17 @@ ul { list-style: none; }
   width: 46px; height: 46px; border-radius: 14px;
   color: #fff; text-decoration: none;
   transition: all var(--transition-smooth);
-  position: relative; overflow: hidden;
+  /* No overflow clip: the hover tooltip is an ::after placed outside the
+     button, and this element is its containing block. */
+  position: relative;
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  padding: 0; font: inherit; cursor: pointer;
 }
+/* The system-sheet button is revealed by script where the browser has one, so
+   the display above has to be cancelled explicitly. */
+.share-float-btn[hidden] { display: none; }
 .share-float-btn svg { position: relative; z-index: 1; }
 .share-float-btn:hover {
   transform: scale(1.15) translateX(4px);
@@ -1143,6 +1149,45 @@ ul { list-style: none; }
   box-shadow: 0 6px 24px rgba(233, 30, 144, 0.5);
 }
 
+/* Floating — Copy link */
+.share-float-copylink {
+  background: linear-gradient(135deg, #5FD3A0, #2F9E78);
+}
+.share-float-copylink:hover {
+  box-shadow: 0 6px 24px rgba(95, 211, 160, 0.5);
+}
+
+/* The tick replaces the link icon; the script also writes the outcome into
+   .share-float-status for anyone listening rather than looking. */
+.share-float-done { display: none; }
+.share-float-copylink.copied .share-float-idle { display: none; }
+.share-float-copylink.copied .share-float-done { display: block; }
+
+/* Floating — More apps */
+.share-float-native {
+  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-bg-tertiary));
+}
+.share-float-native:hover {
+  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+}
+
+.share-float-status {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* A ring bright enough to find from across a room, with a dark halo so it reads
+   against whichever brand colour sits under it. TV remotes land here. */
+.share-float-btn:focus-visible,
+.share-btn-inline:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(11, 16, 32, 0.92);
+}
+
 /* Floating — Reddit */
 .share-float-reddit {
   background: linear-gradient(135deg, #FF4500, #D93A00);
@@ -1179,6 +1224,8 @@ ul { list-style: none; }
 .share-float.visible .share-float-btn:nth-child(5) { animation-delay: 0.24s; }
 .share-float.visible .share-float-btn:nth-child(6) { animation-delay: 0.30s; }
 .share-float.visible .share-float-btn:nth-child(7) { animation-delay: 0.36s; }
+.share-float.visible .share-float-btn:nth-child(8) { animation-delay: 0.42s; }
+.share-float.visible .share-float-btn:nth-child(9) { animation-delay: 0.48s; }
 
 @keyframes shareFloatIn {
   from { opacity: 0; transform: translateX(-20px) scale(0.8); }
@@ -1214,7 +1261,10 @@ ul { list-style: none; }
     border-radius: 0;
   }
   .share-float-btn {
-    width: 42px; height: 40px; border-radius: 10px;
+    /* Nine fixed-width buttons would run past a 320px screen and drag a
+       horizontal scrollbar onto the page, so the row divides the width it has. */
+    flex: 1 1 0; min-width: 0; width: auto; max-width: 46px;
+    height: 40px; border-radius: 10px;
     border: none; box-shadow: none;
     background: transparent;
   }
@@ -1228,6 +1278,8 @@ ul { list-style: none; }
   .share-float-linkedin { color: #0A66C2; }
   .share-float-telegram { color: #2AABEE; }
   .share-float-email { color: var(--color-accent-pink); }
+  .share-float-copylink { color: #5FD3A0; }
+  .share-float-native { color: #7FB2FF; }
   .share-float-whatsapp:hover { background: rgba(37, 211, 102, 0.15); color: #25D366; }
   .share-float-twitter:hover { background: rgba(255, 255, 255, 0.1); color: #E7E9EA; }
   .share-float-facebook:hover { background: rgba(24, 119, 242, 0.15); color: #1877F2; }
@@ -1235,6 +1287,8 @@ ul { list-style: none; }
   .share-float-linkedin:hover { background: rgba(10, 102, 194, 0.15); color: #0A66C2; }
   .share-float-telegram:hover { background: rgba(42, 171, 238, 0.15); color: #2AABEE; }
   .share-float-email:hover { background: rgba(233, 30, 144, 0.15); color: var(--color-accent-pink); }
+  .share-float-copylink:hover { background: rgba(95, 211, 160, 0.15); color: #5FD3A0; }
+  .share-float-native:hover { background: rgba(127, 178, 255, 0.15); color: #7FB2FF; }
 
   /* Adjust footer padding so it doesn't get hidden behind the bar */
   .footer { padding-bottom: 72px; }

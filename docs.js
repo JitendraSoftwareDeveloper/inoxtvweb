@@ -87,10 +87,10 @@
     }
   }
 
-  /* ---- share row ------------------------------------------------------ */
-  var share = document.querySelector(".share");
+  /* ---- share rail ------------------------------------------------------ */
+  var rail = document.querySelector(".share-rail");
 
-  if (share) {
+  if (rail) {
     var canonical = document.querySelector('link[rel="canonical"]');
     var description = document.querySelector('meta[name="description"]');
     // Every generated page carries a canonical link, so this is the page's own
@@ -122,30 +122,29 @@
       return copied;
     };
 
-    var copyBtn = share.querySelector('[data-share="copy"]');
-    var copyLabel = copyBtn && copyBtn.querySelector("span");
-    var copyIdle = copyLabel ? copyLabel.textContent : "";
+    var copyBtn = rail.querySelector('[data-share="copy"]');
+    var live = rail.querySelector(".rail-live");
     var copyTimer = null;
 
+    // The button is an icon, so the outcome has to be said as well as drawn.
     var reportCopy = function (copied) {
-      if (!copyLabel) return;
-      copyLabel.textContent = copied ? "Link copied" : "Copy failed";
-      copyBtn.classList.toggle("is-done", copied);
+      if (copyBtn) copyBtn.classList.toggle("is-done", copied);
+      if (live) live.textContent = copied ? "Link copied to the clipboard" : "Could not copy the link";
       if (copied) track("copy_link");
       window.clearTimeout(copyTimer);
       copyTimer = window.setTimeout(function () {
-        copyLabel.textContent = copyIdle;
-        copyBtn.classList.remove("is-done");
-      }, 2200);
+        if (copyBtn) copyBtn.classList.remove("is-done");
+        if (live) live.textContent = "";
+      }, 2600);
     };
 
     // The system share sheet is the only route to whatever the reader actually
     // uses, so it is offered wherever the browser has one and stays out of the
     // way where it does not.
-    var native = share.querySelector(".share-native");
+    var native = rail.querySelector(".rail-btn--more");
     if (native && navigator.share) native.hidden = false;
 
-    share.addEventListener("click", function (event) {
+    rail.addEventListener("click", function (event) {
       var button = event.target.closest("[data-share]");
       if (!button) return;
       var platform = button.getAttribute("data-share");

@@ -712,102 +712,6 @@ td code.hex {
 .rel-title { color: var(--ink); font-weight: 500; line-height: 1.4; }
 
 /* --------------------------------------------------------------------------
-   share row — sits at the foot of every generated page
-   Declared after the .doc-body base rules on purpose: these selectors tie with
-   .doc-body h2 / .doc-body p on specificity and win on source order, the same
-   way .related above does.
-   -------------------------------------------------------------------------- */
-
-.share {
-  margin-top: 3rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid var(--line);
-}
-
-.share h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.share .share-note {
-  margin: 0.35rem 0 1.1rem;
-  color: var(--ink-3);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-.share .share-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.share .share-list li { margin: 0; }
-.share .share-list li[hidden] { display: none; }
-
-.share-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.4rem;
-  padding: 0.5rem 0.85rem;
-  color: var(--ink-2);
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
-  white-space: nowrap;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: color 0.16s, background 0.16s, border-color 0.16s;
-}
-
-.share-btn svg { flex: none; }
-
-.share-btn:hover,
-.share-btn:focus-visible {
-  color: var(--net);
-  background: var(--card-hover);
-  border-color: var(--net);
-}
-
-/* The global :focus-visible rule squares corners off to 4px so the outline
-   hugs plain text links; a pill has to state its own radius back. */
-.share-btn:focus-visible { border-radius: 999px; }
-
-/* One brand tint per network, spent only on the hover state so the row stays
-   quiet while it is being read past. */
-.share-btn { --net: var(--accent); }
-.share-btn--whatsapp { --net: #25d366; }
-.share-btn--telegram { --net: #37aee2; }
-.share-btn--reddit { --net: #ff5c1f; }
-.share-btn--twitter { --net: var(--ink); }
-.share-btn--facebook { --net: #4d90ff; }
-.share-btn--linkedin { --net: #3d9be9; }
-.share-btn--email { --net: var(--warn); }
-.share-btn--copy { --net: var(--go); }
-
-.share-btn--copy.is-done {
-  color: var(--go);
-  border-color: var(--go);
-  background: var(--go-soft);
-}
-
-@media (max-width: 520px) {
-  .share-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
-  .share .share-list { gap: 0.4rem; }
-}
-
-/* --------------------------------------------------------------------------
    hubs
    -------------------------------------------------------------------------- */
 
@@ -938,6 +842,172 @@ td code.hex {
 .site-foot-base p:last-child { max-width: 62ch; }
 
 /* --------------------------------------------------------------------------
+   share rail
+
+   The two positions the home page uses, on every generated page: a bar across
+   the bottom by default, and a column down the left once the window is wide
+   enough that the column cannot reach the text. It sits outside <main> in the
+   layout, so it is chrome rather than part of the article, and every button is
+   a real link built at publish time — the script below only adds the clipboard
+   and the system share sheet.
+
+   Declared after .site-foot on purpose: bar mode needs the footer to carry
+   bottom padding, and that means overriding the padding set above.
+   -------------------------------------------------------------------------- */
+
+.share-rail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 45; /* under the sticky masthead (50) and the skip link (100) */
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0.45rem 0.4rem;
+  background: rgba(11, 16, 32, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--line);
+}
+
+/* Clearance so the bar never covers the last line of the footer. */
+.site-foot { padding-bottom: 5.6rem; }
+
+.rail-btn {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 3.25rem;
+  height: 2.6rem;
+  padding: 0;
+  color: var(--net-ink);
+  font: inherit;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* display: flex above would keep the system-sheet button on screen. */
+.rail-btn[hidden] { display: none; }
+.rail-btn svg { flex: none; pointer-events: none; }
+.rail-btn:hover { background: var(--card-hover); }
+
+/* A ring bright enough to find from across a room, with a dark halo so it
+   reads against whichever brand colour sits under it. TV remotes land here. */
+.rail-btn:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+  box-shadow: 0 0 0 6px rgba(11, 16, 32, 0.92);
+}
+
+/* One brand colour per network: flat on the bar, a gradient on the column.
+   X keeps a near-white mark, since its own black would vanish either way. */
+.rail-btn--whatsapp { --net-a: #25d366; --net-b: #128c7e; --net-ink: #25d366; }
+.rail-btn--telegram { --net-a: #2aabee; --net-b: #229ed9; --net-ink: #2aabee; }
+.rail-btn--reddit   { --net-a: #ff4500; --net-b: #d93a00; --net-ink: #ff5c1f; }
+.rail-btn--twitter  { --net-a: #1a1a2e; --net-b: #16213e; --net-ink: var(--ink); }
+.rail-btn--facebook { --net-a: #1877f2; --net-b: #0c5dc7; --net-ink: #4d90ff; }
+.rail-btn--linkedin { --net-a: #0a66c2; --net-b: #004182; --net-ink: #3d9be9; }
+.rail-btn--email    { --net-a: #e91e90; --net-b: #8b5cf6; --net-ink: #f472b6; }
+.rail-btn--copy     { --net-a: #5fd3a0; --net-b: #2f9e78; --net-ink: var(--go); }
+.rail-btn--more     { --net-a: #7fb2ff; --net-b: #3b82f6; --net-ink: var(--accent); }
+
+/* Copy feedback: the tick replaces the link icon, and the script also writes
+   the outcome into .rail-live for anyone listening rather than looking. */
+.rail-icon-done { display: none; }
+.rail-btn--copy.is-done .rail-icon-idle { display: none; }
+.rail-btn--copy.is-done .rail-icon-done { display: block; }
+
+.rail-live {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The column. 1300px is where the 46px button plus its gutter clears the text:
+   below it the shell runs edge to edge and the two would overlap. The height
+   floor keeps a short window on the bar instead of pushing the column under
+   the masthead. */
+@media (min-width: 1300px) and (min-height: 700px) {
+  .share-rail {
+    left: 20px;
+    right: auto;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-top: 0;
+  }
+
+  .rail-btn {
+    flex: none;
+    width: 46px;
+    max-width: none;
+    height: 46px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--net-a), var(--net-b));
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .rail-btn:hover {
+    transform: scale(1.12) translateX(4px);
+    background: linear-gradient(135deg, var(--net-a), var(--net-b));
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+  }
+
+  .rail-btn:focus-visible { border-radius: var(--r); }
+
+  /* The tooltip reads from title=, so the label lives in one place in the
+     markup and aria-label still supplies the accessible name. */
+  .rail-btn::after {
+    content: attr(title);
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.3rem 0.6rem;
+    color: var(--ink);
+    font-size: 0.76rem;
+    font-weight: 500;
+    line-height: 1.3;
+    white-space: nowrap;
+    background: rgba(11, 16, 32, 0.96);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .rail-btn:hover::after,
+  .rail-btn:focus-visible::after { opacity: 1; }
+
+  .site-foot { padding-bottom: 2rem; }
+}
+
+/* Stated last so it survives both modes. */
+.rail-btn--copy.is-done { box-shadow: 0 0 0 2px var(--go); }
+
+/* --------------------------------------------------------------------------
    ad slot
    -------------------------------------------------------------------------- */
 
@@ -952,7 +1022,7 @@ td code.hex {
    -------------------------------------------------------------------------- */
 
 @media print {
-  .site-head, .site-foot, .toc, .ad-slot, .related, .band { display: none !important; }
+  .site-head, .site-foot, .toc, .ad-slot, .related, .band, .share-rail { display: none !important; }
   body { background: #fff; color: #111; }
   .doc-body, .doc-body p, .doc-body li { color: #111; }
   .doc-grid { display: block; }
