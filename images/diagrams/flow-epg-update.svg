@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" role="img"
+     aria-labelledby="epgTitle epgDesc" width="880" height="400">
+  <title id="epgTitle">What happens during a TV guide update, and where it can fail</title>
+  <desc id="epgDesc">A four-stage pipeline. One: every attached TV guide source is downloaded in turn. Two: the XMLTV data is parsed into channels and programmes. Three: each channel identifier is compared with the identifiers in your playlist. Four: matched programmes are stored, including the configured number of past days. Downloading and parsing report their failures with named messages such as unable to reach the TV guide server, an update timeout, not enough memory, or a guide too large for the device. Matching fails silently: the update reports success and the guide stays empty because the channel identifiers do not correspond.</desc>
+
+  <style>
+    .d-svg {
+      --ink:      #E9EEF8;
+      --strong:   #FFFFFF;
+      --muted:    #9AA7BE;
+      --faint:    #6F7C96;
+      --surface:  #161B2A;
+      --card:     #1E2540;
+      --edge:     #2E3654;
+      --accent:   #7FB2FF;
+      --deep:     #3B82F6;
+      --warn:     #F2C879;
+      --stop:     #FF8F6B;
+      --go:       #5FD3A0;
+    }
+    .d-svg text { font-family: Outfit, Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .card     { fill: var(--card); stroke: var(--edge); stroke-width: 1.5; }
+    .band     { fill: var(--card); stroke: var(--edge); stroke-width: 1.5; }
+    .eyebrow  { font-size: 10.5px; font-weight: 700; letter-spacing: .14em; fill: var(--faint); }
+    .chip     { fill: var(--deep); }
+    .chip-num { fill: #FFFFFF; font-size: 14px; font-weight: 700; text-anchor: middle; }
+    .title    { font-size: 15px; font-weight: 700; fill: var(--strong); }
+    .line     { font-size: 12px; fill: var(--muted); }
+    .flow     { stroke: var(--faint); stroke-width: 1.5; fill: none; }
+    .head     { fill: var(--faint); }
+    .band-lbl-warn { font-size: 10.5px; font-weight: 700; letter-spacing: .13em; fill: var(--warn); }
+    .band-lbl-stop { font-size: 10.5px; font-weight: 700; letter-spacing: .13em; fill: var(--stop); }
+    .quote    { font-size: 12.5px; fill: var(--ink); }
+    .body     { font-size: 12.5px; fill: var(--muted); }
+    .note     { font-size: 13px; fill: var(--ink); }
+  </style>
+
+  <g class="d-svg">
+    <rect x="0" y="0" width="880" height="400" fill="var(--surface)"/>
+
+    <text class="eyebrow" x="16" y="34">CHOOSING “UPDATE TV GUIDE” RUNS FOUR STAGES</text>
+
+    <!-- ===== stage 1 ===== -->
+    <rect class="card" x="16" y="56" width="194" height="112" rx="10"/>
+    <circle class="chip" cx="38" cy="82" r="13"/><text class="chip-num" x="38" y="87">1</text>
+    <text class="title" x="60" y="88">Fetch</text>
+    <text class="line" x="34" y="114">Every attached source</text>
+    <text class="line" x="34" y="130">is downloaded, one</text>
+    <text class="line" x="34" y="146">after another.</text>
+
+    <path class="flow" d="M210 112 H228"/>
+    <path class="head" d="M234 112 L226 107 L226 117 Z"/>
+
+    <!-- ===== stage 2 ===== -->
+    <rect class="card" x="234" y="56" width="194" height="112" rx="10"/>
+    <circle class="chip" cx="256" cy="82" r="13"/><text class="chip-num" x="256" y="87">2</text>
+    <text class="title" x="278" y="88">Parse</text>
+    <text class="line" x="252" y="114">The XMLTV data is</text>
+    <text class="line" x="252" y="130">read into channels</text>
+    <text class="line" x="252" y="146">and programmes.</text>
+
+    <path class="flow" d="M428 112 H446"/>
+    <path class="head" d="M452 112 L444 107 L444 117 Z"/>
+
+    <!-- ===== stage 3 ===== -->
+    <rect class="card" x="452" y="56" width="194" height="112" rx="10"/>
+    <circle class="chip" cx="474" cy="82" r="13"/><text class="chip-num" x="474" y="87">3</text>
+    <text class="title" x="496" y="88">Match</text>
+    <text class="line" x="470" y="114">Each channel ID is</text>
+    <text class="line" x="470" y="130">compared with the</text>
+    <text class="line" x="470" y="146">IDs in your playlist.</text>
+
+    <path class="flow" d="M646 112 H664"/>
+    <path class="head" d="M670 112 L662 107 L662 117 Z"/>
+
+    <!-- ===== stage 4 ===== -->
+    <rect class="card" x="670" y="56" width="194" height="112" rx="10"/>
+    <circle class="chip" cx="692" cy="82" r="13"/><text class="chip-num" x="692" y="87">4</text>
+    <text class="title" x="714" y="88">Store</text>
+    <text class="line" x="688" y="114">Matched programmes</text>
+    <text class="line" x="688" y="130">are saved, past days</text>
+    <text class="line" x="688" y="146">included.</text>
+
+    <!-- ===== band A : loud failures (stages 1-2) ===== -->
+    <rect class="band" x="16" y="196" width="412" height="106" rx="10"/>
+    <rect x="16" y="196" width="4" height="106" rx="2" fill="var(--warn)"/>
+    <text class="band-lbl-warn" x="34" y="222">STAGES 1–2 ANNOUNCE THEIR FAILURES</text>
+    <text class="quote" x="34" y="248">“Unable to reach the TV guide server.”</text>
+    <text class="quote" x="34" y="268">“TV guide update timed out for …”</text>
+    <text class="quote" x="34" y="288">“Not enough memory to load the TV guide.”</text>
+
+    <!-- ===== band B : the silent failure (stages 3-4) ===== -->
+    <rect class="band" x="452" y="196" width="412" height="106" rx="10"/>
+    <rect x="452" y="196" width="4" height="106" rx="2" fill="var(--stop)"/>
+    <text class="band-lbl-stop" x="470" y="222">STAGE 3 FAILS SILENTLY</text>
+    <text class="body" x="470" y="248">The update reports success and the guide still</text>
+    <text class="body" x="470" y="268">looks empty. Nothing broke: the data loaded, but</text>
+    <text class="body" x="470" y="288">its channel IDs do not match your playlist’s.</text>
+
+    <!-- ===== success strip ===== -->
+    <rect class="band" x="16" y="318" width="848" height="66" rx="10"/>
+    <rect x="16" y="318" width="4" height="66" rx="2" fill="var(--go)"/>
+    <text class="note" x="34" y="346">A finished update reads “TV guide updated on” with a timestamp. Programmes that have already aired stay</text>
+    <text class="note" x="34" y="368">for as many days as “Past days to keep EPG” allows — that history is what makes catch-up listings appear.</text>
+  </g>
+</svg>

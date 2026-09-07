@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "InoxTV — Premium IPTV Player",
+  "name": "InoxTV — IPTV Player for Android",
   "short_name": "InoxTV",
-  "description": "Premium IPTV Player for Android Mobile & TV",
+  "description": "IPTV player for Android TV, Fire TV and Android mobile. Plays the playlist you supply.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

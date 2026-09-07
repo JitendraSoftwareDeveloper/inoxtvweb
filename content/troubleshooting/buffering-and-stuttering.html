@@ -1,0 +1,143 @@
+<!-- {
+  "title": "Fix buffering and stuttering in InoxTV",
+  "h1": "A channel that buffers or stutters",
+  "description": "Work out whether buffering is your connection, your device or your provider, then fix it with buffer size, decoder and frame rate settings that actually apply.",
+  "lede": "Buffering has three possible owners: your network, your device, or the server sending the stream. The first job is deciding which one you have, because the fix for each is useless against the other two.",
+  "section": "troubleshooting",
+  "slug": "troubleshooting/buffering-and-stuttering",
+  "group": "playback",
+  "order": 1,
+  "card": "Narrow buffering down to network, device or provider, then apply the setting that matches.",
+  "updated": "2026-09-07",
+  "related": [
+    "troubleshooting/channel-wont-play",
+    "guides/install-fire-tv-stick",
+    "guides/install-android-mobile"
+  ],
+  "howto": {
+    "name": "Diagnose buffering in InoxTV",
+    "steps": [
+      "Note whether every channel buffers or only some.",
+      "Play the same channel on a phone over mobile data to test the provider.",
+      "If only one device is affected, raise Buffer size in Settings, Playback.",
+      "If the picture tears or jerks rather than pausing, turn on Auto frame rate.",
+      "If a specific channel breaks up while others are fine, switch Video decoder to Software for it."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Does raising the buffer size fix buffering?",
+      "a": "Often, on a connection that is fast enough on average but uneven, because a larger buffer rides out the dips. It costs memory rather than channel switching speed — every preset starts playing after the same one and a half seconds. It cannot help a connection that is simply too slow."
+    },
+    {
+      "q": "Every channel buffers. Is that the app?",
+      "a": "Almost never. When everything buffers equally the cause is upstream of the app — your connection, your router, or your provider's server. Test the same channel on another network before changing settings."
+    },
+    {
+      "q": "Why does one channel break up while the rest are fine?",
+      "a": "Streams differ in codec, bitrate and how well they are packaged. A single problem channel is usually a decoder mismatch on that stream, which is what the software decoder options exist for."
+    },
+    {
+      "q": "Will a VPN help?",
+      "a": "Sometimes, and it can also make things worse. It helps when your network is throttling or blocking the route to your provider. It hurts by adding a hop and a bandwidth ceiling. Test it, do not assume it."
+    },
+    {
+      "q": "Does InoxTV reduce the quality of a stream?",
+      "a": "No. Streams are played as your provider sends them, with no transcoding on our side, so the app cannot lower a bitrate to survive a slow connection. Where a provider offers a lower-quality version of a channel, choosing it is the only way to reduce what has to arrive."
+    }
+  ]
+} -->
+
+<p>Nearly every buffering complaint turns out to be one of three things, and they look similar on screen while needing completely different fixes. Spend two minutes on the diagnosis before you touch a setting.</p>
+
+<h2 id="which-one">Which of the three do you have</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>What you see</th><th>Where the problem is</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Every channel pauses to buffer, at similar intervals</td><td>Your connection, or your provider's server</td></tr>
+      <tr><td>One channel breaks up, the rest are fine</td><td>That stream: codec, bitrate, or the server behind it</td></tr>
+      <tr><td>Everything is fine until the evening</td><td>Congestion — either your own line or the provider under load</td></tr>
+      <tr><td>Picture jerks or tears rather than pausing</td><td>Your device: frame rate or decoding, not bandwidth</td></tr>
+      <tr><td>Fine on a phone, poor on the television</td><td>The television device, or its Wi&#8209;Fi</td></tr>
+      <tr><td>Fine on the television, poor on the phone</td><td>Usually the phone's connection, or a second connection being refused</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note note--go">
+  <p class="note-label">The test that settles it</p>
+  <p>Play the problem channel on a phone using mobile data, with Wi&#8209;Fi turned off. If it is clean there, the stream and your provider are fine and the problem is inside your home. If it buffers there too, no setting in the app will fix it &mdash; that is a conversation with your provider.</p>
+</div>
+
+<h2 id="network">If the network is the cause</h2>
+
+<p>Video is unforgiving about consistency rather than raw speed. A connection that averages 50&nbsp;Mbps but drops to 3&nbsp;Mbps for two seconds every minute will buffer, while a steady 15&nbsp;Mbps line will not.</p>
+
+<p>In rough terms, a standard&#8209;definition stream needs a couple of Mbps, high definition around 5 to 8, and 4K somewhere between 15 and 25. Those are the numbers the stream needs to keep, not the number on your broadband bill.</p>
+
+<p>What actually helps, in the order worth trying:</p>
+
+<ul>
+  <li><strong>Wire the device.</strong> Ethernet, or a powerline adapter, removes the single most common cause. A Fire TV Stick behind a wall on 2.4&nbsp;GHz is a bad place to watch 4K from.</li>
+  <li><strong>Move to 5&nbsp;GHz.</strong> If wiring is impossible, the 5&nbsp;GHz band is far less crowded, at the cost of range.</li>
+  <li><strong>Check what else is running.</strong> A cloud backup or a game download will do this to you and stop the moment it finishes, which is why the problem seems to come and go for no reason.</li>
+  <li><strong>Try another DNS.</strong> Some networks resolve provider hostnames slowly or not at all, which shows up as stalls at the start of playback rather than during it.</li>
+</ul>
+
+<h2 id="buffer">Buffer size, and what it can and cannot do</h2>
+
+<p><span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> &rsaquo; <span class="ui">Buffer size</span> offers <span class="ui">Normal</span>, <span class="ui">Large</span> and <span class="ui">Very large</span>: the player library's own default, about two and a half minutes of video held in hand, and about five minutes. The note on the screen warns that raising it increases channel switching time, and that part is out of date &mdash; all three presets start playing after the same one and a half seconds of media, so a switch costs the same whichever you choose.</p>
+
+<p>The real cost is memory, and the wait after a break. Once a stream has genuinely dropped, <span class="ui">Large</span> banks ten seconds before resuming and <span class="ui">Very large</span> fifteen, against a couple of seconds on <span class="ui">Normal</span>. That is sensible on a feed that keeps failing and tedious on one that failed once. Five minutes of held video is also real memory on an inexpensive box, so raise it a step at a time rather than going straight to the top.</p>
+
+<p>Buffer size helps an uneven connection. It cannot help a connection that is too slow on average, because a bigger buffer still has to be filled by the same pipe. If <span class="ui">Large</span> makes no difference at all, the problem is bandwidth or the provider, and you should stop adjusting it.</p>
+
+<h2 id="device">If the device is the cause</h2>
+
+<p>Three settings under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> address device&#8209;side problems, and each one fixes a specific symptom rather than buffering in general.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Symptom</th><th>Setting to change</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Motion judders, or the picture tears horizontally, on an otherwise clean stream</td><td><span class="ui">Auto frame rate (AFR)</span> on. It switches the television's refresh rate to match the video's frame rate. Not all devices support it.</td></tr>
+      <tr><td>One channel shows green blocks, artefacts, or a frozen frame with running audio</td><td><span class="ui">Video decoder</span> &rarr; <span class="ui">Software</span>.</td></tr>
+      <tr><td>Audio crackles, drops or plays silently</td><td><span class="ui">Audio decoder</span> &rarr; <span class="ui">Software</span>.</td></tr>
+      <tr><td>A 4K channel plays at the wrong resolution</td><td><span class="ui">Switch screen resolution for 4k video</span> on, alongside auto frame rate.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The app's own guidance on the decoders is deliberately cautious, and worth repeating: try the software decoder if your device has problems decoding with the hardware one. Software decoding costs more processing and more power, so it is a targeted fix rather than a setting to leave on. Both rows are app&#8209;wide rather than per&#8209;channel, so switch one back when you are done with the channel that needed it. <a href="/features/playback-quality/">The playback page</a> goes through what each of these settings changes, including why a software choice cannot make a stream unplayable.</p>
+
+<div class="note note--warn">
+  <p class="note-label">Change one thing at a time</p>
+  <p>It is tempting to turn on every setting at once and see if things improve. That leaves you unable to tell what helped, and software decoding plus a very large buffer on a modest box can be slower than the problem you started with. One change, one evening of watching, then decide.</p>
+</div>
+
+<h2 id="provider">If the provider is the cause</h2>
+
+<p>This is the outcome nobody wants, and it is common. Signs that point at the server rather than at you:</p>
+
+<ul>
+  <li>The same channel buffers on mobile data, on Wi&#8209;Fi, and on a second device.</li>
+  <li>It is reliably bad at peak hours and perfect at 3 in the morning.</li>
+  <li>Other channels from the same source are fine, and have been for weeks.</li>
+  <li>A different app playing the same stream behaves identically.</li>
+</ul>
+
+<p>That last check is the one worth doing before you write to anyone. If another player buffers on the same stream at the same time, InoxTV is not the variable, and no setting here will change the outcome.</p>
+
+<h2 id="not-buffering">When it is not really buffering</h2>
+
+<p>Two symptoms get reported as buffering and are something else entirely.</p>
+
+<p><strong>A slow start, then flawless playback.</strong> That is the stream being fetched, not a fault, and lowering <span class="ui">Buffer size</span> will not shorten it &mdash; the wait before the first frame is the same on all three presets. A consistently slow start on every channel is usually name resolution or a provider under load, both covered above.</p>
+
+<p><strong>It stops dead rather than pausing.</strong> A stream that fails outright, with <span class="ui">Unable to play this content right now</span> or a return to the list, is a different problem. <a href="/troubleshooting/channel-wont-play/">A channel that will not play</a> covers connection limits, expired subscriptions and dead streams.</p>

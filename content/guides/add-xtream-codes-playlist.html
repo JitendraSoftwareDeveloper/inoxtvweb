@@ -1,0 +1,144 @@
+<!-- {
+  "title": "Add Xtream Codes credentials to InoxTV",
+  "h1": "Adding an Xtream Codes playlist",
+  "description": "Connect InoxTV to an Xtream Codes panel with a server URL, username and password, including how to read those three values out of an M3U link.",
+  "lede": "Three required fields, and one trick worth knowing: if your provider only sent you an M3U link, the server, username and password you need are already inside it.",
+  "section": "guides",
+  "slug": "guides/add-xtream-codes-playlist",
+  "group": "playlists",
+  "order": 3,
+  "card": "Server, username, password — plus how to extract all three from an M3U link you already have.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/choose-playlist-type",
+    "guides/add-m3u-playlist",
+    "troubleshooting/playlist-wont-load"
+  ],
+  "howto": {
+    "name": "Add an Xtream Codes playlist to InoxTV",
+    "steps": [
+      "Open Settings, then Playlists, then Add playlist.",
+      "Choose Xtream Codes on the Playlist Type screen.",
+      "Enter the server address, including http or https and the port, in Server url.",
+      "Enter your Username and Password exactly as issued.",
+      "Name the playlist in Playlist name.",
+      "Leave Include live tv and Include Vod as they are; neither is connected to the importer.",
+      "Save and wait for the live TV, movies and shows counts to settle."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Do I include the port number in the server URL?",
+      "a": "Yes, unless your provider uses the default for the protocol. Panels commonly run on port 8080 or 2052, and omitting a non-standard port is the most frequent cause of Enter a valid server URL."
+    },
+    {
+      "q": "My provider only gave me an M3U link. Can I still use Xtream Codes?",
+      "a": "Usually yes. A link shaped like http://example.com:8080/get.php?username=USER&password=PASS contains all three values: http://example.com:8080 is the server URL, USER is the username and PASS is the password."
+    },
+    {
+      "q": "Why does login work on my phone but fail on the TV?",
+      "a": "Most services allow a limited number of simultaneous connections. If the phone is still holding one, the television is refused. Close the app on the other device fully and try again."
+    },
+    {
+      "q": "Where can I see when my subscription expires?",
+      "a": "The Xtream Codes API reports account details, so the app can show the expiry date, the number of active connections and the allowed maximum. An M3U playlist cannot report any of that."
+    }
+  ]
+} -->
+
+<p>Xtream Codes is an API rather than a file, which is why it is the connection to prefer when your provider offers it. Instead of downloading one enormous channel list, InoxTV asks the panel for a category when you open that category. The result is a faster start, a proper films and series library, and account details the app can actually show you. The <a href="/guides/choose-playlist-type/">comparison of the three types</a> covers the trade&#8209;offs in full.</p>
+
+<h2 id="what-you-need">The three values you need</h2>
+
+<p>Your provider issues a server address, a username and a password. All three are marked required in the app with an asterisk, and none of them can be guessed or recovered by us.</p>
+
+<p>If your provider sent an M3U link and never mentioned Xtream Codes, look at the link's shape. Panels generate M3U links from the same credentials, so a link like this:</p>
+
+<pre><code>http://example.com:8080/get.php?username=jsmith&amp;password=a1b2c3&amp;type=m3u_plus</code></pre>
+
+<p>gives you everything: the server URL is <code>http://example.com:8080</code>, the username is <code>jsmith</code> and the password is <code>a1b2c3</code>. Enter those three and you are connected through the API instead of the file.</p>
+
+<h2 id="steps">Adding the playlist</h2>
+
+<ol class="steps">
+  <li>
+    <p class="step-title">Open the add-playlist screen</p>
+    <p><span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &rsaquo; <span class="ui">Add playlist</span>, then choose <span class="ui">Xtream Codes</span> on the <span class="ui">Playlist Type</span> screen.</p>
+  </li>
+  <li>
+    <p class="step-title">Enter the server URL</p>
+    <p><span class="ui">Server url*</span> takes the scheme, the host and the port &mdash; <code>http://example.com:8080</code>. Three details cause most of the failures here:</p>
+    <ul>
+      <li>Include <code>http://</code> or <code>https://</code>. Without it you get <span class="ui">Enter a valid server URL.</span></li>
+      <li>Include the port if it is not the default. Panels rarely run on 80 or 443.</li>
+      <li>Stop at the port. Do not append <code>/get.php</code>, <code>/player_api.php</code> or a trailing path; the app adds what it needs.</li>
+    </ul>
+  </li>
+  <li>
+    <p class="step-title">Enter the credentials</p>
+    <p><span class="ui">Username*</span> and <span class="ui">Password*</span>, exactly as issued. Both are case sensitive. Copying and pasting is worth the effort because a mistyped character produces the same generic login failure as an expired account, and you will spend twenty minutes on the wrong problem.</p>
+    <p>Empty fields produce <span class="ui">Username is required.</span> and <span class="ui">Password is required.</span> before any network request is made.</p>
+  </li>
+  <li>
+    <p class="step-title">Name the playlist</p>
+    <p><span class="ui">Playlist name</span> appears wherever you pick a source. If you run two accounts, name them for what they are rather than who supplies them.</p>
+  </li>
+  <li>
+    <p class="step-title">Choose what to import</p>
+    <p><span class="ui">Include live tv</span> and <span class="ui">Include Vod</span> are both ticked and neither is connected to the importer, so leave them and move on. On an Xtream connection it would make little difference anyway: categories are fetched as you open them, so nothing large is downloaded up front for you to trim.</p>
+  </li>
+  <li>
+    <p class="step-title">Leave the EPG field alone</p>
+    <p><span class="ui">EPG URL (optional)</span> is there for playlists that need it. Most panels serve programme guide data through the same API, so filling this in duplicates what you already have. Add one only if the <a href="/features/tv-guide-epg/">TV guide</a> is still empty afterwards.</p>
+  </li>
+  <li>
+    <p class="step-title">Save</p>
+    <p>You will see <span class="ui">Saving playlist...</span> followed by counts for live TV, movies and shows. Xtream Codes settles faster than an M3U of the same size. When the counts stop moving, open the channel list.</p>
+  </li>
+</ol>
+
+<h2 id="failures">When the login is refused</h2>
+
+<p>An Xtream login failure has a short list of causes, and they are worth checking in this order because the first two account for most of them.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Cause</th><th>How to tell</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Connection limit reached</td><td>It works after you fully close InoxTV or another player on a different device. This is the single most common cause.</td></tr>
+      <tr><td>Subscription expired</td><td>Your provider's account page says so. The app cannot distinguish this from wrong credentials.</td></tr>
+      <tr><td>Wrong port, or a path left on the end</td><td>The URL fails immediately rather than after a pause.</td></tr>
+      <tr><td>Credential typo</td><td>Paste rather than type, then retry.</td></tr>
+      <tr><td>Provider blocking the network</td><td>The same credentials work on mobile data but not on your home connection, or the reverse.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note note--warn">
+  <p class="note-label">One connection at a time</p>
+  <p>If your service allows a single connection, watching on the television while the app is open on a phone will fail on one of them, often mid&#8209;programme rather than at login. Backgrounding an app is not always enough to release the connection &mdash; close it fully.</p>
+</div>
+
+<h2 id="advantages">What you gain over an M3U</h2>
+
+<p>Once it is connected, three things behave differently and it is worth knowing where to look for them.</p>
+
+<p><strong>Films and series are separated properly.</strong> The API distinguishes live channels, movies and series, so <a href="/features/movies-and-shows/">movies and shows</a> becomes a real library: seasons, episode lists, posters and descriptions, rather than several thousand entries in the channel list.</p>
+
+<p><strong>The programme guide usually needs no setting up.</strong> Every Xtream panel exposes its listings at the same address as everything else, so the app builds that URL from the credentials you already entered and fetches the guide without being told to. Because the listings and the channels come out of one database, the channel identifiers match by construction &mdash; which removes the single most common reason a guide arrives full of data and still looks empty. On an M3U you supply a guide address separately and hope the two agree.</p>
+
+<p><strong>Account state is visible.</strong> Expiry date, active connections and the allowed maximum come straight from the API. That turns a vague failure into a specific one, and it is the fastest way to settle whether a problem is yours or your provider's.</p>
+
+<h2 id="account-info">Where to read your account details</h2>
+
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, select the playlist, and choose <span class="ui">Account Information</span>. It splits into <span class="ui">User Information</span> and <span class="ui">Server Information</span> &mdash; the first is your expiry and connection allowance, the second is what the panel reports about itself. If the panel does not return any of it you get <span class="ui">No account info available</span>, which is a limitation of that server rather than a fault.</p>
+
+<p>This screen is worth checking before you spend an evening on a playback problem. An expired subscription and a wrong password look identical from the channel list, and this is the one place the app can tell you which you are dealing with.</p>
+
+<h2 id="maintenance">Keeping it current</h2>
+
+<p>Category contents come from the server each time, so an Xtream playlist needs less maintenance than a file. <span class="ui">Update all playlists</span> under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> refreshes everything on demand, and <span class="ui">Update playlist on app start</span> on the playlist itself does it automatically. With Xtream Codes that automatic refresh is cheap enough to leave on.</p>
+
+<p>If your provider changes your password, edit the existing playlist rather than adding a new one &mdash; that keeps your favourites, groups and guide association intact.</p>

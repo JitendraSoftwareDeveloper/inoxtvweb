@@ -1,0 +1,141 @@
+<!-- {
+  "title": "Set up the TV guide (EPG) in InoxTV",
+  "h1": "Getting the TV guide working",
+  "description": "Add an EPG source in InoxTV, match it to your channels, choose how often it updates, and read the update messages when a source will not load.",
+  "lede": "A programme guide needs two things to line up: a source that has data, and channel identifiers that match your playlist. Nearly every empty guide is the second problem, not the first.",
+  "section": "guides",
+  "slug": "guides/set-up-tv-guide-epg",
+  "group": "guide-data",
+  "order": 1,
+  "card": "Add a source, match it to your channels, and set an update schedule that suits your device.",
+  "updated": "2026-09-07",
+  "related": [
+    "features/tv-guide-epg",
+    "troubleshooting/no-tv-guide-data",
+    "guides/add-m3u-playlist"
+  ],
+  "howto": {
+    "name": "Set up the TV guide in InoxTV",
+    "steps": [
+      "Open Settings, then TV guide.",
+      "Open TV guide sources and add the XMLTV address your provider supplied.",
+      "Open Settings, then Playlists, select your playlist, and set EPG source to the source you added.",
+      "Set Update interval, hours to how often the source should be refetched.",
+      "Set Past days to keep EPG to how many days of aired listings you want to be able to scroll back through.",
+      "Choose Update TV guide to fetch it now, and read the result message."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Do I need an EPG source with Xtream Codes?",
+      "a": "Usually not. Most Xtream panels serve programme guide data through the same API, so the guide fills in on its own. Add a source only if the guide is still empty after the playlist has finished importing."
+    },
+    {
+      "q": "The guide shows data for some channels but not others. Why?",
+      "a": "Matching is by channel identifier, not by channel name. Channels whose tvg-id in your playlist has no counterpart in the EPG file get nothing, even when the names look identical. A source that matches your provider's playlist is the fix; a different source will not help if its identifiers are different again."
+    },
+    {
+      "q": "What does Past days to keep EPG do?",
+      "a": "It sets how many days of already-aired listings are kept rather than deleted, seven by default. That history is what you scroll back through in the grid, and it is also the main consumer of storage, so lowering it is the first move on a device that is short of space."
+    },
+    {
+      "q": "How often should the guide update?",
+      "a": "Every 24 hours suits most sources, which is the default. Guides that only publish a few days ahead benefit from every 12 hours. Anything more frequent mostly downloads the same file again."
+    }
+  ]
+} -->
+
+<p>The <a href="/features/tv-guide-epg/">TV guide</a> is the grid of what is on now and next. InoxTV does not produce that data &mdash; it fetches it from a source you configure, or from the API your provider exposes, then matches each programme to a channel in your playlist. Both halves have to work. A source with perfect data still shows an empty guide if the identifiers do not line up.</p>
+
+<figure>
+  <img src="/images/diagrams/flow-epg-update.svg" alt="Flow of a TV guide update: the configured source is fetched, the XMLTV data is parsed, each channel identifier is matched against the playlist, matched programmes are stored for the configured number of past days, and unmatched channels are left with no listings." width="880" height="400" loading="lazy" decoding="async">
+  <figcaption><strong>Where an update can fail.</strong> Fetching and parsing usually announce their failures. Matching fails quietly, which is why a guide can be half empty with no error at all.</figcaption>
+</figure>
+
+<h2 id="do-you-need">Check whether you need a source at all</h2>
+
+<p>Before configuring anything, open the guide. If you connected with <a href="/guides/add-xtream-codes-playlist/">Xtream Codes</a>, the panel usually serves guide data through the same API and the grid is already populated. Adding a second source on top of that gives you nothing and doubles what has to be downloaded.</p>
+
+<p>If you connected with an <a href="/guides/add-m3u-playlist/">M3U playlist</a>, you almost certainly need a source: the file format carries channels, not schedules. Stalker portals sit between the two &mdash; some serve a full week, some serve nothing.</p>
+
+<h2 id="add-source">Add the source</h2>
+
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span>. The screen you want is <span class="ui">TV guide sources</span>, which lists the sources the app knows about and is where you add another.</p>
+
+<p>What you add is an XMLTV address &mdash; a URL serving an XML file of programme data, often compressed. Where it comes from matters more than most people expect, so in order of preference:</p>
+
+<ol>
+  <li><strong>Your provider's own EPG URL.</strong> Best by a wide margin. It was generated alongside your playlist, so the channel identifiers match by construction. Ask for it if you were not sent one.</li>
+  <li><strong>A public XMLTV source for your country or region.</strong> Workable, and often good for national channels. Expect gaps: its identifiers were not built for your playlist.</li>
+  <li><strong>Anything else.</strong> A source covering a different region will download and parse perfectly and then match almost nothing.</li>
+</ol>
+
+<p>You can add more than one source. That is worth doing when one covers your national channels well and another covers a category it lacks.</p>
+
+<h2 id="attach">Attach it to your playlist</h2>
+
+<p>This is the step that gets missed. A source that exists is not a source that is being used.</p>
+
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, select your playlist, and look at <span class="ui">EPG source</span>. Until you set it, it reads <span class="ui">No source</span> and the guide for that playlist's channels stays empty no matter what you added. Set it to the source you just configured.</p>
+
+<p>With several playlists, each one carries its own <span class="ui">EPG source</span>. Two playlists from two providers generally need two sources; pointing both at one source is how you end up with a guide that works for half your channels.</p>
+
+<h2 id="schedule">Set the update schedule</h2>
+
+<p>Back in <span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span>, four settings control when and how much:</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Setting</th><th>Default</th><th>What to do with it</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Update interval, hours</span></td><td class="num">24</td><td>Leave at 24 for most sources. Drop to 12 if your source only publishes two or three days ahead. Lower than that mostly re&#8209;downloads the same file.</td></tr>
+      <tr><td><span class="ui">Past days to keep EPG</span></td><td class="num">7</td><td>How many days of aired listings survive instead of being deleted. It is the main consumer of storage, and the grid only scrolls back seven days, so 7 is the highest value that buys you anything. Lower it first on a device short of space.</td></tr>
+      <tr><td><span class="ui">Update on app start</span></td><td>&mdash;</td><td>Convenient, but it puts a download and a parse in front of your first channel. Leave it off on a slow TV box and let the interval handle it.</td></tr>
+      <tr><td><span class="ui">Update on playlists change</span></td><td>&mdash;</td><td>Worth having on. When you add or refresh a playlist, new channels get listings immediately instead of at the next scheduled update.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="first-fetch">Fetch it now and read the result</h2>
+
+<p>Choose <span class="ui">Update TV guide</span> to run an update immediately. Progress appears as <span class="ui">Updating TV guide 1/2: <em>playlist name</em></span> &mdash; one pass per playlist that has a source attached.</p>
+
+<p>The message at the end is diagnostic, so it is worth waiting for. On success the screen shows <span class="ui">TV guide updated on</span> with a timestamp. The failures each mean something specific:</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Message</th><th>What it means</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Unable to reach the TV guide server.</span></td><td>The address did not answer. A typo, a source that has moved, or no working connection.</td></tr>
+      <tr><td><span class="ui">No TV guide data available for&hellip;</span></td><td>The source answered and had nothing for that playlist. Wrong source for these channels, or a source that has genuinely gone empty.</td></tr>
+      <tr><td><span class="ui">Not enough memory to load the TV guide.</span></td><td>The file is bigger than this device can parse. Reduce <span class="ui">Past days to keep EPG</span>, or use a source scoped to your region rather than a global one.</td></tr>
+      <tr><td><span class="ui">TV guide for&hellip; is too large for this device.</span></td><td>The same problem, named for the playlist it happened on. Common on 1&nbsp;GB TV boxes with a worldwide EPG file.</td></tr>
+      <tr><td><span class="ui">TV guide update timed out for&hellip;</span></td><td>The source is answering too slowly. Often temporary; if it persists, the source is overloaded.</td></tr>
+      <tr><td><span class="ui">TV guide update failed.</span></td><td>The generic case &mdash; usually a file the parser could not read. Confirm the address serves XMLTV and not an HTML page.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="matching">When the update succeeds and the guide is still empty</h2>
+
+<p>This is the common case, and it is a matching problem. Programmes are attached to channels by identifier &mdash; the <code>tvg-id</code> in your playlist against the channel ID in the EPG file. Two channels can carry the same name to the letter and still not match, because their identifiers differ.</p>
+
+<p>The practical consequences:</p>
+
+<ul>
+  <li><strong>A guide that is empty for everything</strong> usually means <span class="ui">EPG source</span> is still <span class="ui">No source</span>, or the source covers a different region entirely.</li>
+  <li><strong>A guide that works for some channels</strong> means the source is fine and its coverage of your particular channel set is partial. Only a better&#8209;matched source improves that; app settings cannot.</li>
+  <li><strong>A guide that is right but offset by an hour or two</strong> means the source publishes in a different timezone than it declares. Nothing in the app can correct that, and another source is the only fix.</li>
+</ul>
+
+<p>Your provider's own EPG URL avoids all three, which is why it is worth asking for even if you already have something that half works.</p>
+
+<h2 id="clearing">Clearing and starting again</h2>
+
+<p><span class="ui">Clear TV guide</span> discards all stored programme data. It does not remove your sources or unset <span class="ui">EPG source</span> &mdash; it empties the cache, then the next update refills it. Use it after switching sources, when you would otherwise have two sets of listings overlapping, or when the guide shows data you know is stale. Clearing and updating is also worth trying once when the guide looks corrupted rather than empty; a partial file from an interrupted download can survive otherwise.</p>
+
+<p>If the guide is still not working after all this, <a href="/troubleshooting/no-tv-guide-data/">no TV guide data</a> goes through the remaining causes, including the device&#8209;specific ones.</p>

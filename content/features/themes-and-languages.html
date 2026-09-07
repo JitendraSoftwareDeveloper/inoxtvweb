@@ -1,0 +1,209 @@
+<!-- {
+  "title": "Themes and languages in InoxTV",
+  "h1": "Themes and languages",
+  "description": "The seven colour themes InoxTV ships with, the nineteen languages it is translated into, why choosing either restarts the app, and what Font size does.",
+  "lede": "Everything on this page lives in one place: Settings, then Appearance. Two of the three rows there work, one does not, and the two that work both restart the app on their way to taking effect.",
+  "section": "features",
+  "slug": "features/themes-and-languages",
+  "group": "app",
+  "order": 1,
+  "min_words": 900,
+  "card": "Seven dark palettes, nineteen languages, and why picking either one sends you back to the main screen.",
+  "updated": "2026-09-07",
+  "related": [
+    "features/playback-quality",
+    "guides/first-hour-with-inoxtv",
+    "guides/backup-and-restore"
+  ],
+  "howto": {
+    "name": "Change the colour theme in InoxTV",
+    "steps": [
+      "Open Settings and move to Appearance.",
+      "Select Color theme.",
+      "Move to the palette you want and press OK once to select it.",
+      "Press OK again on the same row to commit it.",
+      "The app restarts to the main screen with the new palette."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Is there a light theme in InoxTV?",
+      "a": "No. All seven themes are dark, because the app is built for a television in a dim room and its text and focus colours are drawn for a dark ground. Dark • graphite is the most neutral of them if a strong colour is what you want to avoid."
+    },
+    {
+      "q": "Why does the app restart when I change the theme or the language?",
+      "a": "Both are read while a screen is being built, so every screen has to be built again. The app rebuilds itself from the start rather than reloading one screen, which is why you land back on the main player. What was playing reopens on its own."
+    },
+    {
+      "q": "Which languages is InoxTV translated into?",
+      "a": "Nineteen, plus System: Arabic, Bulgarian, Danish, Dutch, English, French, German, Greek, Hindi, Indonesian, Italian, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Turkish and Ukrainian. Each is a full translation rather than a partial one."
+    },
+    {
+      "q": "My language is not in the list.",
+      "a": "Then the app has no translation for it and System will fall back to English. Nothing in the list is a partial translation, which is deliberate — a half-translated menu is worse to use than an English one."
+    },
+    {
+      "q": "Changing Font size does nothing.",
+      "a": "Correct, and it is not your device. The setting is stored and shown back to you, and no screen reads it in this build, so all three values look identical. Your television's own text scaling is the thing that still works."
+    },
+    {
+      "q": "Do my playlists survive a theme or language change?",
+      "a": "Yes. The restart rebuilds the screens, not the data — playlists, favourites, groups, key assignments and every other setting are untouched."
+    }
+  ]
+} -->
+
+<p><span class="ui">Settings</span> &rsaquo; <span class="ui">Appearance</span> holds three rows: <span class="ui">Color theme</span>, <span class="ui">Language</span> and <span class="ui">Font size</span>. The first two do what they say. The third is discussed at the bottom of this page, because it does nothing yet and you should know that before you spend time on it.</p>
+
+<p>One thing about the settings screen in general is worth knowing first, since it catches people here more than anywhere else. Every option row takes two presses: the first press selects the row and the second commits it. On a colour theme that is deliberate, because committing throws you out of the screen &mdash; nobody should lose their place in the settings by pressing <kbd class="key">OK</kbd> while scrolling past.</p>
+
+<h2 id="themes">The seven palettes</h2>
+
+<p>All seven are dark. The names are exactly what you will see, bullet and all, and the colour beside each one is the value the app actually paints as the middle of its background gradient.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Theme</th><th>Background</th><th>What it looks like</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="ui">Dark &bull; black</span></td>
+        <td><span class="swatch sw-black"></span><code class="hex">#0B0B0D</code></td>
+        <td>The default. Very nearly neutral black, and the one to pick on an OLED panel.</td>
+      </tr>
+      <tr>
+        <td><span class="ui">Dark &bull; blue</span></td>
+        <td><span class="swatch sw-blue"></span><code class="hex">#1E3A8A</code></td>
+        <td>The palette the app originally shipped with, and the only one with a genuinely bright background rather than a tinted black.</td>
+      </tr>
+      <tr>
+        <td><span class="ui">Dark &bull; night</span></td>
+        <td><span class="swatch sw-night"></span><code class="hex">#121A2E</code></td>
+        <td>The blue idea taken most of the way to black. A deep navy that still reads as blue.</td>
+      </tr>
+      <tr>
+        <td><span class="ui">Dark &bull; graphite</span></td>
+        <td><span class="swatch sw-graphite"></span><code class="hex">#1A1A1E</code></td>
+        <td>Grey with no hue at all. The neutral choice if a coloured background is the thing you dislike.</td>
+      </tr>
+      <tr>
+        <td><span class="ui">Dark &bull; ocean</span></td>
+        <td><span class="swatch sw-ocean"></span><code class="hex">#0A2029</code></td>
+        <td>Dark teal. Cooler than night and further from blue than the name suggests.</td>
+      </tr>
+      <tr>
+        <td><span class="ui">Dark &bull; forest</span></td>
+        <td><span class="swatch sw-forest"></span><code class="hex">#0E1F16</code></td>
+        <td>Deep green, the quietest of the coloured ones.</td>
+      </tr>
+      <tr>
+        <td><span class="ui">Dark &bull; plum</span></td>
+        <td><span class="swatch sw-plum"></span><code class="hex">#1A1026</code></td>
+        <td>Dark violet, and the biggest departure from the default without going as bright as blue.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Five of the seven are near&#8209;black with a hue leaning one way or another, so switching between graphite, ocean, forest and plum is a change of mood rather than a change of brightness. If you are looking at the list expecting seven obviously different skins, <span class="ui">Dark &bull; blue</span> is the only one that will surprise you.</p>
+
+<h2 id="what-changes">What a theme changes, and what it leaves alone</h2>
+
+<p>A theme repoints the app's background colours and nothing else. That is a deliberate limit rather than an unfinished job: text colours, focus highlights, button colours, spacing and layout all stay where they are, so no palette can make something unreadable or move a control.</p>
+
+<p>What follows the theme:</p>
+
+<ul>
+  <li>The window background gradient on every screen, and the semi&#8209;transparent version of it used behind overlays.</li>
+  <li>The settings panel itself, and the playlist navigation column beside it.</li>
+  <li>The fullscreen TV guide: its background, the highlight on the programme showing now, and the date header above it.</li>
+  <li>The scrims over film and series artwork, which is why the catalogue looks noticeably different between palettes.</li>
+  <li>The dimming behind the search overlay, and the accent used on section headings.</li>
+</ul>
+
+<p>The system bars pick it up too, so the strip at the edge of the screen matches the app rather than sitting there in the previous colour.</p>
+
+<h2 id="restart">Why the app restarts, and when it does not</h2>
+
+<p>Committing a theme sends you back to the main screen. That is the intended behaviour, not a crash.</p>
+
+<p>A palette is read while a screen's views are being built, so a new palette can only appear on screens that are built again from scratch. Reloading just the screen you are on is not enough here: the player is driven by long&#8209;lived components that outlive any single screen and hold their own state, and reloading underneath them leaves the picture offset from the controls. Rebuilding the app from its starting point avoids all of that, and it is the same route the language change takes.</p>
+
+<div class="note note--go">
+  <p class="note-label">You do not lose your place</p>
+  <p>The app records what you were watching as you watch it, so after the restart it reopens what was playing. Nothing stored is touched: playlists, favourites, groups, guide data and key assignments all come back exactly as they were.</p>
+</div>
+
+<p>Re&#8209;selecting the theme you already have does nothing at all &mdash; no restart, no flicker. The same is true of the language: the app only rebuilds when the value you committed is actually different from the one it was using. So if you are cycling through the list to look at them, expect a restart on each change and none on a second press of the one you have landed on.</p>
+
+<h2 id="no-light">Where the light theme is</h2>
+
+<p>There isn't one, and it is the most common question about this screen, so it is worth being plain about why.</p>
+
+<p>The app is built for a television in a room with the lights down, and its text, focus rings and overlay scrims are all drawn to sit on a dark ground. A light palette is not a matter of swapping two colours; it needs a second set of foreground colours and a second set of contrast decisions throughout. Rather than ship a half&#8209;converted light mode that leaves grey text on white somewhere, the app offers seven dark palettes and no light one.</p>
+
+<p>If glare rather than colour is the problem, <span class="ui">Dark &bull; black</span> is the darkest of the seven and the one that shows the least in a bright room.</p>
+
+<h2 id="language">Language: System, plus nineteen</h2>
+
+<p><span class="ui">Language</span> lists <span class="ui">System</span> first, then nineteen languages, each written in its own script rather than in English:</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>In the list</th><th>Language</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">System</span></td><td>Follows the device, falling back to English if the device language is not one of the nineteen</td></tr>
+      <tr><td><span class="ui">English</span></td><td>English</td></tr>
+      <tr><td><span class="ui">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</span></td><td>Hindi</td></tr>
+      <tr><td><span class="ui">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</span></td><td>Arabic</td></tr>
+      <tr><td><span class="ui">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;</span></td><td>Bulgarian</td></tr>
+      <tr><td><span class="ui">dansk</span></td><td>Danish</td></tr>
+      <tr><td><span class="ui">Nederlands</span></td><td>Dutch</td></tr>
+      <tr><td><span class="ui">Fran&ccedil;ais</span></td><td>French</td></tr>
+      <tr><td><span class="ui">Deutsch</span></td><td>German</td></tr>
+      <tr><td><span class="ui">&#949;&#955;&#955;&#951;&#957;&#953;&#954;&#940;</span></td><td>Greek</td></tr>
+      <tr><td><span class="ui">Indonesia</span></td><td>Indonesian</td></tr>
+      <tr><td><span class="ui">Italiana</span></td><td>Italian</td></tr>
+      <tr><td><span class="ui">Polski</span></td><td>Polish</td></tr>
+      <tr><td><span class="ui">Portugu&ecirc;s</span></td><td>Portuguese</td></tr>
+      <tr><td><span class="ui">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span></td><td>Russian</td></tr>
+      <tr><td><span class="ui">Slov&aacute;k</span></td><td>Slovak</td></tr>
+      <tr><td><span class="ui">espa&ntilde;ola</span></td><td>Spanish</td></tr>
+      <tr><td><span class="ui">Svenska</span></td><td>Swedish</td></tr>
+      <tr><td><span class="ui">T&uuml;rk&ccedil;e</span></td><td>Turkish</td></tr>
+      <tr><td><span class="ui">&#1091;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072;</span></td><td>Ukrainian</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Each of the nineteen is a complete translation. There are 609 pieces of text in the English build and every one of the other eighteen files carries 606 of them, so a menu in Polish or Turkish will not drop back into English halfway down a screen. Arabic reads right to left, and the layouts follow it.</p>
+
+<p>The setting is Android's own per&#8209;app language underneath, which has two useful consequences. On Android 13 and later the same choice appears in the device's own settings, under the app's entry, and changing it there changes it here. And on any version, this affects InoxTV alone &mdash; setting the app to German does not touch anything else on the television.</p>
+
+<h2 id="language-edges">Two edges worth knowing</h2>
+
+<p><strong>A language the app no longer offers.</strong> If a stored choice does not match anything in the current list &mdash; after an update that renamed or removed one &mdash; the app treats it as <span class="ui">System</span> rather than failing to start. The same holds for a stored theme: an unrecognised name falls back to <span class="ui">Dark &bull; black</span>.</p>
+
+<p><strong>Indonesian.</strong> Android used to write Indonesian as <code>in</code> and now writes it as <code>id</code>. The app accepts both and stores the modern form, so an older device that saved the old code still gets Indonesian rather than dropping to <span class="ui">System</span>.</p>
+
+<div class="note note--warn">
+  <p class="note-label">Guide data is not translated</p>
+  <p>Changing the language changes the app's own text. Channel names, group names and programme titles come from your provider and your guide source, and they arrive in whatever language those were published in. Nothing in this screen can translate them. Where a provider offers a guide in more than one language, <a href="/guides/set-up-tv-guide-epg/">choosing the right source</a> is the way to change what the listings say.</p>
+</div>
+
+<h2 id="font-size">Font size, which does nothing</h2>
+
+<p><span class="ui">Font size</span> offers <span class="ui">Large</span>, <span class="ui">Medium</span> and <span class="ui">Small</span>, starts on <span class="ui">Medium</span>, and has no effect on any screen in this build. Your choice is saved and shown back to you the next time you open the row, which is exactly why it is convincing; nothing reads that value to size any text.</p>
+
+<p>It is listed here rather than quietly left out because people spend real time on a setting like this, switching it and looking for a change that is not coming. It is one of a handful of rows across the app that store your choice without acting on it yet, and the others are each covered where they live:</p>
+
+<ul>
+  <li><span class="ui">Audio passthrough</span> and <span class="ui">Use external player</span>, on the <a href="/features/playback-quality/">playback settings screen</a>.</li>
+  <li>The three <span class="ui">Player seeking options</span> switches, on the <a href="/remote/player-keys/">remote control screen</a>.</li>
+  <li><span class="ui">Require PIN for</span> &rsaquo; <span class="ui">Group options</span> and <span class="ui">Channel options</span>, under <a href="/features/parental-controls/">parental controls</a>.</li>
+</ul>
+
+<p>What does still work is your device's own text scaling, in the television or phone's accessibility settings. That applies across everything you have installed, including this app.</p>

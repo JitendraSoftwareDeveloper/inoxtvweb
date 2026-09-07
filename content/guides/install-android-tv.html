@@ -1,0 +1,127 @@
+<!-- {
+  "title": "Install InoxTV on Android TV",
+  "h1": "Installing InoxTV on Android TV",
+  "description": "Install the InoxTV television build on Android TV or Google TV from Play, or by direct download when the store will not show it on your device.",
+  "lede": "Two routes, and it is worth trying the store one first. If Play says the app is not available for your device, that is a hardware filter rather than a missing app, and the direct download works anyway.",
+  "section": "guides",
+  "slug": "guides/install-android-tv",
+  "group": "install",
+  "order": 1,
+  "card": "From Play where it appears, by direct download where it does not — plus why some boxes hide it.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/install-fire-tv-stick",
+    "guides/first-hour-with-inoxtv",
+    "guides/choose-playlist-type"
+  ],
+  "howto": {
+    "name": "Install InoxTV on Android TV",
+    "steps": [
+      "Open the Google Play Store on the television and search for InoxTV.",
+      "Install the television build and open it.",
+      "If Play does not list it, install a file-fetching app such as Downloader from Play.",
+      "Allow that app to install unknown apps in the television's security settings.",
+      "Enter the code 2910810 in Downloader and let the download finish.",
+      "Choose Install, then Open."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Why does the Play Store say the app is not available for my device?",
+      "a": "Play filters by declared hardware. Some TV boxes report themselves as phones, or omit the leanback feature that marks a device as a television, and the television build is then hidden. The app runs perfectly well on those boxes; the direct download bypasses the filter."
+    },
+    {
+      "q": "Should I install the TV build or the mobile build on a TV box?",
+      "a": "The television build. It is a different interface designed for a D-pad, not the phone layout scaled up. The mobile build will install on a TV box but expects touch input, which makes several screens awkward to operate."
+    },
+    {
+      "q": "Do I need a Google account on the television?",
+      "a": "Only for the Play route. The direct download needs no account at all, which is useful on a box where you would rather not sign in."
+    },
+    {
+      "q": "Will a direct install still update from Play later?",
+      "a": "No. A build installed by direct download is updated by downloading the newer build the same way. Installing from Play over it is not possible without uninstalling first, which loses your playlists unless you take a backup."
+    }
+  ]
+} -->
+
+<p>The television build of InoxTV is <code>in.inoxtv.tv</code>. It is a separate interface from the phone build rather than the same layout stretched, which is why installing the right one matters on a device you drive with a remote.</p>
+
+<h2 id="play">The Play Store route</h2>
+
+<p>Open the Google Play Store on the television, search for <strong>InoxTV</strong>, and install it. On a certified Android TV or Google TV device that is all there is to it, and updates arrive automatically afterwards.</p>
+
+<p>Searching by voice usually works better than the on&#8209;screen keyboard here. If the results show the phone build rather than the television one, you are looking at a store that has decided your device is not a television &mdash; which brings us to the other route.</p>
+
+<h2 id="why-hidden">Why Play sometimes hides it</h2>
+
+<p>Play decides what to show based on what the device declares about itself. A television build is published against the leanback feature that marks a device as remote&#8209;driven, and plenty of inexpensive Android TV boxes either omit that declaration or report themselves as phones outright.</p>
+
+<p>When that happens Play says the app is not available for your device. That is a filter, not a verdict on compatibility: the app runs on those boxes exactly as it does elsewhere. Install it directly instead.</p>
+
+<h2 id="direct">The direct download route</h2>
+
+<ol class="steps">
+  <li>
+    <p class="step-title">Install a file-fetching app</p>
+    <p><strong>Downloader</strong> from Play is the usual choice and works on Android TV as well as Fire TV. Any app that can fetch a URL and hand the file to the installer will do.</p>
+  </li>
+  <li>
+    <p class="step-title">Allow it to install apps</p>
+    <p>The setting lives in different places depending on the manufacturer. Look for <strong>Settings</strong> &rsaquo; <strong>Apps</strong> &rsaquo; <strong>Security &amp; restrictions</strong> &rsaquo; <strong>Unknown sources</strong>, or <strong>Settings</strong> &rsaquo; <strong>Device Preferences</strong> &rsaquo; <strong>Security &amp; restrictions</strong>. Grant it to the app you installed in step 1, not globally if the choice is offered.</p>
+  </li>
+  <li>
+    <p class="step-title">Fetch the build</p>
+    <p>In Downloader, enter the code <code>2910810</code>. The full address, if you prefer it, is <code>https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk</code> &mdash; the code exists because typing that with a D&#8209;pad is unpleasant.</p>
+  </li>
+  <li>
+    <p class="step-title">Install and tidy up</p>
+    <p>Choose <strong>Install</strong> when the download finishes, then <strong>Open</strong>. Let Downloader delete the downloaded file afterwards; a TV box with 8&nbsp;GB of storage does not have room to spare.</p>
+  </li>
+</ol>
+
+<div class="note">
+  <p class="note-label">Which route you used matters later</p>
+  <p>Apps installed from Play update themselves. Apps installed directly do not &mdash; you repeat the download when a new version comes out. Mixing the two is not possible: switching an existing install from one route to the other means uninstalling first, which discards your playlists unless you have taken a backup.</p>
+</div>
+
+<h2 id="first-run">First run</h2>
+
+<p>InoxTV opens on an intro screen stating that it provides no sources of TV channels, with an <span class="ui">Add Playlist</span> button. That is the expected state on a fresh install: the app is a player and the channels come from your own IPTV service.</p>
+
+<p>What to enter depends on what your provider issued you. <a href="/guides/choose-playlist-type/">Which playlist type to choose</a> settles that in a couple of minutes, and <a href="/guides/first-hour-with-inoxtv/">your first hour with InoxTV</a> runs through the whole setup in the order that avoids doubling back.</p>
+
+<h2 id="devices">Device notes</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Device type</th><th>What to expect</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Nvidia Shield TV</td><td>The best of them. A playlist of several thousand channels imports without complaint and the guide grid scrolls smoothly.</td></tr>
+      <tr><td>Chromecast with Google TV, Google TV Streamer</td><td>Play route works. Storage is tight, so keep an eye on it.</td></tr>
+      <tr><td>Android TV built into a television</td><td>Usually fine. Manufacturer menus vary, which is why the security setting above has three possible paths.</td></tr>
+      <tr><td>Inexpensive Android TV boxes</td><td>The direct route is often required. Performance varies a great deal, and <a href="/troubleshooting/buffering-and-stuttering/">buffering</a> on these is more often the box than the connection.</td></tr>
+      <tr><td>Devices reporting as phones</td><td>Direct route only. Everything works afterwards, including the remote layout.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="failures">If the install itself fails</h2>
+
+<p>Three failures account for nearly all of them, and Android's wording for each is unhelpfully similar.</p>
+
+<p><strong>App not installed.</strong> Almost always a signature clash: a copy of InoxTV is already on the device from a different source, and Android will not replace one with the other. Uninstall the existing copy first &mdash; and <a href="/guides/backup-and-restore/">take a backup before you do</a>, because uninstalling takes your playlists with it.</p>
+
+<p><strong>The install screen never appears.</strong> The permission from step 2 was granted to the wrong app, or not at all. Go back to the security settings and check the entry for the app you are downloading with, rather than a global switch elsewhere.</p>
+
+<p><strong>Not enough storage.</strong> Common on 8&nbsp;GB boxes and Sticks. Downloading needs room for the file and then room for the installed app at the same time, so clearing a little space before you start is easier than clearing it halfway through. Deleting the downloaded file afterwards gets that half back.</p>
+
+<p>Both builds can sit on one device if you want them to &mdash; they are separate packages, so a TV box can run the television build and a tablet build side by side without either interfering with the other.</p>
+
+<h2 id="remote">Before you go further: the remote</h2>
+
+<p>Remotes shipped with TV boxes vary enormously in which buttons they have. InoxTV lets you reassign every key in the player, the channel list and the guide, so a remote missing a colour&#8209;button row or a dedicated guide button is not a problem &mdash; it just needs mapping once. The <a href="/remote/player-keys/">player key reference</a> lists every default and every action you can move.</p>
+
+<p>Doing that early is worth it. Discovering after a month that the button you keep pressing by accident could have been the one you wanted is a common regret.</p>

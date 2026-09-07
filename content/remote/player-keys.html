@@ -1,0 +1,203 @@
+<!-- {
+  "title": "InoxTV player remote key reference",
+  "h1": "Every remote key in the player, and what it does",
+  "description": "The complete InoxTV player key map: the default action for all 29 remote keys, every action you can reassign them to, and which four actions are not wired up yet.",
+  "lede": "These are the defaults the app ships with, taken from its own key definitions. Every one of them can be changed, and on a remote that is missing buttons, changing them is the difference between an app that fits your hardware and one that fights it.",
+  "section": "remote",
+  "slug": "remote/player-keys",
+  "group": "tv",
+  "order": 1,
+  "min_words": 1300,
+  "card": "All 29 player keys with their shipped defaults, the full action list, and what to remap on a remote missing buttons.",
+  "updated": "2026-09-07",
+  "related": [
+    "remote/tv-guide-keys",
+    "features/live-tv",
+    "guides/first-hour-with-inoxtv"
+  ],
+  "faq": [
+    {
+      "q": "Where do I change a key?",
+      "a": "Settings, then Remote control, then Player. Each key is listed with its current action; select one and pick a new action from the list. The TV guide and Movies and shows screens have their own separate lists on the same screen."
+    },
+    {
+      "q": "My remote has no colour buttons. Does that matter?",
+      "a": "No. Red, Green, Yellow and Blue carry useful defaults, but everything they do is also reachable from the menu or from another key. If your remote lacks them, reassign the buttons it does have."
+    },
+    {
+      "q": "Why do Rewind and Fast forward change the channel info instead of seeking?",
+      "a": "On a live stream there is usually nothing behind the current moment to seek through, so they default to showing the info panel for the previous and next channel. If you want them seeking, assign them Restart current program and Go to live stream."
+    },
+    {
+      "q": "I assigned Multiview to a key and nothing happens.",
+      "a": "Multiview, Picture-in-picture, Sleep timer and Audio offset appear in the action list but are not connected yet. A key holding one of them does nothing at all, deliberately, rather than doing something unexpected."
+    },
+    {
+      "q": "Can I get back to the shipped defaults?",
+      "a": "Yes. Restore to defaults on the key mapping screen resets every key in that context at once, and it does not touch the other two contexts."
+    },
+    {
+      "q": "Does a long press count as a separate key?",
+      "a": "Yes. Long OK, Long Back, Long Left, Long Right, Long Up, Long Down and Long Menu each have their own assignment, which is where most of the useful capacity on a small remote comes from."
+    }
+  ]
+} -->
+
+<p>Remotes vary more than anything else about a television. A Fire TV remote has no colour buttons and no number pad. Some Android TV remotes have a dedicated guide key, most do not. Cheap box remotes ship with buttons that do nothing in any app. InoxTV handles this by treating every key as reassignable, in three separate contexts.</p>
+
+<p>Everything below is the shipped default. Change any of it in <span class="ui">Settings</span> &rsaquo; <span class="ui">Remote control</span> &rsaquo; <span class="ui">Player</span>.</p>
+
+<h2 id="dpad">The D-pad, which is where most of it lives</h2>
+
+<figure>
+  <img src="/images/diagrams/dpad-player.svg" alt="An Android TV remote D-pad with the default player actions. Up turns on the next channel and held is assigned Multiview, which is not wired up yet. Right turns on the most recent channel and held shows the program description. Down turns on the previous channel and held is assigned Picture-in-Picture, which is not wired up yet. Left opens the channel list as an overlay and held opens it in preview mode. OK shows the info panel with recent channels and held opens the player menu." width="980" height="460" loading="lazy" decoding="async">
+  <figcaption><strong>Press and hold are different keys.</strong> That is what makes five physical buttons cover ten actions, and it is why the D-pad is where you should spend your remapping effort.</figcaption>
+</figure>
+
+<p>The pattern is worth noticing before you start changing things. Pressing a direction moves you between channels; holding the same direction opens a feature. Left is the exception, because both of its assignments open the channel list &mdash; as an overlay on a press, in preview mode on a hold.</p>
+
+<div class="note note--warn">
+  <p class="note-label">Two of the holds are shipped empty</p>
+  <p><kbd class="key">Long Up</kbd> and <kbd class="key">Long Down</kbd> hold <span class="ui">Multiview</span> and <span class="ui">Picture-in-picture</span>, and neither of those is connected in this build &mdash; the keys do nothing. They are the two best long presses on the remote, so if you are remapping anything, start there. <span class="ui">Show channels list in preview mode</span> on one and <span class="ui">Go to live stream</span> or <span class="ui">Search</span> on the other turns two dead keys into two useful ones.</p>
+</div>
+
+<h2 id="defaults">Every key and its default action</h2>
+
+<p>Twenty&#8209;nine keys, in the order the app lists them. The labels in the left column are exactly what you will see on the mapping screen, brackets and all.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Key</th><th>Default action in the player</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><kbd class="key">OK</kbd></td><td>Show info panel and recent channels</td></tr>
+      <tr><td><kbd class="key">Long OK</kbd></td><td>Show menu</td></tr>
+      <tr><td><kbd class="key">Back</kbd></td><td>Go back</td></tr>
+      <tr><td><kbd class="key">Long Back</kbd></td><td>Search</td></tr>
+      <tr><td><kbd class="key">Left</kbd></td><td>Show channels list in overlay mode</td></tr>
+      <tr><td><kbd class="key">Long Left</kbd></td><td>Show channels list in preview mode</td></tr>
+      <tr><td><kbd class="key">Right</kbd></td><td>Turn on most recent channel</td></tr>
+      <tr><td><kbd class="key">Long Right</kbd></td><td>Show program description</td></tr>
+      <tr><td><kbd class="key">Up</kbd></td><td>Turn on next channel</td></tr>
+      <tr><td><kbd class="key">Long Up</kbd></td><td>Multiview &mdash; not wired up yet</td></tr>
+      <tr><td><kbd class="key">Down</kbd></td><td>Turn on previous channel</td></tr>
+      <tr><td><kbd class="key">Long Down</kbd></td><td>Picture-in-picture &mdash; not wired up yet</td></tr>
+      <tr><td><kbd class="key">Pg+(Ch+)</kbd></td><td>Show info panel for next channel</td></tr>
+      <tr><td><kbd class="key">Pg-(Ch-)</kbd></td><td>Show info panel for previous channel</td></tr>
+      <tr><td><kbd class="key">Volume up</kbd></td><td>Volume up</td></tr>
+      <tr><td><kbd class="key">Volume down</kbd></td><td>Volume down</td></tr>
+      <tr><td><kbd class="key">Mute</kbd></td><td>Volume mute</td></tr>
+      <tr><td><kbd class="key">Menu</kbd></td><td>Show menu</td></tr>
+      <tr><td><kbd class="key">Long Menu</kbd></td><td>Open TV guide in overlay mode</td></tr>
+      <tr><td><kbd class="key">Play/Pause</kbd></td><td>Play/pause</td></tr>
+      <tr><td><kbd class="key">Rewind(RW)</kbd></td><td>Show info panel for previous channel</td></tr>
+      <tr><td><kbd class="key">Fast forward(FF)</kbd></td><td>Show info panel for next channel</td></tr>
+      <tr><td><kbd class="key">Backspace</kbd></td><td>Open TV guide groups in overlay mode</td></tr>
+      <tr><td><kbd class="key">Info</kbd></td><td>Show info panel</td></tr>
+      <tr><td><kbd class="key">Guide</kbd></td><td>Open TV guide in overlay mode</td></tr>
+      <tr><td><kbd class="key">Red</kbd></td><td>Open TV guide in overlay mode</td></tr>
+      <tr><td><kbd class="key">Green</kbd></td><td>Open TV guide groups in overlay mode</td></tr>
+      <tr><td><kbd class="key">Yellow</kbd></td><td>Show recent channels</td></tr>
+      <tr><td><kbd class="key">Blue</kbd></td><td>Open settings</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <p class="note-label">Your remote does not need to have all of these</p>
+  <p>The list is the same on every device, because it describes key codes rather than buttons. A remote that sends nothing for <kbd class="key">Backspace</kbd> simply never triggers that row. Assign the actions you want to the buttons you actually have.</p>
+</div>
+
+<h2 id="actions">Everything a key can be assigned to</h2>
+
+<p>The action list is the same for every key, so any of these can go on any button. Grouped by what they are for:</p>
+
+<h3>Channels</h3>
+<ul>
+  <li><span class="ui">Turn on next channel</span>, <span class="ui">Turn on previous channel</span> &mdash; switch immediately.</li>
+  <li><span class="ui">Turn on most recent channel</span> &mdash; back to what you were watching before this one.</li>
+  <li><span class="ui">Show info panel for next channel</span>, <span class="ui">Show info panel for previous channel</span> &mdash; look without switching.</li>
+  <li><span class="ui">Show recent channels</span>, <span class="ui">Show info panel and recent channels</span>, <span class="ui">Show info panel</span>.</li>
+</ul>
+
+<h3>Lists and the guide</h3>
+<ul>
+  <li><span class="ui">Show channels list in overlay mode</span> &mdash; the list over the video.</li>
+  <li><span class="ui">Show channels list in preview mode</span> &mdash; the list beside a shrunken picture.</li>
+  <li><span class="ui">Open TV guide in overlay mode</span>, <span class="ui">Open TV guide groups in overlay mode</span>.</li>
+  <li><span class="ui">Show program description</span>, <span class="ui">Search</span>, <span class="ui">Show menu</span>.</li>
+</ul>
+
+<h3>Playback</h3>
+<ul>
+  <li><span class="ui">Play/pause</span>, <span class="ui">Restart current program</span>, <span class="ui">Go to live stream</span>.</li>
+  <li><span class="ui">Audio tracks</span>, <span class="ui">Closed captions</span>, <span class="ui">Display mode</span> &mdash; the three overlays you reach for in the first minute of a channel.</li>
+  <li><span class="ui">Volume up</span>, <span class="ui">Volume down</span>, <span class="ui">Volume mute</span>.</li>
+</ul>
+
+<h3>Exits</h3>
+<ul>
+  <li><span class="ui">Open settings</span>, <span class="ui">Go back</span>, <span class="ui">Exit</span>.</li>
+  <li><span class="ui">Ignore</span> &mdash; the one people forget. It makes a key do nothing, which is the fix for a button you keep hitting by accident.</li>
+</ul>
+
+<h3>Four that are in the list but not connected</h3>
+
+<p><span class="ui">Multiview</span>, <span class="ui">Picture-in-picture</span>, <span class="ui">Sleep timer</span> and <span class="ui">Audio offset</span> can all be assigned, and a key holding one of them does nothing when pressed. That is on purpose: the key is swallowed rather than allowed to fall through to some other behaviour, so at least the result is predictable. They are in the list because they are what the player is heading towards, not because they are hidden behind a setting you have missed.</p>
+
+<p>Skip them when you are planning a layout. Two of the four sit on <kbd class="key">Long Up</kbd> and <kbd class="key">Long Down</kbd> out of the box, which means the shipped defaults leave you two free keys whether you wanted them or not.</p>
+
+<p>Two actions in the list are worth promoting because nothing holds them by default. <span class="ui">Restart current program</span> jumps to the start of the buffer the stream is carrying, and <span class="ui">Go to live stream</span> takes you back to the live edge. How far either one moves you is decided by the stream rather than by the app &mdash; a channel served with a rolling window lets you move inside it, and one served without a window has nowhere to go. On the streams that do carry a window, that pair on <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd> is a better use of those buttons than a second and third route to channel information.</p>
+
+<h2 id="menu">One key gets you most of it: the tool strip</h2>
+
+<p>Before you spend an evening assigning keys, look at what <span class="ui">Show menu</span> already reaches. It is on <kbd class="key">Long OK</kbd> and <kbd class="key">Menu</kbd> by default, and it opens a row of icons along the bottom of the picture that <kbd class="key">Left</kbd> and <kbd class="key">Right</kbd> walk through, wrapping round at either end. Eight of its tiles go somewhere:</p>
+
+<ul>
+  <li><span class="ui">Search</span> and <span class="ui">TV List</span> &mdash; the two you would otherwise burn keys on.</li>
+  <li><span class="ui">Video track</span>, <span class="ui">Audio track</span> and <span class="ui">Subtitle track</span>, each labelled with the track you are currently on rather than with its own name.</li>
+  <li><span class="ui">Aspect ratio</span>, labelled with the current mode, offering eight of them and an <span class="ui">Apply to all channels</span> switch so a fix sticks &mdash; <a href="/features/playback-quality/">what each mode does</a> is worth a read if your picture is the wrong shape.</li>
+  <li><span class="ui">Add to favorites</span> and <span class="ui">Settings</span>.</li>
+</ul>
+
+<p>The strip also carries tiles for Multiview, Recordings, audio delay and a reminder, and those four are drawn but not connected &mdash; the same four ideas that appear unconnected in the action list. The strip hides itself after five seconds, which is short enough that it is worth learning the icon positions rather than reading along it each time.</p>
+
+<p>Nothing in the working eight needs a key of its own. Assign keys to the two or three things you do several times an evening, and leave the rest to one menu press &mdash; a remote where every button does something surprising is worse than one extra press.</p>
+
+<h2 id="seeking">The seeking switches, and what they currently do</h2>
+
+<p><span class="ui">Settings</span> &rsaquo; <span class="ui">Remote control</span> carries a <span class="ui">Player seeking options</span> block with three switches:</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Setting</th><th>Shipped state</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Use RW/FF/Pause for seeking/pause while watching catch-up</span></td><td>On</td></tr>
+      <tr><td><span class="ui">Use Left/Right for seeking while watching catch-up</span></td><td>Off</td></tr>
+      <tr><td><span class="ui">Use RW to rewind live stream with catch-up</span></td><td>Off</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Be aware of what these do today: the app stores whichever way you set them, and playback does not yet read them. Catch&#8209;up browsing &mdash; asking a provider for a programme that finished yesterday &mdash; is not in this build either, so there is no catch&#8209;up state for them to apply to. Changing them changes nothing you will see, and it is better to know that than to spend an evening toggling them.</p>
+
+<p>If you want <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd> doing something other than channel information, assign them directly in the key table above. That works now and it is not conditional on anything.</p>
+
+<h2 id="remotes">What to change on the remote you actually own</h2>
+
+<p><strong>A Fire TV remote.</strong> No colour buttons, no <kbd class="key">Guide</kbd>, no <kbd class="key">Info</kbd>, no page keys &mdash; so five of the defaults above are unreachable. The buttons you do have are the D-pad, <kbd class="key">Back</kbd>, <kbd class="key">Menu</kbd> (the three&#8209;line one), <kbd class="key">Play/Pause</kbd>, <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd>. Long presses are what save you: <kbd class="key">Long Menu</kbd> already opens the guide, and <kbd class="key">Long Back</kbd> is search.</p>
+
+<p><strong>An Android TV remote with a dedicated guide key.</strong> Nothing needs changing. <kbd class="key">Guide</kbd> opens the guide, <kbd class="key">Menu</kbd> opens the menu, and the D-pad defaults are sensible as shipped. The colour buttons, if it has them, are the only real spare capacity: three of the four open something the guide already reaches.</p>
+
+<p><strong>A box remote with a full keypad and colour row.</strong> You have more buttons than the defaults use, and three of the four colour keys open something the guide already reaches. This is the case where <span class="ui">Restart current program</span>, <span class="ui">Go to live stream</span> and <span class="ui">Show program description</span> are worth promoting onto real keys.</p>
+
+<p><strong>Any remote with a button you keep pressing by mistake.</strong> Assign it <span class="ui">Ignore</span>. Trying to retrain your thumb never works as well as making the button harmless.</p>
+
+<h2 id="restore">Getting back to the defaults</h2>
+
+<p><span class="ui">Restore to defaults</span> at the top of the mapping screen resets every key in that context to the table above. It is scoped to the context you are in, so restoring the player leaves your guide and movies mappings alone.</p>
+
+<p>The other two contexts have their own tables: <a href="/remote/tv-guide-keys/">keys in the TV guide</a> and <a href="/remote/vod-keys/">keys on the movies and shows screens</a>. The same physical button can hold three different actions, one per context, and in the shipped defaults it often does.</p>

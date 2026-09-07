@@ -1,0 +1,137 @@
+<!-- {
+  "title": "InoxTV setup: your first hour, step by step",
+  "h1": "Your first hour with InoxTV",
+  "description": "Set InoxTV up properly in one sitting: install, add a playlist, get the TV guide working, tune the remote and fix the two settings everyone changes later.",
+  "lede": "Six stages, in the order that avoids doubling back. If you follow them straight through you will end up with a working channel list, a populated programme guide and a remote that does what you expect.",
+  "section": "guides",
+  "slug": "guides/first-hour-with-inoxtv",
+  "group": "start",
+  "order": 1,
+  "min_words": 1400,
+  "card": "The whole setup in order: install, playlist, guide, remote, and the settings worth changing on day one.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/choose-playlist-type",
+    "guides/install-android-tv",
+    "guides/set-up-tv-guide-epg"
+  ],
+  "faq": [
+    {
+      "q": "How long does this actually take?",
+      "a": "Installing takes five minutes, adding a playlist another five, and the first TV guide download anywhere from thirty seconds to several minutes depending on the source. The rest is tuning you could postpone, though the remote step saves more time than it costs."
+    },
+    {
+      "q": "Do I need anything before I start?",
+      "a": "A playlist from an IPTV service you subscribe to. InoxTV supplies none and cannot help you find one. Have the URL or the credentials somewhere you can copy from."
+    },
+    {
+      "q": "What should I do first if I have both a phone and a television?",
+      "a": "The phone. Typing a long URL is far easier there, and you can then take a backup and restore it on the television instead of typing anything on screen."
+    },
+    {
+      "q": "The channel list loaded but nothing plays. Where do I look?",
+      "a": "Try the same channel in another player on the same network. If it fails there too, the stream or the account is the problem and your provider is the only one who can fix it. If it plays there, start with the channel troubleshooting page."
+    }
+  ]
+} -->
+
+<p>InoxTV arrives empty on purpose. It is a player, and the channels come from a service you already pay for. This page takes you from a fresh install to a setup you will not need to revisit, in the order that avoids having to undo anything.</p>
+
+<p>You will need a playlist from your IPTV provider before you start. If you do not have one, nothing below will help, and it is not something we can supply &mdash; the <a href="/disclaimer/">content disclaimer</a> explains why.</p>
+
+<h2 id="stage-1">Stage 1: install the right build</h2>
+
+<p>There are two builds and they are different interfaces, not one interface at two sizes. Install the one that matches the device.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Device</th><th>Route</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Android TV, Google TV</td><td><a href="/guides/install-android-tv/">Play Store, or direct download if Play hides it</a></td></tr>
+      <tr><td>Fire TV Stick, Fire TV Cube</td><td><a href="/guides/install-fire-tv-stick/">Downloader, code 2910810</a></td></tr>
+      <tr><td>Android phone or tablet</td><td><a href="/guides/install-android-mobile/">Play Store</a></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>If you are setting up both a phone and a television, do the phone first even though the television is what you will watch on. Everything involving typing is easier there, and stage 6 explains how to carry the result across.</p>
+
+<p>One thing worth clearing before you go further: if the app came up in a language you do not read, change it now. <span class="ui">Settings</span> &rsaquo; <span class="ui">Appearance</span> &rsaquo; <span class="ui">Language</span> restarts the app to apply the change, which costs you nothing at this point and is merely irritating three stages in. <a href="/features/themes-and-languages/">Themes and languages</a> lists all nineteen, along with the colour themes that sit on the same screen.</p>
+
+<h2 id="stage-2">Stage 2: decide how you are connecting</h2>
+
+<p>Look at what your provider sent you before you touch the app. One of these three describes it:</p>
+
+<ul>
+  <li><strong>A single long URL</strong>, probably ending in <code>.m3u</code> or containing <code>get.php</code>. That is an M3U playlist.</li>
+  <li><strong>A server address, a username and a password.</strong> That is Xtream Codes, and it is the best of the three when it is available.</li>
+  <li><strong>A portal address and a MAC address.</strong> That is Stalker Portal.</li>
+</ul>
+
+<p>Here is the part worth knowing before you start typing. If your provider only sent an M3U link shaped like <code>http://example.com:8080/get.php?username=USER&amp;password=PASS</code>, you have Xtream Codes credentials without being told: the server is <code>http://example.com:8080</code>, and the username and password are in the link. Connecting that way gives you a faster start, a real films and series library, and account details the app can show you. <a href="/guides/choose-playlist-type/">The full comparison</a> takes two minutes and is worth reading now rather than after you have set up the slower option.</p>
+
+<h2 id="stage-3">Stage 3: add the playlist</h2>
+
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &rsaquo; <span class="ui">Add playlist</span>, or use the <span class="ui">Add Playlist</span> button on the intro screen. Choose your type on the <span class="ui">Playlist Type</span> screen and fill in the form. The detailed walkthrough for each is separate &mdash; <a href="/guides/add-m3u-playlist/">M3U</a>, <a href="/guides/add-xtream-codes-playlist/">Xtream Codes</a>, <a href="/guides/add-stalker-portal-playlist/">Stalker Portal</a> &mdash; but three things apply whichever you pick.</p>
+
+<p><strong>Paste, do not type.</strong> One wrong character in a URL or password produces the same failure as an expired subscription, and you can lose half an hour to it. <span class="ui">Paste from clipboard</span> is there for this.</p>
+
+<p><strong>Name it for yourself, not for the provider.</strong> <span class="ui">Playlist name</span> is what you will see when picking a source. In six months, a name describing what the playlist is for will mean more than the company name.</p>
+
+<p><strong>Ignore the two tick boxes.</strong> <span class="ui">Include live tv</span> and <span class="ui">Include Vod</span> sit on the import screen, both ticked, and neither is connected to the importer in this build. Whatever the playlist carries comes in either way, so unticking one saves you nothing. It is worth knowing because the usual advice for a slow import is to untick the second one, and here that advice does nothing at all.</p>
+
+<p>Save, and watch the counts climb: <span class="ui">Live TV: 0&nbsp;&nbsp;Movies: 0&nbsp;&nbsp;Shows: 0</span> rising is what progress looks like. On a large M3U over a slow box this can take a minute or two. When the numbers stop, open the channel list and play something. Do that now, before configuring anything else &mdash; it tells you whether the rest of this page is worth doing.</p>
+
+<div class="note note--warn">
+  <p class="note-label">If nothing plays at this point</p>
+  <p>Stop and test the same stream in another player on the same network. If it fails there too, the problem is your provider or your subscription, and no setting in InoxTV will change it. If it plays there, <a href="/troubleshooting/channel-wont-play/">a channel that will not play</a> narrows it down in a few minutes.</p>
+</div>
+
+<h2 id="stage-4">Stage 4: get the TV guide filled in</h2>
+
+<p>Open the guide. If you connected with Xtream Codes there is a good chance it is already populated, because most panels serve programme data through the same API. In that case, skip to stage 5 &mdash; adding a source you do not need only means downloading more.</p>
+
+<p>If the guide is empty, it needs a source, and there are two halves to that:</p>
+
+<ol class="steps">
+  <li>
+    <p class="step-title">Add the source</p>
+    <p><span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span> &rsaquo; <span class="ui">TV guide sources</span>, then add the XMLTV address your provider supplied. Their own address is worth chasing rather than substituting a public one: it was generated alongside your playlist, so the channel identifiers match.</p>
+  </li>
+  <li>
+    <p class="step-title">Attach it to the playlist</p>
+    <p>This is the step people miss. <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, select your playlist, and change <span class="ui">EPG source</span> from <span class="ui">No source</span> to what you just added. A source that exists but is not attached does nothing at all.</p>
+  </li>
+</ol>
+
+<p>Then choose <span class="ui">Update TV guide</span> and read the message at the end. Success shows <span class="ui">TV guide updated on</span> with a timestamp. A failure names its cause, and the causes each mean something specific &mdash; <a href="/guides/set-up-tv-guide-epg/">setting up the TV guide</a> lists all of them, including what to do when the update succeeds and the guide is still empty.</p>
+
+<p>While you are on that screen, one number is worth understanding rather than changing at random. <span class="ui">Past days to keep EPG</span> defaults to 7, and it decides how many days of already&#8209;aired listings are kept instead of deleted. The guide grid scrolls back seven days and no further, so 7 is the value that matches what you can actually reach; setting it higher keeps data nothing will ever display. On a stick that is short of space, drop it to 1 or 2 &mdash; you lose the ability to look back at what aired, and nothing else.</p>
+
+<h2 id="stage-5">Stage 5: make the remote do what you expect</h2>
+
+<p>This is the stage most people skip and later wish they had not. Remotes differ enormously &mdash; a Fire TV remote has no colour buttons, some Android TV remotes have no dedicated guide key, and cheap box remotes have buttons that do nothing at all in most apps.</p>
+
+<p>Every key in InoxTV is reassignable, separately for the player, the guide, and the movies and shows screens. Ten minutes here is worth it, and it is easiest done while you still remember what you were expecting each button to do. The <a href="/remote/player-keys/">player key reference</a> lists every default and every action available, so you can see what is on offer before you start moving things.</p>
+
+<p>Two changes are worth making almost universally. Put the action you use most on a button your remote actually has, rather than learning a two&#8209;step route to it. And if there is a button you keep pressing by mistake, reassign it to something harmless rather than trying to stop pressing it.</p>
+
+<h2 id="stage-6">Stage 6: the settings people change later</h2>
+
+<p>Four settings account for most of the changes people make in their first month. Making them now costs nothing.</p>
+
+<p><strong>Buffer size.</strong> <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> &rsaquo; <span class="ui">Buffer size</span>, with <span class="ui">Normal</span>, <span class="ui">Large</span> and <span class="ui">Very large</span>. A larger setting holds more video in hand against an uneven connection, and costs memory rather than switching speed. Leave it at <span class="ui">Normal</span> for now. If you get stuttering later, this is the first thing to raise &mdash; <a href="/troubleshooting/buffering-and-stuttering/">buffering and stuttering</a> covers when it helps and when it is masking a different problem.</p>
+
+<p><strong>Auto frame rate.</strong> <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> &rsaquo; <span class="ui">Auto frame rate (AFR)</span> switches your television's refresh rate to match the video, which removes the slight judder on film content. Turn it on if your television supports it. Not all do, and on those it does nothing rather than breaking anything.</p>
+
+<p><strong>Update playlist on app start.</strong> On the playlist itself. Useful for a provider that changes channels often, and a real cost on a slow box because it puts the whole import in front of your first channel. Xtream Codes makes it cheap; a large M3U does not.</p>
+
+<p><strong>Take a backup.</strong> <span class="ui">Settings</span> &rsaquo; <span class="ui">General</span> &rsaquo; <span class="ui">Backup data</span>. There is no account and no server, so everything you have just configured exists only on this device. A backup file is what lets you set up a second device in thirty seconds instead of repeating this page, and it is the only thing standing between a factory reset and doing all of it again. Do it now, while the configuration is fresh and correct.</p>
+
+<h2 id="whats-next">Where to go from here</h2>
+
+<p>You have a working setup. The <a href="/features/">features section</a> has a page per feature with the exact settings path and every option value, which is the place to go when you want to know what something does before you change it. The <a href="/troubleshooting/">troubleshooting section</a> is organised by symptom rather than by cause, so when something breaks you can look up what you are seeing instead of guessing why.</p>
+
+<p>Two things are worth knowing exist, because almost nobody finds them by accident. <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &rsaquo; <span class="ui">Manage groups</span> switches whole groups off, which is the one change that makes a playlist with two hundred groups usable rather than merely large. And <a href="/features/recording/">recording</a> will take a programme out of the guide, or a slot you describe by clock time, once you have pointed it at a folder to write into.</p>

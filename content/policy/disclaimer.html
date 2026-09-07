@@ -1,0 +1,55 @@
+<!-- {
+  "title": "Content disclaimer | InoxTV",
+  "h1": "InoxTV supplies no TV channels",
+  "description": "InoxTV is a media player with no channels, playlists or streams of its own. Read what ships in the app, what you supply, and where responsibility sits.",
+  "lede": "This page exists because the distinction matters, both legally and practically. InoxTV plays what you point it at. It does not find, host, sell or index anything.",
+  "section": "policy",
+  "slug": "disclaimer",
+  "updated": "2026-09-07"
+} -->
+
+<p>The first screen a new install shows says it plainly: <strong>InoxTv doesn't provide any sources of TV channels. To watch TV channels, please add a playlist provided by your IPTV service.</strong> That sentence is not a formality. It describes the entire relationship between the app and the content you watch through it.</p>
+
+<h2 id="what-inoxtv-is">What InoxTV is</h2>
+
+<p>InoxTV is a media player for Android, Android TV and Fire TV. It reads a playlist file or an API endpoint that you provide, builds a channel list from it, and plays the streams that playlist points to. Functionally it sits in the same category as VLC or MX Player, with an interface built for a remote control and for the specific shape of an IPTV playlist: channel groups, an electronic programme guide, and a movies and shows library.</p>
+
+<p>Two builds exist. <code>in.inoxtv.mobile</code> is the phone and tablet build; <code>in.inoxtv.tv</code> is the Android TV and Fire TV build. Neither differs on this point.</p>
+
+<h2 id="what-ships">What ships inside the app</h2>
+
+<p>The installable package contains program code, icons, translations for nineteen languages, and seven colour themes. What it does not contain:</p>
+
+<ul>
+  <li>No playlist, of any format, bundled or downloaded on first run.</li>
+  <li>No channel list, no channel names, no channel logos, no broadcaster marks.</li>
+  <li>No stream URLs, no server addresses, no portal addresses, no credentials.</li>
+  <li>No default provider, no partner provider, no recommended provider, no directory or search of providers.</li>
+  <li>No programme-guide data. The EPG you see is fetched from a URL you configure, or from the API your provider exposes.</li>
+</ul>
+
+<p>Install the app and open it without adding anything, and there is nothing to watch. That is the expected state, not a bug.</p>
+
+<h2 id="what-you-supply">What you supply</h2>
+
+<p>To get a channel list you add a playlist under <span class="ui">Playlists</span> &rsaquo; <span class="ui">Add playlist</span>. InoxTV accepts three shapes of input: an M3U or M3U8 file, either from a URL or from local storage; Xtream Codes credentials, meaning a server address, username and password; or a Stalker Portal address with a MAC address. Whichever you choose, every value in that form comes from you or from the service you already pay for. We do not fill any of it in, suggest values, or validate them against a list of known providers.</p>
+
+<h2 id="what-we-cannot-see">What we can and cannot see</h2>
+
+<p>Playlists, credentials and portal details are stored on your device. They are not transmitted to us and we hold no copy. The consequence cuts both ways: we cannot audit what any user is watching, and we also cannot recover your playlist if you wipe the app without taking a backup first.</p>
+
+<p>Streams are fetched by your device directly from whatever host the playlist names. Nothing is proxied, cached or relayed through infrastructure we operate. When a channel buffers, the path between your router and your provider is the path that matters &mdash; which is why the <a href="/troubleshooting/buffering-and-stuttering/">buffering guide</a> spends most of its length on that path rather than on app settings.</p>
+
+<h2 id="your-responsibility">Your responsibility</h2>
+
+<p>You are responsible for having the right to access whatever you play through InoxTV. In practice that means the service supplying your playlist is licensed to distribute what it carries, in the territory you are in. Most reputable providers state their licensing publicly. If yours does not, that is worth asking about before you pay them.</p>
+
+<p>Using InoxTV to access content you have no right to access breaches the <a href="/terms/">terms of use</a>. We cannot detect it and we do not try to, but the permission we grant to use the app does not extend to it.</p>
+
+<h2 id="reporting">If content reaches this app that should not</h2>
+
+<p>We cannot remove a stream we do not host and cannot see. What we can do is act on the app itself where there is a legitimate claim about it, and pass on what we know. The <a href="/dmca/">copyright and takedown page</a> sets out what a notice needs to contain and what happens after it arrives. Rights holders looking for the fastest route to a stream's removal should contact the service distributing it or its hosting provider; that is where the content actually lives.</p>
+
+<h2 id="no-endorsement">No endorsement, either direction</h2>
+
+<p>Nothing on this site or in the app should be read as a recommendation of any IPTV service, or as a claim that any particular provider is licensed. Guides on this site describe how to enter a provider's details into a form. They name no provider, and they never will.</p>

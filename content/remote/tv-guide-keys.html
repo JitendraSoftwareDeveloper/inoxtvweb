@@ -1,0 +1,145 @@
+<!-- {
+  "title": "InoxTV TV guide remote key reference",
+  "h1": "Remote keys in the TV guide",
+  "description": "Default actions for all 20 remappable keys in the InoxTV TV guide, the full action list, and which rows of the channel menu actually do something.",
+  "lede": "The guide has its own key map, separate from the player. Up and Down move the selection and are not remappable; everything else is.",
+  "section": "remote",
+  "slug": "remote/tv-guide-keys",
+  "group": "tv",
+  "order": 2,
+  "min_words": 800,
+  "card": "The guide's own 20-key map, plus which channel-menu rows are wired.",
+  "updated": "2026-09-07",
+  "related": [
+    "remote/player-keys",
+    "guides/set-up-tv-guide-epg",
+    "features/tv-guide-epg"
+  ],
+  "faq": [
+    {
+      "q": "Why are Up and Down missing from the list?",
+      "a": "In the guide they move the selection between channels, which is not something worth reassigning. The player has Up and Down in its own list because there the selection does not exist."
+    },
+    {
+      "q": "What is the difference between Show groups and Open group options?",
+      "a": "Show groups opens the panel you pick a group from, and it works. Open group options is a menu that is placed but not yet connected, so the Yellow button that holds it by default does nothing. Group editing lives in Settings, Playlists, Manage groups instead."
+    },
+    {
+      "q": "Holding OK opens the channel menu. Is that the same as a touch long press?",
+      "a": "Yes, deliberately. The remote gesture and the touch gesture open the same menu, so guidance written for one works on the other."
+    },
+    {
+      "q": "Why do some rows in the channel menu do nothing?",
+      "a": "Five rows are wired in this build — Search, Settings, Record, Custom recording and Add to favorites. The rest are laid out so the menu keeps the shape it is going to have rather than rearranging itself as each piece lands."
+    },
+    {
+      "q": "Can a key do different things in the guide and in the player?",
+      "a": "Yes, and by default several do. Red changes favourite status in the guide and opens the guide from the player. The three contexts are configured independently."
+    }
+  ]
+} -->
+
+<p>The TV guide gets its own key map because the same buttons need to mean different things there. <kbd class="key">OK</kbd> opens a channel rather than showing an info panel; <kbd class="key">Left</kbd> opens the groups panel rather than a channel list. Twenty keys are remappable, in <span class="ui">Settings</span> &rsaquo; <span class="ui">Remote control</span> &rsaquo; <span class="ui">TV guide</span>.</p>
+
+<p><kbd class="key">Up</kbd> and <kbd class="key">Down</kbd> are absent from the list on purpose: in a grid they move the selection, and that is not a behaviour anyone benefits from changing.</p>
+
+<figure>
+  <img src="/images/diagrams/dpad-tvguide.svg" alt="The D-pad as it behaves in the TV guide. Up and Down move the selection one channel at a time and are not in the remappable list. Right scrolls to the next programmes, Left opens the groups panel, and OK opens the selected channel or, held, the channel options menu. Only OK has a hold action assigned." width="980" height="460" loading="lazy" decoding="async">
+  <figcaption><strong>The guide leaves most holds free.</strong> Four of the five D-pad keys have nothing on the hold, which makes them the obvious place to put whatever you use often.</figcaption>
+</figure>
+
+<h2 id="defaults">Every key and its default action</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Key</th><th>Default action in the guide</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><kbd class="key">OK</kbd></td><td>Open channel</td></tr>
+      <tr><td><kbd class="key">Long OK</kbd></td><td>Open channel options</td></tr>
+      <tr><td><kbd class="key">Back</kbd></td><td>Go back</td></tr>
+      <tr><td><kbd class="key">Long Back</kbd></td><td>Return to player</td></tr>
+      <tr><td><kbd class="key">Left</kbd></td><td>Show groups</td></tr>
+      <tr><td><kbd class="key">Right</kbd></td><td>Scroll to next programs</td></tr>
+      <tr><td><kbd class="key">Pg+(Ch+)</kbd></td><td>Page scroll channels up</td></tr>
+      <tr><td><kbd class="key">Pg-(Ch-)</kbd></td><td>Page scroll channels down</td></tr>
+      <tr><td><kbd class="key">Menu</kbd></td><td>Show menu</td></tr>
+      <tr><td><kbd class="key">Long Menu</kbd></td><td>Show groups</td></tr>
+      <tr><td><kbd class="key">Play/Pause</kbd></td><td>Show program description</td></tr>
+      <tr><td><kbd class="key">Rewind(RW)</kbd></td><td>Page scroll channels up</td></tr>
+      <tr><td><kbd class="key">Fast forward(FF)</kbd></td><td>Page scroll channels down</td></tr>
+      <tr><td><kbd class="key">Backspace</kbd></td><td>Return to player</td></tr>
+      <tr><td><kbd class="key">Info</kbd></td><td>Show program description</td></tr>
+      <tr><td><kbd class="key">Guide</kbd></td><td>Show groups</td></tr>
+      <tr><td><kbd class="key">Red</kbd></td><td>Change favorite status</td></tr>
+      <tr><td><kbd class="key">Green</kbd></td><td>Open channel options</td></tr>
+      <tr><td><kbd class="key">Yellow</kbd></td><td>Open group options &mdash; not wired up yet</td></tr>
+      <tr><td><kbd class="key">Blue</kbd></td><td>Open settings</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Three keys open the groups panel &mdash; <kbd class="key">Left</kbd>, <kbd class="key">Long Menu</kbd> and <kbd class="key">Guide</kbd> &mdash; because that is the panel people reach for most, and because a remote missing one of the three still has another. If you never use groups, those are the first three keys worth spending on something else.</p>
+
+<p><kbd class="key">Yellow</kbd> is the one to reassign first. <span class="ui">Open group options</span> is a menu the guide is going to have and does not have yet, so the key is swallowed and nothing happens. <span class="ui">Return to current programs</span> is the obvious replacement, for the reason given below.</p>
+
+<h2 id="actions">Everything a guide key can be assigned to</h2>
+
+<ul>
+  <li><span class="ui">Open channel</span> &mdash; play the selected channel.</li>
+  <li><span class="ui">Show menu</span>, <span class="ui">Show groups</span>, <span class="ui">Open settings</span>.</li>
+  <li><span class="ui">Open channel options</span> &mdash; the menu described below.</li>
+  <li><span class="ui">Change favorite status</span> &mdash; adds or removes the selected channel from favourites in one press.</li>
+  <li><span class="ui">Show program description</span>, <span class="ui">Search</span>.</li>
+  <li><span class="ui">Scroll to next programs</span>, <span class="ui">Return to current programs</span> &mdash; move the time axis forward, and jump back to now.</li>
+  <li><span class="ui">Page scroll channels up</span>, <span class="ui">Page scroll channels down</span> &mdash; a screenful of channels at a time.</li>
+  <li><span class="ui">Go back</span>, <span class="ui">Return to player</span>, <span class="ui">Ignore</span>.</li>
+</ul>
+
+<p>Two entries in the list are not connected in this build: <span class="ui">Open group options</span>, as above, and <span class="ui">Open in external player</span>, which is locked and reports <span class="ui">Available for premium users</span> wherever it appears. Neither is worth a key.</p>
+
+<p><span class="ui">Return to current programs</span> is not on any key by default and is the one most worth adding. Scroll three days forward looking for something and you will want a single button that brings the grid back to now.</p>
+
+<h2 id="channel-options">What the channel menu contains</h2>
+
+<p><kbd class="key">Long OK</kbd> and <kbd class="key">Green</kbd> both open it, and so does a long press on a touch screen &mdash; the two gestures were kept the same on purpose. The panel is divided into three labelled parts, naming the programme, the channel and the group a row would act on, so it is always clear what you are about to change.</p>
+
+<p>Five rows work:</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Entry</th><th>What it does</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Record</span></td><td>Records the selected programme. Needs a recordings folder set first, and says <span class="ui">Set a recordings folder first</span> if there is none.</td></tr>
+      <tr><td><span class="ui">Custom recording</span></td><td>Opens the booking panel: start date, start time, duration, repeat and a name.</td></tr>
+      <tr><td><span class="ui">Add to favorites</span> / <span class="ui">Remove from favorites</span></td><td>The same thing <kbd class="key">Red</kbd> does, from the menu.</td></tr>
+      <tr><td><span class="ui">Search</span></td><td>Opens the search overlay without closing the guide first.</td></tr>
+      <tr><td><span class="ui">Settings</span></td><td>Opens settings in place.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Hold a cell for a programme that has not started yet and the menu narrows: the rows about something on air disappear, leaving <span class="ui">Custom recording</span> to book the slot outright.</p>
+
+<p>The rest of the panel &mdash; <span class="ui">Watch from start</span>, <span class="ui">Block channel</span>, <span class="ui">Hide channel</span>, <span class="ui">Assign EPG</span>, <span class="ui">Channel options</span>, the three <span class="ui">Manage&hellip;</span> rows, <span class="ui">Reorder channels</span>, <span class="ui">Copy channels</span>, <span class="ui">Create group</span>, <span class="ui">Block group</span>, <span class="ui">Hide group</span> and <span class="ui">Group options</span> &mdash; highlights and does nothing. They mark out the menu's eventual shape. A row that highlights and does nothing is a smaller surprise than a row that appears later in a menu you have already learned, which is why they are there rather than hidden.</p>
+
+<p>The practical consequence: there is no channel blocking or channel hiding in this build at all, and no way to point one channel at a different guide entry. If a channel's listings are wrong, the answer is a source whose identifiers match your playlist &mdash; <a href="/troubleshooting/no-tv-guide-data/">missing TV guide data</a> covers how to get one.</p>
+
+<h2 id="group-options">Managing groups, which is not in this menu</h2>
+
+<p>Group editing lives in <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &rsaquo; <span class="ui">Manage groups</span>, and it is more capable than a remote menu would be: a visibility switch per group, <span class="ui">Show all groups</span> and <span class="ui">Hide all groups</span>, <span class="ui">Groups sorting</span> offering <span class="ui">By order in playlist</span>, <span class="ui">By name</span> and <span class="ui">Manual</span>, and <span class="ui">Reorder groups</span> once sorting is <span class="ui">Manual</span>.</p>
+
+<p>Switching off the groups you will never watch is the fastest way to make a large playlist usable, and it changes the guide and the channel lists together. On a playlist with two hundred groups, hide all of them and switch six back on rather than working down the list.</p>
+
+<h2 id="how-far">How far the grid actually scrolls</h2>
+
+<p><span class="ui">Scroll to next programs</span> stops where your guide data stops. If your source carries two days, pressing <kbd class="key">Right</kbd> repeatedly will run out on the second evening, and that is the data rather than the key. Backwards, the limit is <span class="ui">Past days to keep EPG</span> in the guide settings, which decides how much history the app keeps rather than discards.</p>
+
+<p>Worth knowing before you go looking for a setting that does not exist: nothing in this key map can extend the grid. That is a question for the <a href="/guides/set-up-tv-guide-epg/">source you point the guide at</a>.</p>
+
+<h2 id="restore">Restoring the defaults</h2>
+
+<p><span class="ui">Restore to defaults</span> resets the guide's keys only. Your <a href="/remote/player-keys/">player map</a> and your <a href="/remote/vod-keys/">movies and shows map</a> are untouched, because all three are stored separately.</p>

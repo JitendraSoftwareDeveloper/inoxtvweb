@@ -1,0 +1,123 @@
+{
+  "base_url": "https://inoxtv.com",
+  "brand": "InoxTV",
+  "brand_split": ["Inox", "tv"],
+  "tagline": "IPTV player for Android TV, Fire TV and mobile",
+  "support_email": "support@inoxtv.com",
+  "support_window": "within 2 working days",
+  "analytics_id": "G-KRV4ERFF8F",
+  "ads_client": "ca-pub-6161953663322185",
+  "play_mobile": "https://play.google.com/store/apps/details?id=in.inoxtv.mobile",
+  "play_tv": "https://play.google.com/store/apps/details?id=in.inoxtv.tv",
+  "apk_tv": "https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk",
+  "downloader_code": "2910810",
+
+  "disclaimer": "InoxTV does not provide any sources of TV channels. To watch TV channels, add a playlist provided by your own IPTV service.",
+
+  "nav": [
+    { "label": "Guides", "url": "/guides/" },
+    { "label": "Features", "url": "/features/" },
+    { "label": "Troubleshooting", "url": "/troubleshooting/" },
+    { "label": "Remote keys", "url": "/remote/" },
+    { "label": "Download", "url": "/#download", "cta": true }
+  ],
+
+  "footer_columns": [
+    {
+      "heading": "Help centre",
+      "links": [
+        { "label": "Setup guides", "url": "/guides/" },
+        { "label": "Features", "url": "/features/" },
+        { "label": "Troubleshooting", "url": "/troubleshooting/" },
+        { "label": "Remote key reference", "url": "/remote/" }
+      ]
+    },
+    {
+      "heading": "InoxTV",
+      "links": [
+        { "label": "About", "url": "/about/" },
+        { "label": "Contact support", "url": "/contact/" },
+        { "label": "Download", "url": "/#download" }
+      ]
+    },
+    {
+      "heading": "Policies",
+      "links": [
+        { "label": "Content disclaimer", "url": "/disclaimer/" },
+        { "label": "Terms of use", "url": "/terms/" },
+        { "label": "Privacy policy", "url": "/privacy.html" },
+        { "label": "Copyright and takedown", "url": "/dmca/" }
+      ]
+    }
+  ],
+
+  "sections": {
+    "guides": {
+      "title": "Setup guides",
+      "h1": "Setup guides",
+      "description": "Step-by-step setup guides for InoxTV on Android TV, Fire TV Stick and Android phones: installing the app, adding a playlist, and getting the TV guide working.",
+      "lede": "Work through these in order the first time. Each guide is written for one device and one task, and says exactly which on-screen labels to look for.",
+      "ads": true,
+      "word_floor": 900,
+      "groups": [
+        { "id": "start", "heading": "Start here" },
+        { "id": "install", "heading": "Installing the app" },
+        { "id": "playlists", "heading": "Adding a playlist" },
+        { "id": "guide-data", "heading": "TV guide data" },
+        { "id": "tuning", "heading": "Making it yours" }
+      ]
+    },
+    "features": {
+      "title": "Features",
+      "h1": "Every feature, explained",
+      "description": "What each InoxTV feature does, where to find it, and how it behaves differently on Android TV and on a phone. Written from the app's own settings screens.",
+      "lede": "One page per feature. Each one names the exact settings path, lists every option value, and ends with the problems people actually hit.",
+      "ads": true,
+      "word_floor": 700,
+      "groups": [
+        { "id": "watching", "heading": "Watching" },
+        { "id": "organising", "heading": "Finding and organising" },
+        { "id": "playback", "heading": "Playback and quality" },
+        { "id": "control", "heading": "Control and access" },
+        { "id": "app", "heading": "App and data" }
+      ]
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting",
+      "h1": "Something is not working",
+      "description": "Fixes for the problems InoxTV users report most: buffering, a playlist that will not load, missing TV guide data, a channel that will not play, no sound, and login errors.",
+      "lede": "Find your symptom, not your theory about the cause. Each page starts with the fix that solves it most often and works down from there.",
+      "ads": true,
+      "word_floor": 500,
+      "groups": [
+        { "id": "playback", "heading": "Playback problems" },
+        { "id": "playlists", "heading": "Playlist and login problems" },
+        { "id": "guide-data", "heading": "TV guide problems" },
+        { "id": "features", "heading": "Feature-specific problems" },
+        { "id": "app", "heading": "App problems" }
+      ]
+    },
+    "remote": {
+      "title": "Remote key reference",
+      "h1": "Remote and D-pad key reference",
+      "description": "Complete InoxTV key maps: every remote button in the player, the TV guide and the movies and shows screens, its default action, and every action you can reassign it to.",
+      "lede": "These tables are generated from the app's own key definitions, so they match the defaults your build actually ships with.",
+      "ads": true,
+      "word_floor": 600,
+      "groups": [
+        { "id": "tv", "heading": "Android TV and Fire TV" },
+        { "id": "mobile", "heading": "Phones and tablets" }
+      ]
+    },
+    "policy": {
+      "title": "Policies",
+      "h1": "Policies",
+      "description": "InoxTV policies.",
+      "lede": "",
+      "ads": false,
+      "word_floor": 300,
+      "hub": false,
+      "groups": []
+    }
+  }
+}

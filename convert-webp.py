@@ -25,10 +25,15 @@ SKIP = {
     "icon-maskable-512.png",
 }
 
+# images/diagrams/ holds hand-authored SVG. Anything raster that lands there is
+# an export of one, referenced directly rather than through <picture>, so a
+# .webp sibling would be dead weight.
+SKIP_DIRS = {"diagrams"}
+
 total_png = total_webp = 0
 
 for png in sorted(Path("images").rglob("*.png")):
-    if png.name in SKIP:
+    if png.name in SKIP or SKIP_DIRS & set(png.parts):
         print(f"skip  {png}")
         continue
 

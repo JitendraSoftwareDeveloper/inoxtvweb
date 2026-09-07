@@ -1,0 +1,15 @@
+<article class="doc doc--policy">
+  <div class="wrap">
+    {{breadcrumbs}}
+    <header class="doc-head">
+      <h1>{{h1}}</h1>
+      <p class="doc-lede">{{lede}}</p>
+      <p class="doc-updated">Last updated <time datetime="{{updated}}">{{updated_human}}</time></p>
+    </header>
+    <div class="doc-body doc-body--wide">
+      {{content}}
+      {{related}}
+    </div>
+  </div>
+</article>
+{% include disclaimer-band %}

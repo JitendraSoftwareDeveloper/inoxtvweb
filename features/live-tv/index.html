@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Live TV in InoxTV: the player explained</title>
+<meta name="description" content="How the InoxTV live player works: the info panel, channel lists in overlay and preview mode, recent channels, aspect ratio per channel, and the tools menu.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://inoxtv.com/features/live-tv/">
+<meta name="theme-color" content="#0B1020">
+<meta name="color-scheme" content="dark">
+
+<link rel="alternate" hreflang="en" href="https://inoxtv.com/features/live-tv/">
+<link rel="alternate" hreflang="x-default" href="https://inoxtv.com/features/live-tv/">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://inoxtv.com/features/live-tv/">
+<meta property="og:title" content="Live TV in InoxTV: the player explained">
+<meta property="og:description" content="How the InoxTV live player works: the info panel, channel lists in overlay and preview mode, recent channels, aspect ratio per channel, and the tools menu.">
+<meta property="og:image" content="https://inoxtv.com/images/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="InoxTV IPTV player for Android TV, Fire TV and mobile">
+<meta property="og:site_name" content="InoxTV">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live TV in InoxTV: the player explained">
+<meta name="twitter:description" content="How the InoxTV live player works: the info panel, channel lists in overlay and preview mode, recent channels, aspect ratio per channel, and the tools menu.">
+<meta name="twitter:image" content="https://inoxtv.com/images/og-image.jpg">
+
+<link rel="icon" type="image/png" href="/images/mobile-icon.png">
+<link rel="apple-touch-icon" href="/images/logo.png">
+<link rel="manifest" href="/manifest.json">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
+<link rel="stylesheet" href="/docs.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KRV4ERFF8F');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6161953663322185" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://inoxtv.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Features",
+      "item": "https://inoxtv.com/features/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Watching live TV",
+      "item": "https://inoxtv.com/features/live-tv/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Watching live TV",
+  "description": "How the InoxTV live player works: the info panel, channel lists in overlay and preview mode, recent channels, aspect ratio per channel, and the tools menu.",
+  "url": "https://inoxtv.com/features/live-tv/",
+  "dateModified": "2026-09-07",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "InoxTV",
+    "url": "https://inoxtv.com"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "InoxTV",
+    "operatingSystem": "Android, Android TV",
+    "applicationCategory": "MultimediaApplication"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "InoxTV",
+    "url": "https://inoxtv.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between overlay mode and preview mode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Overlay mode draws the channel list on top of the video, which keeps the picture full size. Preview mode shrinks the video into a corner and gives the list the rest of the screen, which is easier to read on a large list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is the list of channels I watched recently?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "History, reachable from the info panel and on the Yellow button by default in the player. It shows the channels you have been through with their playlist and group, and it has a Clear button."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I fix the picture shape for one channel only?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Aspect ratio in the player menu applies to the current channel, with an Apply to all channels switch if you want it everywhere. A channel that is letterboxed by the broadcaster stays that way with Normal and fills the screen with Zoom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the app remember which channel I was on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It can. Turn on last channel on app start, in General settings, opens straight into what you were last watching instead of the channel list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does No Information mean under a channel name?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no programme entry for that channel at that time. The stream itself is unaffected — it is the guide data that is missing, not the channel."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body class="page-doc">
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="site-head">
+  <div class="wrap site-head-inner">
+    <a class="site-logo" href="/">
+      <picture><source srcset="/images/logo.webp" type="image/webp"><img src="/images/logo.png" alt="" width="32" height="32" decoding="async"></picture>
+      <span class="site-logo-word">Inox<span>tv</span></span>
+    </a>
+    <button class="site-nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span class="site-nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Help centre">
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="/features/" class="is-current" aria-current="page">Features</a></li>
+        <li><a href="/troubleshooting/">Troubleshooting</a></li>
+        <li><a href="/remote/">Remote keys</a></li>
+        <li><a href="/#download" class="nav-cta">Download</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="doc">
+  <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb">
+      <ol><li><a href="/">Home</a></li><li><a href="/features/">Features</a></li><li aria-current="page">Watching live TV</li></ol>
+    </nav>
+    <header class="doc-head">
+      <p class="doc-kicker">Features</p>
+      <h1>Watching live TV</h1>
+      <p class="doc-lede">The live player is built around one idea: you should be able to see what else is on without stopping what you are watching. Almost every overlay in it exists for that reason.</p>
+      <p class="doc-updated">Last updated <time datetime="2026-09-07">7 September 2026</time></p>
+    </header>
+    <div class="doc-grid">
+      <div class="doc-body">
+        <p>Everything in the live player is reachable from the D&#8209;pad without leaving the picture, and the layers are worth knowing by name because the <a href="/remote/player-keys/">key reference</a> uses them.</p>
+
+<h2 id="info-panel">The info panel</h2>
+
+<p><kbd class="key">OK</kbd> brings up the info panel, which is the bar along the bottom carrying the channel number and name, the current programme with its time and how much is left, and <span class="ui">Next:</span> with whatever follows. A <span class="ui">LIVE</span> marker sits there while playback is at the live edge, which is how you tell at a glance that you have not drifted back into the stream's buffer.</p>
+
+<p>Where guide data is missing you get <span class="ui">No Information</span> in place of the programme title, and a programme that has finished but is still selected shows <span class="ui">Ended</span>. Both are statements about the listings rather than the stream.</p>
+
+<p>The same press also opens <span class="ui">History</span> &mdash; a list of channels you have been through, each with its playlist and group, and a <span class="ui">Clear</span> button when it gets long. Before you have watched anything it reads <span class="ui">No history</span>.</p>
+
+<div class="ad-slot" aria-label="Advertisement">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-6161953663322185"
+       data-ad-slot=""
+       data-ad-format="fluid"
+       data-ad-layout="in-article"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<h2 id="lists">Two ways to see the channel list</h2>
+
+<p>Both are opened from the D&#8209;pad and they exist for different screens.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Mode</th><th>What it looks like</th><th>Default key</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Overlay</td><td>The list is drawn over the video at full size. Quick glance, keeps the picture.</td><td><kbd class="key">Left</kbd></td></tr>
+      <tr><td>Preview</td><td>The video shrinks into a corner and the list gets the rest of the screen. Better for reading a long list.</td><td><kbd class="key">Long Left</kbd></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>In either mode, moving the highlight does not change the channel &mdash; you browse, then press <kbd class="key">OK</kbd>. The three filters along the top are <span class="ui">Favorites</span>, <span class="ui">All Channels</span> and <span class="ui">All Playlists</span>, and an empty list under a filter reads <span class="ui">No channels</span> rather than looking broken.</p>
+
+<p>Holding <kbd class="key">OK</kbd> on a channel opens the channel menu, which is grouped into three parts: what applies to the programme, what applies to the channel, and what applies to the group. Five rows do something in this build &mdash; <span class="ui">Search</span>, <span class="ui">Settings</span>, <span class="ui">Record</span>, <span class="ui">Custom recording</span> and <span class="ui">Add to favorites</span>. The rest are placed and not yet wired; <a href="/remote/tv-guide-keys/">the guide key reference</a> lists which is which so you are not left pressing a row that highlights and does nothing.</p>
+
+<h2 id="switching">Switching channels</h2>
+
+<p>Four ways, and the difference between them is how much you want to see first.</p>
+
+<ul>
+  <li><kbd class="key">Up</kbd> and <kbd class="key">Down</kbd> switch immediately to the next and previous channel.</li>
+  <li><kbd class="key">Pg+(Ch+)</kbd> and <kbd class="key">Pg-(Ch-)</kbd> show the info panel for the next and previous channel without switching, so you can look before you commit.</li>
+  <li><kbd class="key">Right</kbd> jumps to the most recent channel &mdash; the one you were on before this one, which is what you want during an advertisement break.</li>
+  <li>The channel list, for anything further away than a few positions.</li>
+</ul>
+
+<h2 id="tools">The player menu</h2>
+
+<p><kbd class="key">Long OK</kbd> or <kbd class="key">Menu</kbd> opens the tool strip &mdash; a row of icons along the bottom rather than a list of names. <kbd class="key">Left</kbd> and <kbd class="key">Right</kbd> walk it and wrap around at either end, and it hides itself after five seconds if you leave it alone.</p>
+
+<p>Eight of the tiles go somewhere: <span class="ui">Search</span>, <span class="ui">TV List</span>, <span class="ui">Video track</span>, <span class="ui">Audio track</span>, <span class="ui">Subtitle track</span>, <span class="ui">Aspect ratio</span>, <span class="ui">Add to favorites</span> and <span class="ui">Settings</span>. The strip also carries <span class="ui">Multiview</span>, <span class="ui">Recordings</span>, an audio&#8209;delay tile and a reminder tile, and those four are drawn but not connected yet &mdash; they are the shape the menu is heading towards rather than four things you are failing to use correctly.</p>
+
+<p>One detail that confuses people at first: the four stateful tiles are labelled with their current value, not with their name. The aspect tile reads <span class="ui">Normal</span> or <span class="ui">Zoom</span>, the track tiles read the track you are on, and the subtitle tile reads <span class="ui">off</span> until you pick one. So the strip tells you the state of the channel at a glance, which is the point, but you learn it by icon rather than by word.</p>
+
+<p>The track selectors are worth knowing about before you need them. <span class="ui">Audio track</span> is how you get the second language on a channel that carries one, <span class="ui">Subtitle track</span> turns captions on where the stream includes them, and <span class="ui">Video track</span> matters on the streams that offer more than one quality. Each choice is remembered against that channel, so a channel you set to its English track opens on it next time.</p>
+
+<h2 id="aspect">Aspect ratio, per channel</h2>
+
+<p>Some channels arrive with black bars the broadcaster put there, and no player can recover the missing picture &mdash; but you can crop to fill the screen. <span class="ui">Aspect ratio</span> offers <span class="ui">Normal</span>, <span class="ui">Full</span>, <span class="ui">Zoom</span>, <span class="ui">Reduced</span> and <span class="ui">Zoom - 2.35:1</span>.</p>
+
+<p>The setting applies to the channel you are on, which is the behaviour you want when one channel in fifty is wrong. <span class="ui">Apply to all channels</span> makes it global if the whole playlist has the same problem.</p>
+
+<div class="ad-slot" aria-label="Advertisement">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-6161953663322185"
+       data-ad-slot=""
+       data-ad-format="fluid"
+       data-ad-layout="in-article"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<h2 id="starting">Where the app opens</h2>
+
+<p><span class="ui">Turn on last channel on app start</span>, under <span class="ui">Settings</span> &rsaquo; <span class="ui">General</span>, decides whether launching the app puts you into the channel you were watching or into the list. On a television used mainly for one or two channels, having it on removes a step every evening.</p>
+
+<p>Two neighbouring settings matter on devices that sleep rather than switch off: <span class="ui">Auto start app on boot</span> and <span class="ui">Auto start app on wake up from sleep mode</span>. On a box dedicated to television use, both on means the app is simply always there.</p>
+
+<h2 id="live-edge">Seeking on a live stream</h2>
+
+<p>Two actions exist for moving around inside a live stream, and neither is on a key by default: <span class="ui">Restart current program</span> jumps to the beginning of the buffer, and <span class="ui">Go to live stream</span> returns to the live edge. Both are plain seeks, and how far they can actually take you is decided entirely by the stream, not by the app &mdash; a stream served with a rolling window lets you move inside it, and a stream served without one has nowhere to go.</p>
+
+<p>That is the honest limit of it. There is no catch&#8209;up or archive browsing in this build: the app cannot request yesterday's programme from a provider, and the <span class="ui">Watch from start</span> row you will see in the channel menu is one of the rows that is placed but not yet wired. If your provider offers recorded programming, it does so through its own on&#8209;demand catalogue, which turns up under <a href="/features/movies-and-shows/">movies and shows</a> rather than in the guide.</p>
+
+<p>What you can do today, and what most people actually want, is <a href="/features/recording/">record the programme</a> instead. That works from the guide and does not depend on the stream carrying a buffer.</p>
+
+<h2 id="problems">When something is wrong</h2>
+
+<p>A channel that fails while others work, sound with no picture, and a channel that has vanished from the list are all covered in <a href="/troubleshooting/channel-wont-play/">a channel that will not play</a>. A channel that plays but keeps pausing is <a href="/troubleshooting/buffering-and-stuttering/">buffering</a>, which is a different problem with different fixes.</p>
+        <section class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions people ask</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What is the difference between overlay mode and preview mode?</summary>
+              <div>Overlay mode draws the channel list on top of the video, which keeps the picture full size. Preview mode shrinks the video into a corner and gives the list the rest of the screen, which is easier to read on a large list.</div>
+            </details>
+            <details>
+              <summary>Where is the list of channels I watched recently?</summary>
+              <div>History, reachable from the info panel and on the Yellow button by default in the player. It shows the channels you have been through with their playlist and group, and it has a Clear button.</div>
+            </details>
+            <details>
+              <summary>Can I fix the picture shape for one channel only?</summary>
+              <div>Yes. Aspect ratio in the player menu applies to the current channel, with an Apply to all channels switch if you want it everywhere. A channel that is letterboxed by the broadcaster stays that way with Normal and fills the screen with Zoom.</div>
+            </details>
+            <details>
+              <summary>Does the app remember which channel I was on?</summary>
+              <div>It can. Turn on last channel on app start, in General settings, opens straight into what you were last watching instead of the channel list.</div>
+            </details>
+            <details>
+              <summary>What does No Information mean under a channel name?</summary>
+              <div>There is no programme entry for that channel at that time. The stream itself is unaffected — it is the guide data that is missing, not the channel.</div>
+            </details>
+          </div>
+        </section>
+                <section class="related" aria-labelledby="related-h">
+          <h2 id="related-h">Related pages</h2>
+          <ul>
+        <li><a href="/features/tv-guide-epg/"><span class="rel-sec">Features</span><span class="rel-title">The TV guide</span></a></li>
+        <li><a href="/remote/player-keys/"><span class="rel-sec">Remote key reference</span><span class="rel-title">Every remote key in the player, and what it does</span></a></li>
+        <li><a href="/troubleshooting/channel-wont-play/"><span class="rel-sec">Troubleshooting</span><span class="rel-title">A channel that will not play</span></a></li>
+          </ul>
+        </section>
+      </div>
+            <nav class="toc" aria-labelledby="toc-h">
+        <p class="toc-h" id="toc-h">On this page</p>
+        <ol>
+          <li><a href="#info-panel">The info panel</a></li>
+          <li><a href="#lists">Two ways to see the channel list</a></li>
+          <li><a href="#switching">Switching channels</a></li>
+          <li><a href="#tools">The player menu</a></li>
+          <li><a href="#aspect">Aspect ratio, per channel</a></li>
+          <li><a href="#starting">Where the app opens</a></li>
+          <li><a href="#live-edge">Seeking on a live stream</a></li>
+          <li><a href="#problems">When something is wrong</a></li>
+          <li><a href="#faq-h">Questions people ask</a></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</article>
+<aside class="band" aria-label="Content disclaimer">
+  <div class="wrap band-inner">
+    <svg class="band-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01"></path><path d="M11.5 12h.5v4h.5"></path>
+    </svg>
+    <p><strong>InoxTV supplies no channels.</strong> InoxTV does not provide any sources of TV channels. To watch TV channels, add a playlist provided by your own IPTV service. The app ships with no playlists, no channel lists and no links to any stream. <a href="/disclaimer/">Read the content disclaimer</a>.</p>
+  </div>
+</aside>
+
+
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="site-foot-cols">
+      <div class="site-foot-brand">
+        <a class="site-logo" href="/">
+          <picture><source srcset="/images/logo.webp" type="image/webp"><img src="/images/logo.png" alt="" width="32" height="32" loading="lazy" decoding="async"></picture>
+          <span class="site-logo-word">Inox<span>tv</span></span>
+        </a>
+        <p>An IPTV player for Android TV, Fire TV and Android phones. You bring the playlist; InoxTV plays it.</p>
+      </div>
+      <div class="site-foot-col">
+        <h2>Help centre</h2>
+        <ul>
+          <li><a href="/guides/">Setup guides</a></li>
+          <li><a href="/features/">Features</a></li>
+          <li><a href="/troubleshooting/">Troubleshooting</a></li>
+          <li><a href="/remote/">Remote key reference</a></li>
+        </ul>
+      </div>
+      <div class="site-foot-col">
+        <h2>InoxTV</h2>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/contact/">Contact support</a></li>
+          <li><a href="/#download">Download</a></li>
+        </ul>
+      </div>
+      <div class="site-foot-col">
+        <h2>Policies</h2>
+        <ul>
+          <li><a href="/disclaimer/">Content disclaimer</a></li>
+          <li><a href="/terms/">Terms of use</a></li>
+          <li><a href="/privacy.html">Privacy policy</a></li>
+          <li><a href="/dmca/">Copyright and takedown</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-foot-base">
+      <p>&copy; <span id="year">2026</span> InoxTV</p>
+      <p>InoxTV does not provide any sources of TV channels. To watch TV channels, add a playlist provided by your own IPTV service.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/docs.js" defer></script>
+</body>
+</html>

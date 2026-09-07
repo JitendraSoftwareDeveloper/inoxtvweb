@@ -8,4 +8,13 @@
 User-agent: *
 Allow: /
 
+# Local contact sheet for the diagram SVGs. Nothing on the site links to it and
+# it is not a page a visitor should land on from a search result.
+Disallow: /images/diagrams/preview.html
+
+# Working notes that live in the repo root. They are not site content and read
+# nothing like it, so keep them out of the index.
+Disallow: /inoxtv_website_plan.md
+Disallow: /inoxtv_adsense_plan.md
+
 Sitemap: https://inoxtv.com/sitemap.xml

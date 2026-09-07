@@ -304,6 +304,8 @@ ul { list-style: none; }
   margin-bottom: 10px;
 }
 .feature-card p { color: var(--color-text-secondary); font-size: 0.92rem; line-height: 1.6; }
+/* Every feature and hub card closes with a link into its help page. */
+.feature-card p a { font-weight: 600; }
 
 /* --- Platform Section --- */
 .platform-grid {
@@ -365,6 +367,7 @@ ul { list-style: none; }
 .playlist-badge.stalker { background: rgba(255,112,67,0.2); color: #FB923C; border: 1px solid rgba(255,112,67,0.3); }
 .playlist-card h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 10px; }
 .playlist-card p { color: var(--color-text-secondary); font-size: 0.9rem; }
+.playlist-card p a { font-weight: 600; }
 
 /* --- Languages Section --- */
 .languages-grid {
@@ -527,6 +530,29 @@ ul { list-style: none; }
 }
 
 /* --- Footer --- */
+/* --- Content disclaimer band ---------------------------------------------
+   Sits directly under the hero. The app supplies no channels and that has to
+   be legible before anyone reaches the feature list, so it is a band rather
+   than a footnote. Mirrors the help-centre band in docs.css. */
+.home-disclaimer {
+  position: relative; z-index: 1;
+  background: rgba(233, 30, 144, 0.06);
+  border-top: 1px solid var(--color-border-glass);
+  border-bottom: 1px solid var(--color-border-glass);
+  padding: 18px 0;
+}
+.home-disclaimer-inner {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.home-disclaimer svg { flex: none; margin-top: 2px; color: var(--color-accent-pink); }
+.home-disclaimer p {
+  margin: 0; font-size: 0.92rem; line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.home-disclaimer strong { color: var(--color-text-primary); }
+.home-disclaimer a { color: var(--color-accent-blue); text-decoration: underline; }
+.home-disclaimer a:hover { color: var(--color-accent-pink); }
+
 .footer {
   position: relative; z-index: 1; padding: 48px 0 32px;
   border-top: 1px solid var(--color-border-glass);

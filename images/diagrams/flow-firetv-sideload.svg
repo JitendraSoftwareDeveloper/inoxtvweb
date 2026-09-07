@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" role="img"
+     aria-labelledby="fireTitle fireDesc" width="880" height="330">
+  <title id="fireTitle">Installing InoxTV on a Fire TV device in four steps</title>
+  <desc id="fireDesc">Four steps in order. One: install Downloader from the Amazon Appstore on the Fire TV device. Two: in Settings, My Fire TV, Developer options, turn on Install unknown apps for Downloader; if Developer options is missing, open About and press Select seven times on the first row. Three: open Downloader, type the code 2910810 in the URL box and choose Go. Four: choose Install when the download finishes, then Open, and let Downloader delete the downloaded file. A direct install does not update itself, so the download is repeated when a new version appears.</desc>
+
+  <style>
+    .d-svg {
+      --ink:      #E9EEF8;
+      --strong:   #FFFFFF;
+      --muted:    #9AA7BE;
+      --faint:    #6F7C96;
+      --surface:  #161B2A;
+      --card:     #1E2540;
+      --edge:     #2E3654;
+      --deep:     #3B82F6;
+      --accent:   #7FB2FF;
+      --warn:     #F2C879;
+    }
+    .d-svg text { font-family: Outfit, Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .card     { fill: var(--card); stroke: var(--edge); stroke-width: 1.5; }
+    .eyebrow  { font-size: 10.5px; font-weight: 700; letter-spacing: .14em; fill: var(--faint); }
+    .chip     { fill: var(--deep); }
+    .chip-num { fill: #FFFFFF; font-size: 14px; font-weight: 700; text-anchor: middle; }
+    .title    { font-size: 15px; font-weight: 700; fill: var(--strong); }
+    .line     { font-size: 12px; fill: var(--muted); }
+    .hint     { font-size: 12px; fill: var(--accent); }
+    .code     { font-size: 12px; fill: var(--ink); font-weight: 700; }
+    .flow     { stroke: var(--faint); stroke-width: 1.5; fill: none; }
+    .head     { fill: var(--faint); }
+    .strip    { fill: var(--card); stroke: var(--edge); stroke-width: 1.5; }
+    .note     { font-size: 12.5px; fill: var(--muted); }
+  </style>
+
+  <g class="d-svg">
+    <rect x="0" y="0" width="880" height="330" fill="var(--surface)"/>
+
+    <text class="eyebrow" x="16" y="34">INSTALLING THE TELEVISION BUILD ON A FIRE TV STICK OR CUBE</text>
+
+    <!-- ===== step 1 ===== -->
+    <rect class="card" x="16" y="56" width="194" height="212" rx="10"/>
+    <circle class="chip" cx="38" cy="82" r="13"/><text class="chip-num" x="38" y="87">1</text>
+    <text class="title" x="60" y="88">Get Downloader</text>
+    <text class="line" x="34" y="118">Install it from the</text>
+    <text class="line" x="34" y="134">Amazon Appstore on</text>
+    <text class="line" x="34" y="150">the Fire TV device.</text>
+    <text class="line" x="34" y="182">Any app that fetches a</text>
+    <text class="line" x="34" y="198">file and hands it to the</text>
+    <text class="line" x="34" y="214">installer will do.</text>
+
+    <path class="flow" d="M210 162 H228"/>
+    <path class="head" d="M234 162 L226 157 L226 167 Z"/>
+
+    <!-- ===== step 2 ===== -->
+    <rect class="card" x="234" y="56" width="194" height="212" rx="10"/>
+    <circle class="chip" cx="256" cy="82" r="13"/><text class="chip-num" x="256" y="87">2</text>
+    <text class="title" x="278" y="88">Allow installs</text>
+    <text class="line" x="252" y="118">Settings › My Fire TV ›</text>
+    <text class="line" x="252" y="134">Developer options ›</text>
+    <text class="line" x="252" y="150">Install unknown apps.</text>
+    <text class="line" x="252" y="166">Turn on for Downloader.</text>
+    <text class="hint" x="252" y="198">No Developer options?</text>
+    <text class="line" x="252" y="214">Open About and press</text>
+    <text class="line" x="252" y="230">Select seven times.</text>
+
+    <path class="flow" d="M428 162 H446"/>
+    <path class="head" d="M452 162 L444 157 L444 167 Z"/>
+
+    <!-- ===== step 3 ===== -->
+    <rect class="card" x="452" y="56" width="194" height="212" rx="10"/>
+    <circle class="chip" cx="474" cy="82" r="13"/><text class="chip-num" x="474" y="87">3</text>
+    <text class="title" x="496" y="88">Enter the code</text>
+    <text class="line" x="470" y="118">Open Downloader and</text>
+    <text class="line" x="470" y="134">type <tspan class="code">2910810</tspan> in the</text>
+    <text class="line" x="470" y="150">URL box, then Go.</text>
+    <text class="line" x="470" y="182">The code stands in for</text>
+    <text class="line" x="470" y="198">the full address, which</text>
+    <text class="line" x="470" y="214">is painful to type with</text>
+    <text class="line" x="470" y="230">a D-pad.</text>
+
+    <path class="flow" d="M646 162 H664"/>
+    <path class="head" d="M670 162 L662 157 L662 167 Z"/>
+
+    <!-- ===== step 4 ===== -->
+    <rect class="card" x="670" y="56" width="194" height="212" rx="10"/>
+    <circle class="chip" cx="692" cy="82" r="13"/><text class="chip-num" x="692" y="87">4</text>
+    <text class="title" x="714" y="88">Install and tidy</text>
+    <text class="line" x="688" y="118">Choose Install when</text>
+    <text class="line" x="688" y="134">the download ends,</text>
+    <text class="line" x="688" y="150">then Open.</text>
+    <text class="line" x="688" y="182">Let Downloader delete</text>
+    <text class="line" x="688" y="198">the file afterwards:</text>
+    <text class="line" x="688" y="214">storage on a Stick has</text>
+    <text class="line" x="688" y="230">nothing to spare.</text>
+
+    <!-- ===== strip ===== -->
+    <rect class="strip" x="16" y="286" width="848" height="34" rx="8"/>
+    <rect x="16" y="286" width="4" height="34" rx="2" fill="var(--warn)"/>
+    <text class="note" x="34" y="308">A direct install does not update itself — when a new version appears, you fetch it the same way.</text>
+  </g>
+</svg>

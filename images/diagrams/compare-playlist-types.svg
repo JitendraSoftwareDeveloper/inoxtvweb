@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" role="img"
+     aria-labelledby="cmpTitle cmpDesc" width="880" height="470">
+  <title id="cmpTitle">The three InoxTV playlist types compared</title>
+  <desc id="cmpDesc">Three columns. M3U Playlist needs one playlist URL or a local file and an optional EPG URL, and gives live channels plus movies and shows if the file contains them, with no programme guide unless you add a source and no account details. Xtream Codes needs a server URL, username and password, and gives live channels, movies and shows with posters, a programme guide that needs no setting up, and account and expiry information. Stalker Portal needs a portal URL and a MAC address, with optional serial and device identifiers, and gives live channels, movies and shows and a programme guide from the portal, but no account details.</desc>
+
+  <style>
+    .d-svg {
+      --ink:      #E9EEF8;
+      --strong:   #FFFFFF;
+      --muted:    #9AA7BE;
+      --faint:    #6F7C96;
+      --surface:  #161B2A;
+      --card:     #1E2540;
+      --edge:     #2E3654;
+      --accent:   #7FB2FF;
+      --go:       #5FD3A0;
+      --warn:     #F2C879;
+    }
+    .d-svg text { font-family: Outfit, Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .card    { fill: var(--card); stroke: var(--edge); stroke-width: 1.5; }
+    .card-hi { fill: var(--card); stroke: var(--go);   stroke-width: 1.5; }
+    .rule    { stroke: var(--edge); stroke-width: 1; }
+    .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .14em; fill: var(--faint); }
+    .eyebrow-go { font-size: 10px; font-weight: 700; letter-spacing: .14em; fill: var(--go); }
+    .name    { font-size: 19px; font-weight: 700; fill: var(--strong); }
+    .label   { font-size: 10.5px; font-weight: 700; letter-spacing: .13em; fill: var(--muted); }
+    .item    { font-size: 13px; fill: var(--ink); }
+    .item-no { font-size: 13px; fill: var(--faint); }
+    .know    { font-size: 12px; fill: var(--muted); }
+    .yes     { fill: var(--accent); }
+    .no      { stroke: var(--faint); stroke-width: 1.5; }
+  </style>
+
+  <g class="d-svg">
+    <rect x="0" y="0" width="880" height="470" fill="var(--surface)"/>
+
+    <!-- ================= column 1 : M3U ================= -->
+    <rect class="card" x="16" y="16" width="269" height="438" rx="12"/>
+    <text class="eyebrow" x="38" y="46">WORKS EVERYWHERE</text>
+    <text class="name"    x="38" y="74">M3U Playlist</text>
+    <line class="rule" x1="38" y1="92" x2="263" y2="92"/>
+
+    <text class="label" x="38" y="118">YOU SUPPLY</text>
+    <circle class="yes" cx="42" cy="140" r="3.5"/><text class="item" x="54" y="145">One playlist URL</text>
+    <circle class="yes" cx="42" cy="164" r="3.5"/><text class="item" x="54" y="169">…or a local .m3u file</text>
+    <circle class="yes" cx="42" cy="188" r="3.5"/><text class="item" x="54" y="193">EPG URL (optional)</text>
+    <line class="rule" x1="38" y1="214" x2="263" y2="214"/>
+
+    <text class="label" x="38" y="242">YOU GET</text>
+    <circle class="yes" cx="42" cy="264" r="3.5"/><text class="item"    x="54" y="269">Live TV channels</text>
+    <circle class="yes" cx="42" cy="288" r="3.5"/><text class="item"    x="54" y="293">Movies and shows if listed</text>
+    <line   class="no"  x1="37" y1="312" x2="47" y2="312"/><text class="item-no" x="54" y="317">No guide unless you add one</text>
+    <line   class="no"  x1="37" y1="336" x2="47" y2="336"/><text class="item-no" x="54" y="341">No account details</text>
+    <line class="rule" x1="38" y1="362" x2="263" y2="362"/>
+
+    <text class="label" x="38" y="390">GOOD TO KNOW</text>
+    <text class="know" x="38" y="414">The whole list downloads</text>
+    <text class="know" x="38" y="434">before anything plays.</text>
+
+    <!-- ================= column 2 : Xtream Codes ================= -->
+    <rect class="card-hi" x="305" y="16" width="269" height="438" rx="12"/>
+    <text class="eyebrow-go" x="327" y="46">BEST WHEN OFFERED</text>
+    <text class="name"       x="327" y="74">Xtream Codes</text>
+    <line class="rule" x1="327" y1="92" x2="552" y2="92"/>
+
+    <text class="label" x="327" y="118">YOU SUPPLY</text>
+    <circle class="yes" cx="331" cy="140" r="3.5"/><text class="item" x="343" y="145">Server url</text>
+    <circle class="yes" cx="331" cy="164" r="3.5"/><text class="item" x="343" y="169">Username</text>
+    <circle class="yes" cx="331" cy="188" r="3.5"/><text class="item" x="343" y="193">Password</text>
+    <line class="rule" x1="327" y1="214" x2="552" y2="214"/>
+
+    <text class="label" x="327" y="242">YOU GET</text>
+    <circle class="yes" cx="331" cy="264" r="3.5"/><text class="item" x="343" y="269">Live TV channels</text>
+    <circle class="yes" cx="331" cy="288" r="3.5"/><text class="item" x="343" y="293">Movies and shows, sorted</text>
+    <circle class="yes" cx="331" cy="312" r="3.5"/><text class="item" x="343" y="317">Programme guide, no setup</text>
+    <circle class="yes" cx="331" cy="336" r="3.5"/><text class="item" x="343" y="341">Account and expiry info</text>
+    <line class="rule" x1="327" y1="362" x2="552" y2="362"/>
+
+    <text class="label" x="327" y="390">GOOD TO KNOW</text>
+    <text class="know" x="327" y="414">A get.php link already holds</text>
+    <text class="know" x="327" y="434">these three. Look again.</text>
+
+    <!-- ================= column 3 : Stalker Portal ================= -->
+    <rect class="card" x="594" y="16" width="269" height="438" rx="12"/>
+    <text class="eyebrow" x="616" y="46">GIVEN, NOT CHOSEN</text>
+    <text class="name"    x="616" y="74">Stalker Portal</text>
+    <line class="rule" x1="616" y1="92" x2="841" y2="92"/>
+
+    <text class="label" x="616" y="118">YOU SUPPLY</text>
+    <circle class="yes" cx="620" cy="140" r="3.5"/><text class="item" x="632" y="145">Portal url</text>
+    <circle class="yes" cx="620" cy="164" r="3.5"/><text class="item" x="632" y="169">Mac address</text>
+    <circle class="yes" cx="620" cy="188" r="3.5"/><text class="item" x="632" y="193">Serial, device id (optional)</text>
+    <line class="rule" x1="616" y1="214" x2="841" y2="214"/>
+
+    <text class="label" x="616" y="242">YOU GET</text>
+    <circle class="yes" cx="620" cy="264" r="3.5"/><text class="item" x="632" y="269">Live TV channels</text>
+    <circle class="yes" cx="620" cy="288" r="3.5"/><text class="item" x="632" y="293">Movies and shows</text>
+    <circle class="yes" cx="620" cy="312" r="3.5"/><text class="item" x="632" y="317">Programme guide included</text>
+    <line   class="no"  x1="615" y1="336" x2="625" y2="336"/><text class="item-no" x="632" y="341">No account details</text>
+    <line class="rule" x1="616" y1="362" x2="841" y2="362"/>
+
+    <text class="label" x="616" y="390">GOOD TO KNOW</text>
+    <text class="know" x="616" y="414">Tied to one MAC address,</text>
+    <text class="know" x="616" y="434">so one device at a time.</text>
+  </g>
+</svg>

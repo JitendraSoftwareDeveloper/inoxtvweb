@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InoxTV diagram preview — D-pads</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; padding: 40px 24px;
+    font: 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #0B1020; color: #E8EDF7;
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  p.note { color: #9AA7BE; margin: 0 0 32px; font-size: .95rem; }
+  .card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px; padding: 24px; margin-bottom: 28px;
+  }
+  .card h2 { font-size: 1.05rem; margin: 0 0 16px; color: #B0C4DE; font-weight: 600; }
+  .card img, .card svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+  .card img + img { margin-top: 20px; }
+  .light { background: #FFFFFF; }
+  .light h2 { color: #5A6478; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Diagram preview — Android TV D-pad, all three key maps</h1>
+  <p class="note">Not part of the public site (noindex). It exists so each SVG can be eyeballed at real
+  size, and the three compared against each other, before they go onto a remote reference page. Each
+  file paints its own opaque background, so these do not follow the OS theme &mdash; the white card at
+  the bottom is there to check the edges against a light page.</p>
+
+  <div class="card">
+    <h2>Player &mdash; <code>dpad-player.svg</code> &rarr; /remote/player-keys/</h2>
+    <img src="dpad-player.svg" alt="InoxTV Android TV remote D-pad showing the default Player key actions" width="980" height="460">
+  </div>
+
+  <div class="card">
+    <h2>TV guide &mdash; <code>dpad-tvguide.svg</code> &rarr; /remote/tv-guide-keys/</h2>
+    <img src="dpad-tvguide.svg" alt="InoxTV Android TV remote D-pad showing the default TV guide key actions" width="980" height="460">
+  </div>
+
+  <div class="card">
+    <h2>Movies and shows &mdash; <code>dpad-vod.svg</code> &rarr; /remote/vod-keys/</h2>
+    <img src="dpad-vod.svg" alt="InoxTV Android TV remote D-pad showing the default movies and shows key actions" width="980" height="460">
+  </div>
+
+  <div class="card light">
+    <h2>All three on white (print / light-page edge check)</h2>
+    <img src="dpad-player.svg" alt="" width="980" height="460">
+    <img src="dpad-tvguide.svg" alt="" width="980" height="460">
+    <img src="dpad-vod.svg" alt="" width="980" height="460">
+  </div>
+</main>
+</body>
+</html>

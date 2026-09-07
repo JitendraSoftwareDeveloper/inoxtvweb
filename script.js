@@ -591,8 +591,8 @@ function typewriter(element, text, speed = 50) {
    ============================================= */
 function initShareButtons() {
   const shareUrl = 'https://inoxtv.com';
-  const shareTitle = 'InoxTV — Premium IPTV Player for Android';
-  const shareText = 'Check out InoxTV! The most powerful IPTV player for Android Mobile & TV. Watch live TV, movies, and shows with a premium experience. Download free from Google Play Store!';
+  const shareTitle = 'InoxTV — IPTV player for Android TV, Fire TV and mobile';
+  const shareText = 'InoxTV plays your own M3U, Xtream Codes or Stalker Portal playlist on Android TV, Fire TV and Android phones, with a proper TV guide and remappable remote keys. Free on Google Play.';
 
   // Build share URLs
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl)}`;
