@@ -103,7 +103,57 @@ ul { list-style: none; }
   border-bottom: 1px solid var(--color-border-glass);
   padding: 10px 0;
 }
-.navbar .container { display: flex; align-items: center; justify-content: space-between; }
+.navbar .container { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+
+/* Label text that only a screen reader should reach. The help-centre pages get
+   this from docs.css, which this page does not load. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Search field in the masthead. A plain GET form aimed at /search/, matching the
+   help-centre pages: no script needed, so it still works with JavaScript off.
+   margin-left:auto groups it with the nav links on the right and leaves the
+   logo alone on the left, absorbing the free space before space-between can. */
+.navbar-search {
+  display: flex; align-items: center; gap: 4px; margin-left: auto;
+  width: clamp(9.5rem, 15vw, 12.5rem);
+  padding: 3px 4px 3px 10px;
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass);
+  border-radius: var(--radius-pill);
+  transition: border-color var(--transition-smooth), background var(--transition-smooth);
+}
+.navbar-search:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-accent-blue);
+}
+.navbar-search-field {
+  flex: 1 1 auto; min-width: 0; appearance: none;
+  padding: 5px 0; color: var(--color-text-primary);
+  font-family: inherit; font-size: 0.86rem;
+  background: none; border: 0;
+}
+.navbar-search-field::placeholder { color: var(--color-text-muted); }
+/* The wrapper shows the focus state, so a ring on the field would double it. */
+.navbar-search-field:focus { outline: none; }
+.navbar-search-go {
+  display: grid; place-items: center; flex: none;
+  width: 1.75rem; height: 1.75rem; padding: 0;
+  color: var(--color-text-secondary); cursor: pointer;
+  background: none; border: 0; border-radius: var(--radius-pill);
+  transition: color var(--transition-smooth), background var(--transition-smooth);
+}
+.navbar-search-go:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-glass);
+}
+.navbar-search-go:focus-visible {
+  outline: 2px solid var(--color-accent-blue); outline-offset: 1px;
+}
+
 .navbar-logo { display: flex; align-items: center; gap: 10px; }
 .navbar-logo img { height: 40px; width: auto; }
 .navbar-logo span {
@@ -625,7 +675,7 @@ ul { list-style: none; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-  .navbar-nav { 
+  .navbar-nav {
     position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     flex-direction: column; background: rgba(11, 16, 32, 0.95);
     backdrop-filter: blur(20px); padding: 80px 32px 32px; gap: 24px;
@@ -634,6 +684,12 @@ ul { list-style: none; }
   }
   .navbar-nav.open { right: 0; }
   .nav-toggle { display: block; z-index: 1001; }
+  /* The links leave the flow for the slide-in panel, so the row is logo, field,
+     toggle. The field takes the space between them instead of a fixed width,
+     which is what lets it survive a 360px screen. It cannot go in the panel
+     itself: that panel is the menubar list, and a form is not a menu item. */
+  .navbar .container { gap: 12px; }
+  .navbar-search { width: auto; flex: 1 1 6rem; max-width: 20rem; }
   .hero { padding: 100px 16px 60px; min-height: auto; }
   .hero-logo { width: 100px; height: 100px; margin-bottom: 24px; }
   .features-grid { grid-template-columns: 1fr; }

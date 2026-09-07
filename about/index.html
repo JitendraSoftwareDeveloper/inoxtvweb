@@ -93,7 +93,11 @@ gtag('config', 'G-KRV4ERFF8F');
       <span class="sr-only">Menu</span>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Help centre">
-      
+      <form class="site-search site-search--nav" role="search" action="/search/" method="get">
+        <label class="sr-only" for="q-nav">Search the InoxTV help centre</label>
+        <input class="site-search-field" type="search" id="q-nav" name="q" placeholder="Search help" autocomplete="off" enterkeyhint="search">
+        <button class="site-search-go" type="submit"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.3-4.3"></path></svg><span class="sr-only">Search</span></button>
+      </form>
       <ul>
         <li><a href="/guides/">Guides</a></li>
         <li><a href="/features/">Features</a></li>
@@ -228,6 +232,7 @@ gtag('config', 'G-KRV4ERFF8F');
       <div class="site-foot-col">
         <h2>Help centre</h2>
         <ul>
+          <li><a href="/search/">Search the help centre</a></li>
           <li><a href="/guides/">Setup guides</a></li>
           <li><a href="/features/">Features</a></li>
           <li><a href="/troubleshooting/">Troubleshooting</a></li>

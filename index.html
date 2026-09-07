@@ -112,7 +112,15 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "InoxTV",
-    "url": "https://inoxtv.com"
+    "url": "https://inoxtv.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://inoxtv.com/search/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
 
@@ -186,6 +194,15 @@
           <picture><source srcset="images/logo.webp" type="image/webp"><img src="images/logo.png" alt="InoxTV Logo" width="40" height="40"></picture>
           <span>Inox<span style="color:var(--color-accent-pink)">tv</span></span>
         </a>
+        <form class="navbar-search" role="search" action="/search/" method="get">
+          <label class="sr-only" for="q-nav">Search the InoxTV help centre</label>
+          <input class="navbar-search-field" type="search" id="q-nav" name="q" placeholder="Search help" autocomplete="off" enterkeyhint="search">
+          <button class="navbar-search-go" type="submit" aria-label="Search">
+            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.3-4.3"></path>
+            </svg>
+          </button>
+        </form>
         <ul class="navbar-nav" id="navbar-nav" role="menubar">
           <li role="none"><a href="/guides/" role="menuitem">Guides</a></li>
           <li role="none"><a href="/features/" role="menuitem">Features</a></li>
@@ -885,6 +902,7 @@
           <span>Inox<span style="color:var(--color-accent-pink)">tv</span></span>
         </div>
         <div class="footer-links">
+          <a href="/search/">Search</a>
           <a href="/guides/">Setup guides</a>
           <a href="/features/">Features</a>
           <a href="/troubleshooting/">Troubleshooting</a>

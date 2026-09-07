@@ -1026,6 +1026,31 @@ class Builder:
             json.dumps({"written": sorted(self.written)}, indent=2) + "\n",
         )
 
+    def check_protected(self) -> None:
+        """Keep the two hand-written pages in step with the search gate.
+
+        index.html and privacy.html are never rewritten by this script, so their
+        masthead field was pasted in by hand. That makes them the one place the
+        gate cannot reach: blanking "cse_id" would strip the field from every
+        generated page and leave these two aiming at a /search/ that no longer
+        exists. Checked in both directions so neither half can drift.
+        """
+        for rel in sorted(PROTECTED):
+            path = os.path.join(ROOT, rel)
+            if not os.path.exists(path):
+                continue
+            has_form = 'action="/search/"' in read(path)
+            if has_form and not self.search_on():
+                self.warn(
+                    '%s: has a search form but search is off, so it points at a '
+                    'missing /search/ - remove the form or set "cse_id"' % rel
+                )
+            elif not has_form and self.search_on():
+                self.warn(
+                    "%s: search is on but this page has no search field "
+                    "(it is hand-written, so the builder cannot add it)" % rel
+                )
+
     def run(self) -> int:
         self.discover()
         for page in self.pages:
@@ -1038,6 +1063,7 @@ class Builder:
         self.sitemap()
         self.check_links()
         self.check_reachability()
+        self.check_protected()
         self.prune()
         self.save_manifest()
         return self.report()

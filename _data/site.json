@@ -11,8 +11,8 @@
   "_ad_slot": "In-article unit id. The head loader ships on every page whatever this says; this only controls the two hand-placed units inside an article. Leave it empty until the account is approved, because the id does not exist before then and an empty one is broken ad code. Paste it here, run python build.py.",
   "ad_slot": "",
 
-  "_cse_id": "Paste the hosted search engine id here, then run python build.py. While it is empty no search field, no /search/ page and no footer search link are written.",
-  "cse_id": "",
+  "_cse_id": "Hosted search engine id. Empty means no search field, no /search/ page and no footer search link are written. After changing it, run python build.py.",
+  "cse_id": "42d9978d471e74b51",
   "play_mobile": "https://play.google.com/store/apps/details?id=in.inoxtv.mobile",
   "play_tv": "https://play.google.com/store/apps/details?id=in.inoxtv.tv",
   "apk_tv": "https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk",
