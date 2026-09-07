@@ -590,9 +590,13 @@ function typewriter(element, text, speed = 50) {
    Social Share Buttons
    ============================================= */
 function initShareButtons() {
-  const shareUrl = 'https://inoxtv.com';
-  const shareTitle = 'InoxTV — IPTV player for Android TV, Fire TV and mobile';
-  const shareText = 'InoxTV plays your own M3U, Xtream Codes or Stalker Portal playlist on Android TV, Fire TV and Android phones, with a proper TV guide and remappable remote keys. Free on Google Play.';
+  // A page that is not the home page states its own three values on the row;
+  // the defaults below are the home page's.
+  const row = document.getElementById('share-buttons-inline');
+  const own = row ? row.dataset : {};
+  const shareUrl = own.shareUrl || 'https://inoxtv.com';
+  const shareTitle = own.shareTitle || 'InoxTV — IPTV player for Android TV, Fire TV and mobile';
+  const shareText = own.shareText || 'InoxTV plays your own M3U, Xtream Codes or Stalker Portal playlist on Android TV, Fire TV and Android phones, with a proper TV guide and remappable remote keys. Free on Google Play.';
 
   // Build share URLs
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl)}`;
@@ -660,6 +664,20 @@ function initShareButtons() {
           copyBtn.classList.remove('copied');
         }, 2000);
       });
+    });
+  }
+
+  // System share sheet — the only route to whatever app the reader actually
+  // uses, so it is offered wherever the browser provides one and stays hidden
+  // where it does not.
+  const nativeBtn = document.getElementById('share-inline-native');
+  if (nativeBtn && navigator.share) {
+    nativeBtn.hidden = false;
+    nativeBtn.addEventListener('click', () => {
+      navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).then(
+        () => trackEvent('share_click', { platform: 'system_sheet', location: 'inline_section' }),
+        () => {}  // dismissing the sheet rejects too; nothing to report either way
+      );
     });
   }
 

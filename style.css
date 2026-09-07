@@ -1063,6 +1063,20 @@ ul { list-style: none; }
   border-color: transparent;
 }
 
+/* Share with another app — revealed only where navigator.share exists, so the
+   display above has to be cancelled explicitly. */
+.share-btn-native {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer; font-family: var(--font-body);
+}
+.share-btn-native:hover {
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.share-btn-inline[hidden] { display: none; }
+
 @media (max-width: 768px) {
   .share-buttons-inline { flex-direction: column; align-items: center; }
   .share-btn-inline { width: 100%; max-width: 280px; justify-content: center; }

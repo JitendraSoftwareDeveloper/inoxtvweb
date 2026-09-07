@@ -712,6 +712,102 @@ td code.hex {
 .rel-title { color: var(--ink); font-weight: 500; line-height: 1.4; }
 
 /* --------------------------------------------------------------------------
+   share row — sits at the foot of every generated page
+   Declared after the .doc-body base rules on purpose: these selectors tie with
+   .doc-body h2 / .doc-body p on specificity and win on source order, the same
+   way .related above does.
+   -------------------------------------------------------------------------- */
+
+.share {
+  margin-top: 3rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.share h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.share .share-note {
+  margin: 0.35rem 0 1.1rem;
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.share .share-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.share .share-list li { margin: 0; }
+.share .share-list li[hidden] { display: none; }
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.4rem;
+  padding: 0.5rem 0.85rem;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.16s, background 0.16s, border-color 0.16s;
+}
+
+.share-btn svg { flex: none; }
+
+.share-btn:hover,
+.share-btn:focus-visible {
+  color: var(--net);
+  background: var(--card-hover);
+  border-color: var(--net);
+}
+
+/* The global :focus-visible rule squares corners off to 4px so the outline
+   hugs plain text links; a pill has to state its own radius back. */
+.share-btn:focus-visible { border-radius: 999px; }
+
+/* One brand tint per network, spent only on the hover state so the row stays
+   quiet while it is being read past. */
+.share-btn { --net: var(--accent); }
+.share-btn--whatsapp { --net: #25d366; }
+.share-btn--telegram { --net: #37aee2; }
+.share-btn--reddit { --net: #ff5c1f; }
+.share-btn--twitter { --net: var(--ink); }
+.share-btn--facebook { --net: #4d90ff; }
+.share-btn--linkedin { --net: #3d9be9; }
+.share-btn--email { --net: var(--warn); }
+.share-btn--copy { --net: var(--go); }
+
+.share-btn--copy.is-done {
+  color: var(--go);
+  border-color: var(--go);
+  background: var(--go-soft);
+}
+
+@media (max-width: 520px) {
+  .share-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+  .share .share-list { gap: 0.4rem; }
+}
+
+/* --------------------------------------------------------------------------
    hubs
    -------------------------------------------------------------------------- */
 

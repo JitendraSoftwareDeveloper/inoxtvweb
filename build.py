@@ -27,6 +27,7 @@ import re
 import shutil
 import sys
 from datetime import date, datetime
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(ROOT, "content")
@@ -346,6 +347,38 @@ class Builder:
             {"ads_client": self.site["ads_client"], "ad_slot": meta.get("ad_slot", "")},
         )
 
+    # -- share -------------------------------------------------------------
+
+    SHARE_NOTES = {
+        "doc": "If this answered it for you, the link will do the same for someone else.",
+        "hub": "A link straight to this section, rather than to the front page.",
+        "policy": "The direct address for this page, if you need to send it to anyone.",
+    }
+
+    def share_links(self, canonical: str, h1: str, summary: str, note: str) -> dict:
+        """Pre-built share targets for one page.
+
+        Assembled here rather than in the browser for two reasons: every button
+        stays a real link with scripting off, and each page shares its own
+        address instead of whatever the script was told the site root is.
+        """
+        url = quote(canonical, safe="")
+        headline = quote("InoxTV: " + h1, safe="")
+        blurb = quote(summary, safe="")
+        long_form = quote("%s\n\n%s" % (summary, canonical), safe="")
+        targets = {
+            "share_whatsapp": "https://wa.me/?text=" + long_form,
+            "share_telegram": "https://t.me/share/url?url=%s&text=%s" % (url, blurb),
+            "share_reddit": "https://www.reddit.com/submit?url=%s&title=%s" % (url, headline),
+            "share_twitter": "https://twitter.com/intent/tweet?text=%s&url=%s" % (blurb, url),
+            "share_facebook": "https://www.facebook.com/sharer/sharer.php?u=" + url,
+            "share_linkedin": "https://www.linkedin.com/sharing/share-offsite/?url=" + url,
+            "share_email": "mailto:?subject=%s&body=%s" % (headline, long_form),
+        }
+        ctx = {key: html.escape(value, quote=True) for key, value in targets.items()}
+        ctx["share_note"] = html.escape(self.SHARE_NOTES[note])
+        return ctx
+
     # -- structured data ---------------------------------------------------
 
     def breadcrumb_ld(self, trail: list[tuple[str, str]]) -> dict:
@@ -508,6 +541,12 @@ class Builder:
                 "related": related_html(meta, self.registry, self.warn),
                 "toc": build_toc(toc_items),
                 "disclaimer": html.escape(self.site["disclaimer"]),
+                **self.share_links(
+                    canonical,
+                    meta["h1"],
+                    meta["description"],
+                    "policy" if is_policy else "doc",
+                ),
             },
         )
 
@@ -568,6 +607,9 @@ class Builder:
                 "content": "",
                 "groups": "\n".join(groups),
                 "disclaimer": html.escape(self.site["disclaimer"]),
+                **self.share_links(
+                    canonical, section["h1"], section["description"], "hub"
+                ),
             },
         )
         ld = jsonld_block(

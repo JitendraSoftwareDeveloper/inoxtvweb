@@ -87,6 +87,106 @@
     }
   }
 
+  /* ---- share row ------------------------------------------------------ */
+  var share = document.querySelector(".share");
+
+  if (share) {
+    var canonical = document.querySelector('link[rel="canonical"]');
+    var description = document.querySelector('meta[name="description"]');
+    // Every generated page carries a canonical link, so this is the page's own
+    // address rather than whatever the reader arrived on.
+    var pageUrl = (canonical && canonical.href) || window.location.href;
+    var pageText = description ? description.content : document.title;
+
+    var track = function (platform) {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "share_click", { platform: platform, location: "help_centre" });
+      }
+    };
+
+    var copyBySelection = function (text) {
+      var field = document.createElement("textarea");
+      field.value = text;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.top = "-1000px";
+      document.body.appendChild(field);
+      field.select();
+      var copied = false;
+      try {
+        copied = document.execCommand("copy");
+      } catch (err) {
+        copied = false;
+      }
+      document.body.removeChild(field);
+      return copied;
+    };
+
+    var copyBtn = share.querySelector('[data-share="copy"]');
+    var copyLabel = copyBtn && copyBtn.querySelector("span");
+    var copyIdle = copyLabel ? copyLabel.textContent : "";
+    var copyTimer = null;
+
+    var reportCopy = function (copied) {
+      if (!copyLabel) return;
+      copyLabel.textContent = copied ? "Link copied" : "Copy failed";
+      copyBtn.classList.toggle("is-done", copied);
+      if (copied) track("copy_link");
+      window.clearTimeout(copyTimer);
+      copyTimer = window.setTimeout(function () {
+        copyLabel.textContent = copyIdle;
+        copyBtn.classList.remove("is-done");
+      }, 2200);
+    };
+
+    // The system share sheet is the only route to whatever the reader actually
+    // uses, so it is offered wherever the browser has one and stays out of the
+    // way where it does not.
+    var native = share.querySelector(".share-native");
+    if (native && navigator.share) native.hidden = false;
+
+    share.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-share]");
+      if (!button) return;
+      var platform = button.getAttribute("data-share");
+
+      if (platform === "native") {
+        event.preventDefault();
+        navigator
+          .share({ title: document.title, text: pageText, url: pageUrl })
+          .then(
+            function () {
+              track("system_sheet");
+            },
+            function () {
+              // Dismissing the sheet rejects too; nothing to report either way.
+            }
+          );
+        return;
+      }
+
+      if (platform === "copy") {
+        event.preventDefault();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(pageUrl).then(
+            function () {
+              reportCopy(true);
+            },
+            function () {
+              reportCopy(copyBySelection(pageUrl));
+            }
+          );
+        } else {
+          reportCopy(copyBySelection(pageUrl));
+        }
+        return;
+      }
+
+      // Everything else is a real link and is left to open on its own.
+      track(platform);
+    });
+  }
+
   /* ---- open the FAQ entry a shared link points at --------------------- */
   var openFromHash = function () {
     if (!window.location.hash) return;
