@@ -1,6 +1,8 @@
 google.com, pub-6161953663322185, DIRECT, f08c47fec0942fa0
+
 #Faceboock.com
 facebook.com, 1959779897999258, DIRECT, c3e20eee3f780d68
+
 #Inmobi.com
 inmobi.com, d21d7bf360844e1b991ed02c92f7747f, DIRECT, 83e75a7ae333ca9d
 mintegral.com, 10003, RESELLER
@@ -97,6 +99,7 @@ acexchange.co.kr, 1562884725, RESELLER
 mman.kr, 32102, RESELLER
 myfeature.tv, N1fNlXquFCVDX3gt6MJN, RESELLER
 verve.com, 5897, RESELLER, 0c8f5958fc2d6270
+
 #onetag.com
 onetag.com, 97ce5e0b1f41462, DIRECT
 onetag.com, 97ce5e0b1f41462-OB, DIRECT
@@ -105,6 +108,7 @@ pubmatic.com, 161593, RESELLER, 5d62403b186f2ace
 rubiconproject.com, 11006, RESELLER, 0bfd66d529a55807
 video.unrulymedia.com, 586616193, RESELLER
 smartadserver.com, 4111, RESELLER
+
 #UnityAds
 sharethrough.com, SniqCOMC, RESELLER, d53b998a7bd4ecd2
 sharethrough.com, 5828, RESELLER, d53b998a7bd4ecd2
@@ -260,3 +264,38 @@ indexexchange.com, 214183, RESELLER, 50b1c356f2c5c8fc
 lunamedia.io, 2fdb16a1-5025-4c41-9b17-e01e47ebc8b4, RESELLER, 524ecb396915caaf
 pokkt.com, 6246, RESELLER, c45702d9311e25fd
 programmaticx.ai, 84448, RESELLER, b42d42eb28400efa
+
+# Adagio.io
+adagio.io, 1783, RESELLER
+adagio.io, 1783-OB, RESELLER
+# Adagio - OpenX
+openx.com, 558899373, RESELLER, 6a698e2ec38604c6
+# Adagio - Triplelift
+triplelift.com, 13482, RESELLER, 6c33edb13117fd86
+# Adagio - Adform
+adform.com, 3354, RESELLER, 9f5210a2f0999e32
+# Adagio - Sovrn
+lijit.com, 367236, RESELLER, fafdf38b16bf6b2b
+openx.com, 538959099, RESELLER, 6a698e2ec38604c6
+pubmatic.com, 137711, RESELLER, 5d62403b186f2ace
+pubmatic.com, 156212, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 17960, RESELLER, 0bfd66d529a55807
+# Adagio - Nexxen
+video.unrulymedia.com, 5672421953199218469, RESELLER
+# Adagio - Equativ
+smartadserver.com, 3554, RESELLER
+sharethrough.com, 3554, RESELLER, d53b998a7bd4ecd2
+# Adagio - Magnite
+rubiconproject.com, 19116, RESELLER, 0bfd66d529a55807
+# Adagio - Improve Digital
+improvedigital.com, 1790, RESELLER
+# Adagio - Freewheel
+freewheel.tv, 536359-r-524565, RESELLER
+freewheel.tv, 536359-r-523319, RESELLER
+# Adagio - Pubmatic
+pubmatic.com, 159110, RESELLER, 5d62403b186f2ace
+# Adagio - Onetag
+onetag.com, 6b859b96c564fbe, RESELLER
+pubmatic.com, 161593, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 11006, RESELLER, 0bfd66d529a55807
+appnexus.com, 13099, RESELLER
