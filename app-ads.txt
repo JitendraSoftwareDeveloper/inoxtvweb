@@ -309,8 +309,5 @@ smartadserver.com, 4194, RESELLER, 060d053dcf45cbf3
 sharethrough.com, 4194-OB, RESELLER, 060d053dcf45cbf3
 sharethrough.com, 4194, RESELLER, 060d053dcf45cbf3
 
-#magnite.com
-rubiconproject.com, 22884, DIRECT, 0bfd66d529a55807
-
 #Openx.com
 openx.com, 597827129, DIRECT, 6a698e2ec38604c6
