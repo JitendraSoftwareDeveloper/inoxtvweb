@@ -1,0 +1,39 @@
+# GitHub Pages runs Jekyll over this repository. This is not a Jekyll site in
+# the usual sense - every page is already rendered by build.py and committed -
+# so this file exists for one reason: to keep toolchain files out of the served
+# output.
+#
+# Jekyll skips "_"-prefixed directories, which is why _content, _data, _layouts,
+# _partials and _notes are unreachable in production. Verified, not assumed:
+# https://inoxtv.com/_notes/inoxtv_adsense_plan.md returns 404. The entries
+# below cover the files sitting at the repository root, where that rule cannot
+# help - build.py was being served at https://inoxtv.com/build.py.
+#
+# The stock entries are restated because Jekyll 3 REPLACES the built-in list
+# with this one, while Jekyll 4 merges into it. Restating is correct under
+# either, so which version Pages runs does not matter here. Do not trim them:
+# if a vendor/ or node_modules/ directory ever appears it would be published.
+exclude:
+  # Stock Jekyll defaults.
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  # The generator and its helpers. Committed so the site can be rebuilt on any
+  # machine, but they are source, not pages.
+  - build.py
+  - check-assets.py
+  - convert-webp.py
+  - __pycache__/
+  # Repository documentation, for whoever clones this. Not a page.
+  - README.md
+
+# Every .html here is final output from build.py with no YAML front matter, so
+# Jekyll copies it verbatim and runs no Liquid over it. Nothing in this file is
+# meant to alter a single byte of a rendered page.

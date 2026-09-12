@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -162,7 +213,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "I get sound but a black screen.",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "That is a video decoding problem, not a connection one — the stream is arriving. Switch Video decoder to Software in Settings, Playback, and try the channel again."
+        "text": "That is a video decoding problem, not a connection one; the stream is arriving. Switch Video decoder to Software in Settings, Playback, and try the channel again."
       }
     },
     {
@@ -170,7 +221,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "A channel disappeared from the list entirely.",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Either its group is switched off under Settings, Playlists, Manage groups, or your provider removed it. Those are the only two possibilities — there is no per-channel hiding in this build."
+        "text": "Either its group is switched off under Settings, Playlists, Manage groups, or your provider removed it. Those are the only two possibilities, because there is no per-channel hiding in this build."
       }
     },
     {
@@ -264,7 +315,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="one-channel">When one channel fails</h2>
 
-<p>A single failing channel among hundreds that work is either a dead stream or a decoding mismatch, and the two are easy to tell apart: a decoding problem usually gives you something &mdash; audio, a black screen, a frozen frame &mdash; while a dead stream gives you nothing at all.</p>
+<p>A single failing channel among hundreds that work is either a dead stream or a decoding mismatch, and the two are easy to tell apart: a decoding problem usually gives you something, audio, a black screen, a frozen frame, while a dead stream gives you nothing at all.</p>
 
 <div class="table-scroll">
   <table>
@@ -308,7 +359,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Every route to a second player app is closed in this build. <span class="ui">Use external player</span> under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span>, the <span class="ui">Open in external player</span> row in the channel menu and the button of the same name on a catalogue item are all locked, and each reports <span class="ui">Available for premium users</span> rather than launching anything.</p>
 
-<p>It is worth stating plainly because it is a common suggestion and it will cost you time. If a stream will not play here, the decoder settings above are the whole toolkit &mdash; there is no escape hatch to a different app.</p>
+<p>It is worth stating plainly because it is a common suggestion and it will cost you time. If a stream will not play here, the decoder settings above are the whole toolkit. There is no escape hatch to a different app.</p>
 
 <h2 id="order">The order that saves the most time</h2>
 
@@ -349,11 +400,11 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>I get sound but a black screen.</summary>
-              <div>That is a video decoding problem, not a connection one — the stream is arriving. Switch Video decoder to Software in Settings, Playback, and try the channel again.</div>
+              <div>That is a video decoding problem, not a connection one; the stream is arriving. Switch Video decoder to Software in Settings, Playback, and try the channel again.</div>
             </details>
             <details>
               <summary>A channel disappeared from the list entirely.</summary>
-              <div>Either its group is switched off under Settings, Playlists, Manage groups, or your provider removed it. Those are the only two possibilities — there is no per-channel hiding in this build.</div>
+              <div>Either its group is switched off under Settings, Playlists, Manage groups, or your provider removed it. Those are the only two possibilities, because there is no per-channel hiding in this build.</div>
             </details>
             <details>
               <summary>It plays in another app but not in InoxTV.</summary>

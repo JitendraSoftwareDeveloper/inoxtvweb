@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -156,7 +207,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "What MAC address should I use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The one your provider registered against your subscription. InoxTV pre-fills 00:1a:79:00:00:00, which is only the standard prefix used by these devices — it is not a working account and will not authenticate on its own."
+        "text": "The one your provider registered against your subscription. InoxTV pre-fills 00:1a:79:00:00:00, which is only the standard prefix used by these devices. It is not a working account and will not authenticate on its own."
       }
     },
     {
@@ -232,7 +283,7 @@ gtag('config', 'G-KRV4ERFF8F');
       <div class="doc-body">
         <p>Stalker Portal comes from the set&#8209;top&#8209;box world, and its authentication model reflects that: the subscription is attached to a device's MAC address, not to a username you could type on any device. InoxTV can present itself as that device, which is what makes portal accounts work here at all.</p>
 
-<p>It is the most temperamental of the three connection types. If your provider also offers Xtream Codes or an M3U link, <a href="/guides/choose-playlist-type/">use one of those instead</a> &mdash; not because portals are worse to watch, but because there is less to go wrong.</p>
+<p>It is the most temperamental of the three connection types. If your provider also offers Xtream Codes or an M3U link, <a href="/guides/choose-playlist-type/">use one of those instead</a>, not because portals are worse to watch, but because there is less to go wrong.</p>
 
 <h2 id="steps">Adding the portal</h2>
 
@@ -247,12 +298,12 @@ gtag('config', 'G-KRV4ERFF8F');
   </li>
   <li>
     <p class="step-title">Set the MAC address</p>
-    <p><span class="ui">Mac address*</span> arrives pre&#8209;filled with <code>00:1a:79:00:00:00</code>. That is the standard prefix for these boxes, not an account &mdash; replace the whole value with the address your provider registered for you.</p>
+    <p><span class="ui">Mac address*</span> arrives pre&#8209;filled with <code>00:1a:79:00:00:00</code>. That is the standard prefix for these boxes, not an account. Replace the whole value with the address your provider registered for you.</p>
     <p>Use colons, not hyphens, and copy it character for character. Malformed input produces <span class="ui">Enter a valid MAC address.</span>; a well&#8209;formed address that is not registered will pass validation and then fail to authenticate, which is a much less obvious failure.</p>
   </li>
   <li>
     <p class="step-title">Fill the optional fields, if you were given them</p>
-    <p><span class="ui">Serial(optional)</span>, <span class="ui">Device id (optional)</span>, <span class="ui">Device id2 (optional)</span>, <span class="ui">Signature(optional)</span> and <span class="ui">Model (optional)</span> exist because portals differ in how much they check. Leave them empty unless your provider supplied values &mdash; inventing one is worse than leaving it blank, because a portal that checks the serial will reject a wrong value while ignoring an absent one.</p>
+    <p><span class="ui">Serial(optional)</span>, <span class="ui">Device id (optional)</span>, <span class="ui">Device id2 (optional)</span>, <span class="ui">Signature(optional)</span> and <span class="ui">Model (optional)</span> exist because portals differ in how much they check. Leave them empty unless your provider supplied values. Inventing one is worse than leaving it blank, because a portal that checks the serial will reject a wrong value while ignoring an absent one.</p>
   </li>
   <li>
     <p class="step-title">Name the playlist and save</p>
@@ -291,11 +342,11 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Guide support varies more on Stalker than anywhere else. Some portals serve a full week; some serve the current programme only; some serve nothing at all. If the <a href="/features/tv-guide-epg/">TV guide</a> is empty after a successful connection, that is the portal, not a broken app.</p>
 
-<p>The fix is to supply guide data yourself. Open the playlist under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, put an XMLTV address into its EPG field, and set <span class="ui">EPG source</span> accordingly &mdash; <a href="/guides/set-up-tv-guide-epg/">setting up the TV guide</a> covers matching that data to your channels, which is the part that usually needs attention.</p>
+<p>The fix is to supply guide data yourself. Open the playlist under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, put an XMLTV address into its EPG field, and set <span class="ui">EPG source</span> accordingly: <a href="/guides/set-up-tv-guide-epg/">setting up the TV guide</a> covers matching that data to your channels, which is the part that usually needs attention.</p>
 
 <h2 id="living-with-it">Living with a portal connection</h2>
 
-<p>Two habits make a portal noticeably more reliable. Leave <span class="ui">Update playlist on app start</span> off unless you have a reason to turn it on, because a portal that is slow to answer will make every app launch slow. And when a channel stops working, disable and re&#8209;enable the playlist with <span class="ui">Enable playlist</span> before assuming something is broken &mdash; that re&#8209;establishes the session, which is what a stuck portal usually needs.</p>
+<p>Two habits make a portal noticeably more reliable. Leave <span class="ui">Update playlist on app start</span> off unless you have a reason to turn it on, because a portal that is slow to answer will make every app launch slow. And when a channel stops working, disable and re&#8209;enable the playlist with <span class="ui">Enable playlist</span> before assuming something is broken, that re&#8209;establishes the session, which is what a stuck portal usually needs.</p>
 
 <h2 id="why-mac">Why a portal wants a MAC address at all</h2>
 
@@ -311,7 +362,7 @@ gtag('config', 'G-KRV4ERFF8F');
           <div class="faq-list">
             <details>
               <summary>What MAC address should I use?</summary>
-              <div>The one your provider registered against your subscription. InoxTV pre-fills 00:1a:79:00:00:00, which is only the standard prefix used by these devices — it is not a working account and will not authenticate on its own.</div>
+              <div>The one your provider registered against your subscription. InoxTV pre-fills 00:1a:79:00:00:00, which is only the standard prefix used by these devices. It is not a working account and will not authenticate on its own.</div>
             </details>
             <details>
               <summary>Do I need the serial, device ID and signature fields?</summary>

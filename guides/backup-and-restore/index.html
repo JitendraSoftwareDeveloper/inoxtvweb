@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -220,7 +271,7 @@ gtag('config', 'G-KRV4ERFF8F');
     </header>
     <div class="doc-grid">
       <div class="doc-body">
-        <p>InoxTV has no sign&#8209;up, no account and no server holding your configuration. That is deliberate &mdash; there is nothing on our side to leak, and nothing to lose access to. The cost is that everything you configure lives on one device, and a factory reset or a cleared app takes all of it.</p>
+        <p>InoxTV has no sign&#8209;up, no account and no server holding your configuration. That is deliberate; there is nothing on our side to leak, and nothing to lose access to. The cost is that everything you configure lives on one device, and a factory reset or a cleared app takes all of it.</p>
 
 <p>A backup file closes that gap, and it does something else useful along the way: setting up a second device becomes a thirty&#8209;second restore instead of typing a playlist URL with a remote control.</p>
 
@@ -256,7 +307,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </li>
   <li>
     <p class="step-title">Choose Backup data and pick a folder</p>
-    <p>The <span class="ui">Storage</span> browser opens with <span class="ui">Select a folder to save the backup</span> at the top. Open a drive, pick a folder, and choose <span class="ui">Backup</span>. If a USB stick is plugged into the television, use that &mdash; a backup that only exists on the device it is protecting is not much of a backup. <span class="ui">System picker</span> switches to Android's own picker if the built&#8209;in browser cannot see the location you want, and on a device where neither works the app says so plainly: <span class="ui">No file picker is available on this device. Use a connected USB drive or the in-app browser.</span></p>
+    <p>The <span class="ui">Storage</span> browser opens with <span class="ui">Select a folder to save the backup</span> at the top. Open a drive, pick a folder, and choose <span class="ui">Backup</span>. If a USB stick is plugged into the television, use that, a backup that only exists on the device it is protecting is not much of a backup. <span class="ui">System picker</span> switches to Android's own picker if the built&#8209;in browser cannot see the location you want, and on a device where neither works the app says so plainly: <span class="ui">No file picker is available on this device. Use a connected USB drive or the in-app browser.</span></p>
   </li>
   <li>
     <p class="step-title">Wait for it to finish</p>
@@ -272,7 +323,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="restoring">Restoring</h2>
 
-<p>Install InoxTV first, then open <span class="ui">Settings</span> &rsaquo; <span class="ui">General</span> &rsaquo; <span class="ui">Restore data</span>. The browser opens on <span class="ui">Select a backup file (*.pls)</span> &mdash; that extension is what a backup is saved as, so if you are hunting through a USB stick for it, look for <code>.pls</code>. Pick it, and the app shows <span class="ui">Restoring data...</span>, then <span class="ui">Restore completed. Restarting app...</span> and restarts itself. When it comes back, your playlists are there.</p>
+<p>Install InoxTV first, then open <span class="ui">Settings</span> &rsaquo; <span class="ui">General</span> &rsaquo; <span class="ui">Restore data</span>. The browser opens on <span class="ui">Select a backup file (*.pls)</span>. That extension is what a backup is saved as, so if you are hunting through a USB stick for it, look for <code>.pls</code>. Pick it, and the app shows <span class="ui">Restoring data...</span>, then <span class="ui">Restore completed. Restarting app...</span> and restarts itself. When it comes back, your playlists are there.</p>
 
 <p>Two consequences of a restore being a replacement rather than a merge:</p>
 
@@ -283,7 +334,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="second-device">Setting up a second device from a backup</h2>
 
-<p>This is the use worth planning around. Configure one device properly, including the fiddly parts &mdash; playlist credentials, favourites, groups &mdash; then take a backup and restore it everywhere else.</p>
+<p>This is the use worth planning around. Configure one device properly, including the fiddly parts, playlist credentials, favourites, groups, then take a backup and restore it everywhere else.</p>
 
 <p>Do the configuring on a phone if you have one. Typing a long URL and a password is trivial there and genuinely unpleasant on a television. Then move the file to the television by USB stick or cloud storage and restore.</p>
 

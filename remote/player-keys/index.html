@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -213,11 +264,11 @@ gtag('config', 'G-KRV4ERFF8F');
   <figcaption><strong>Press and hold are different keys.</strong> That is what makes five physical buttons cover ten actions, and it is why the D-pad is where you should spend your remapping effort.</figcaption>
 </figure>
 
-<p>The pattern is worth noticing before you start changing things. Pressing a direction moves you between channels; holding the same direction opens a feature. Left is the exception, because both of its assignments open the channel list &mdash; as an overlay on a press, in preview mode on a hold.</p>
+<p>The pattern is worth noticing before you start changing things. Pressing a direction moves you between channels; holding the same direction opens a feature. Left is the exception, because both of its assignments open the channel list, as an overlay on a press, in preview mode on a hold.</p>
 
 <div class="note note--warn">
   <p class="note-label">Two of the holds are shipped empty</p>
-  <p><kbd class="key">Long Up</kbd> and <kbd class="key">Long Down</kbd> hold <span class="ui">Multiview</span> and <span class="ui">Picture-in-picture</span>, and neither of those is connected in this build &mdash; the keys do nothing. They are the two best long presses on the remote, so if you are remapping anything, start there. <span class="ui">Show channels list in preview mode</span> on one and <span class="ui">Go to live stream</span> or <span class="ui">Search</span> on the other turns two dead keys into two useful ones.</p>
+  <p><kbd class="key">Long Up</kbd> and <kbd class="key">Long Down</kbd> hold <span class="ui">Multiview</span> and <span class="ui">Picture-in-picture</span>, and neither of those is connected in this build, so the keys do nothing. They are the two best long presses on the remote, so if you are remapping anything, start there. <span class="ui">Show channels list in preview mode</span> on one and <span class="ui">Go to live stream</span> or <span class="ui">Search</span> on the other turns two dead keys into two useful ones.</p>
 </div>
 
 <h2 id="defaults">Every key and its default action</h2>
@@ -307,7 +358,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Skip them when you are planning a layout. Two of the four sit on <kbd class="key">Long Up</kbd> and <kbd class="key">Long Down</kbd> out of the box, which means the shipped defaults leave you two free keys whether you wanted them or not.</p>
 
-<p>Two actions in the list are worth promoting because nothing holds them by default. <span class="ui">Restart current program</span> jumps to the start of the buffer the stream is carrying, and <span class="ui">Go to live stream</span> takes you back to the live edge. How far either one moves you is decided by the stream rather than by the app &mdash; a channel served with a rolling window lets you move inside it, and one served without a window has nowhere to go. On the streams that do carry a window, that pair on <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd> is a better use of those buttons than a second and third route to channel information.</p>
+<p>Two actions in the list are worth promoting because nothing holds them by default. <span class="ui">Restart current program</span> jumps to the start of the buffer the stream is carrying, and <span class="ui">Go to live stream</span> takes you back to the live edge. How far either one moves you is decided by the stream rather than by the app, a channel served with a rolling window lets you move inside it, and one served without a window has nowhere to go. On the streams that do carry a window, that pair on <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd> is a better use of those buttons than a second and third route to channel information.</p>
 
 <h2 id="menu">One key gets you most of it: the tool strip</h2>
 
@@ -320,9 +371,9 @@ gtag('config', 'G-KRV4ERFF8F');
   <li><span class="ui">Add to favorites</span> and <span class="ui">Settings</span>.</li>
 </ul>
 
-<p>The strip also carries tiles for Multiview, Recordings, audio delay and a reminder, and those four are drawn but not connected &mdash; the same four ideas that appear unconnected in the action list. The strip hides itself after five seconds, which is short enough that it is worth learning the icon positions rather than reading along it each time.</p>
+<p>The strip also carries tiles for Multiview, Recordings, audio delay and a reminder, and those four are drawn but not connected, the same four ideas that appear unconnected in the action list. The strip hides itself after five seconds, which is short enough that it is worth learning the icon positions rather than reading along it each time.</p>
 
-<p>Nothing in the working eight needs a key of its own. Assign keys to the two or three things you do several times an evening, and leave the rest to one menu press &mdash; a remote where every button does something surprising is worse than one extra press.</p>
+<p>Nothing in the working eight needs a key of its own. Assign keys to the two or three things you do several times an evening, and leave the rest to one menu press, a remote where every button does something surprising is worse than one extra press.</p>
 
 <h2 id="seeking">The seeking switches, and what they currently do</h2>
 
@@ -341,13 +392,13 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>Be aware of what these do today: the app stores whichever way you set them, and playback does not yet read them. Catch&#8209;up browsing &mdash; asking a provider for a programme that finished yesterday &mdash; is not in this build either, so there is no catch&#8209;up state for them to apply to. Changing them changes nothing you will see, and it is better to know that than to spend an evening toggling them.</p>
+<p>Be aware of what these do today: the app stores whichever way you set them, and playback does not yet read them. Catch&#8209;up browsing (asking a provider for a programme that finished yesterday), is not in this build either, so there is no catch&#8209;up state for them to apply to. Changing them changes nothing you will see, and it is better to know that than to spend an evening toggling them.</p>
 
 <p>If you want <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd> doing something other than channel information, assign them directly in the key table above. That works now and it is not conditional on anything.</p>
 
 <h2 id="remotes">What to change on the remote you actually own</h2>
 
-<p><strong>A Fire TV remote.</strong> No colour buttons, no <kbd class="key">Guide</kbd>, no <kbd class="key">Info</kbd>, no page keys &mdash; so five of the defaults above are unreachable. The buttons you do have are the D-pad, <kbd class="key">Back</kbd>, <kbd class="key">Menu</kbd> (the three&#8209;line one), <kbd class="key">Play/Pause</kbd>, <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd>. Long presses are what save you: <kbd class="key">Long Menu</kbd> already opens the guide, and <kbd class="key">Long Back</kbd> is search.</p>
+<p><strong>A Fire TV remote.</strong> No colour buttons, no <kbd class="key">Guide</kbd>, no <kbd class="key">Info</kbd>, no page keys, so five of the defaults above are unreachable. The buttons you do have are the D-pad, <kbd class="key">Back</kbd>, <kbd class="key">Menu</kbd> (the three&#8209;line one), <kbd class="key">Play/Pause</kbd>, <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd>. Long presses are what save you: <kbd class="key">Long Menu</kbd> already opens the guide, and <kbd class="key">Long Back</kbd> is search.</p>
 
 <p><strong>An Android TV remote with a dedicated guide key.</strong> Nothing needs changing. <kbd class="key">Guide</kbd> opens the guide, <kbd class="key">Menu</kbd> opens the menu, and the D-pad defaults are sensible as shipped. The colour buttons, if it has them, are the only real spare capacity: three of the four open something the guide already reaches.</p>
 

@@ -65,6 +65,11 @@ Two independent gaps. Fixing only the page count and re-applying will fail again
 fixes both at once: the help-centre content solves "insufficient content", and the policy pages plus
 positioning rewrite solve the copyright risk.
 
+> **Superseded in part — see §12.** The help centre shipped and the site was rejected again on
+> 2026-09-12. The two causes above were real but not the whole set. §12 records what the
+> post-launch audit actually found, which was a *deployment* fault rather than a content one:
+> the unrendered source fragments were being served as 31 duplicate, navigation-less URLs.
+
 ---
 
 ## 2. Strategy — the site becomes the app's help centre
@@ -263,7 +268,7 @@ inoxtvweb/
 │   └── ad-in-article.html
 ├── _data/
 │   └── site.json               # nav tree, section metadata, ad on/off per section
-├── content/
+├── _content/
 │   ├── features/multiview.html
 │   ├── guides/add-m3u-playlist.html
 │   └── troubleshooting/buffering-and-stuttering.html
@@ -312,7 +317,7 @@ Markdown would only get in the way of.
 
 ### 4.4 What the builder does
 
-For every file in `content/`:
+For every file in `_content/`:
 
 1. Parse front matter; fail loudly on a missing `title`, `description`, `section`, or `slug`.
 2. Render `doc.html` inside `base.html`, substituting `{{title}}`, `{{body}}`, etc.
@@ -337,7 +342,7 @@ Then, once:
 ### 4.5 Adding a page later — the whole procedure
 
 ```
-1. Create content/<section>/<slug>.html with front matter + body.
+1. Create _content/<section>/<slug>.html with front matter + body.
 2. Add 2–3 "related" slugs pointing at it from existing pages.
 3. python build.py
 4. python check-assets.py        # after the fix in §4.6
@@ -353,7 +358,7 @@ regenerated rather than merged.
 | File | Change |
 |---|---|
 | `check-assets.py` | Replace the hardcoded `("index.html", "privacy.html")` tuple with a recursive glob of all generated `*.html`, excluding `_layouts/`, `_partials/`, and `images/diagrams/preview.html` |
-| `check-assets.py` | Teach it that `.svg` diagrams are referenced from content fragments too, so scan `content/**/*.html` as well |
+| `check-assets.py` | Teach it that `.svg` diagrams are referenced from content fragments too, so scan `_content/**/*.html` as well |
 | `convert-webp.py` | Skip `images/diagrams/` entirely — SVG must not be rasterised |
 | `.gitignore` | Ensure generated `*/index.html` are **not** ignored; they must be committed |
 | `robots.txt` | Add `Disallow: /images/diagrams/preview.html` |
@@ -585,7 +590,7 @@ actually fixes the rejection.
 
 | Trigger | Action |
 |---|---|
-| App feature added | Add `content/features/<slug>.html`; link from 2–3 related pages; rebuild |
+| App feature added | Add `_content/features/<slug>.html`; link from 2–3 related pages; rebuild |
 | Remote default changed in a `*Key` enum | Regenerate the affected `dpad-*.svg` from the enum (§6.3) |
 | App string changed | Grep the site for the old label; update every page that quotes it |
 | New app version | Add a `/changelog/` entry; bump `updated` on affected pages |
@@ -593,7 +598,7 @@ actually fixes the rejection.
 | Monthly | Search Console: coverage, Core Web Vitals, queries with impressions but no clicks → retitle those pages |
 
 **Never:** edit a generated `index.html` directly — the next build overwrites it. Edit the file in
-`content/` or the layout in `_layouts/`.
+`_content/` or the layout in `_layouts/`.
 
 ---
 
@@ -603,3 +608,560 @@ actually fixes the rejection.
 2. **Publisher identity** — `/about/` should name a person or company for reviewer trust. How much to disclose?
 3. **Should `/features/backup-and-restore/` and `/guides/backup-and-restore/` both exist?** Recommendation: keep only the guide, and have the feature slug redirect to it — avoids thin near-duplicate content, which is itself an AdSense risk.
 4. **Multi-language site** — the app has 19 languages. Translating the help centre would multiply content, but machine-translated pages are an AdSense risk. Recommendation: English only until approved.
+
+---
+
+## 12. Post-launch rejection — 2026-09-12
+
+The help centre from §§2–9 shipped. 38 pages, 33,080 words, policy pages complete, disclaimer band
+sitewide, loader in every `<head>`. The application was **rejected again**.
+
+### 12.1 Read the rejection correctly
+
+The notice names **no specific reason**. It says "there are a few things you'll need to adjust" and
+links generic help articles. The "insufficient content" line in it is a **"Pro tip"** — boilerplate
+present in every one of these mails, not a finding about this site.
+
+**The actual reason is in the AdSense console under Sites → inoxtv.com.** Read that before acting on
+anything here. Everything in §12 is what an independent audit found; it is not a transcript of
+Google's finding, and the two may not be the same.
+
+### 12.2 Domain age is not a documented blocker
+
+Checked against Google's own eligibility page on 2026-09-12. It lists exactly three requirements:
+unique content of your own, policy compliance, and 18+. **No minimum domain age, no waiting period.**
+
+A recollection of a 6-month site-ownership rule for applicants in India and China does **not** appear
+on that page and is not asserted here. The domain dates from 2026-05-22 (first commit), so roughly
+3.7 months at rejection. New domains attract stricter review in practice, but age is not a stated
+criterion and is not worth spending effort on.
+
+### 12.3 What the audit actually found — duplicate source fragments served live
+
+The root cause is a deployment fault, and it is verified, not theorised. Fetched in production:
+
+```
+https://inoxtv.com/content/features/live-tv.html  →  200, article body only
+```
+
+No header, no navigation, no footer, no canonical tag, no analytics. All **31 fragments** in
+`content/` are reachable this way, so every article exists at two URLs:
+
+| | Real page | Served fragment |
+|---|---|---|
+| URL | `/features/live-tv/` | `/content/features/live-tv.html` |
+| Words | 2,043 | 1,466 — 72% of the same text |
+| `<link rel=canonical>` | → `/features/live-tv/` | **none** |
+| Nav / header / footer | present | **none** |
+| In `sitemap.xml` | yes | no |
+| Blocked in `robots.txt` | — | **no** |
+
+**45,833 words of duplicated article text** on pages with no way to navigate anywhere, nothing
+marking them as secondary, and the front-matter JSON sitting in an HTML comment at the top of each.
+
+**Why it happens.** There is no `.nojekyll`, so GitHub Pages runs Jekyll, which excludes
+`_`-prefixed directories — that is why `_data/`, `_layouts/`, `_partials/` and `_notes/` are safely
+unserved (`/_notes/inoxtv_adsense_plan.md` → 404, confirmed). `content/` has no underscore, so Jekyll
+copies it out verbatim. The fragments have no YAML front matter, so Jekyll passes them through
+untouched rather than rendering them.
+
+**Why it is a policy problem.** Google Publisher Policies, *Inventory value*: ads are not permitted
+on screens "without publisher-content or with low-value content", nor on screens "used for alerts,
+navigation or other behavioral purposes". A reviewer sampling the site can land on one of these. It
+is a bare wall of text with no chrome and no exit — precisely that shape. It is also the
+near-duplicate content risk already flagged in §11.3, at 31× the scale.
+
+### 12.4 Secondary findings
+
+| Finding | Severity | Detail |
+|---|---|---|
+| Build scripts downloadable | Low | `build.py`, `check-assets.py`, `convert-webp.py` served at the site root. Not a policy breach; generator source should not be public. |
+| `ads.txt` declares app networks | Low–medium | 41 entries / 32 networks, mostly mobile-app SDKs (inmobi, mintegral, smaato, loopme, bidmachine). Those belong in `app-ads.txt` (313 lines, correct). A website's `ads.txt` should declare Google plus genuine *web* sellers. Reviewers do read this file. Owner's call — these lines may be deliberate. |
+| `README.md` served | Cosmetic | Repository readme reachable at the site root. |
+
+### 12.5 Fix plan
+
+| # | Action | Rationale |
+|---|---|---|
+| 1 | Rename `content/` → `_content/`, update `CONTENT` in `build.py` | Jekyll then excludes it exactly as it already excludes `_data/`. Removes 31 duplicate URLs at the source. |
+| 2 | Add `_config.yml` with an explicit `exclude:` list | Defence in depth for the `.py` files and `README.md`. Note: an `exclude:` key **replaces** Jekyll's defaults, so the list must restate what it needs. |
+| 3 | Extend `audit()` with the checks in §12.6 | The build must fail loudly if this class of fault returns. |
+| 4 | Rebuild, re-audit, verify 0 warnings | — |
+
+Deliberately **not** done: trimming `ads.txt`. Those lines may be intentional mediation entries from
+the app side, deleting 32 networks is the owner's decision, and an over-broad `ads.txt` is not a
+rejection cause. Flagged only.
+
+`robots.txt` `Disallow: /content/` was considered and rejected as the primary fix: it stops crawling
+but not direct fetches, so a human reviewer can still open the URL. The rename removes the page.
+
+### 12.6 New permanent build checks
+
+Added to `audit()` so the fault cannot silently return:
+
+- No servable directory outside the `_`-prefixed set contains unrendered fragments.
+- Every generated page carries exactly one `<link rel="canonical">`, and it matches its own URL.
+- No fragment-shaped file (front-matter comment, no `<html>`) sits anywhere Jekyll would serve it.
+- `.nojekyll` does not exist — its presence would start serving every `_` directory.
+- Loader in `<head>` on every page; no `data-ad-slot=""`.
+
+### 12.7 Revised re-application gate
+
+Supersedes §3.3, which stays valid but incomplete. Additionally, all of these must be true:
+
+- [ ] `/content/...` returns **404** in production for all 31 paths (check after the deploy, not locally)
+- [ ] `/build.py` returns 404
+- [ ] `python build.py` reports **no warnings**
+- [ ] The console reason under Sites → inoxtv.com has been read and addressed on its own terms
+- [ ] Search Console shows no "Duplicate without user-selected canonical" entries for `/content/`
+- [ ] Consent messages enabled account-side (GDPR + CCPA), since `privacy.html` §11 asserts they exist
+
+Indexing lag applies to *removal* as well: Google must re-crawl to drop the 31 duplicates. Allow
+**2–4 weeks** after the fix before re-applying.
+
+---
+
+## 13. Second full audit — 2026-09-12
+
+Requested after `ads.txt` was finished: check the whole site again for any policy violation or
+remaining reason to reject. Method: an independent script over all **38 served HTML files** (stripping
+script, style and comments before matching, so it reads what a visitor reads), plus a cross-check of
+every feature the homepage claims against the app source at `F:\Projects\Android\inoxtv\app\inoxtv`.
+
+This section is again an **independent audit**, not a transcript of anything Google said. §12.1 still
+applies: the notice names no reason, and the console is the only place the real one appears.
+
+### 13.1 What it found
+
+**F1 — The four navigation hubs are link lists (highest priority).** `/remote/` 155 words,
+`/troubleshooting/` 176, `/features/` 265, `/guides/` 308. Each is a breadcrumb, one lede sentence,
+a search box, and a set of cards. All four are marked `"ads": true` in `_data/site.json`, so they are
+ad-bearing screens, and all four are indexable and in the sitemap. That lands on two clauses at once:
+*Inventory value* refuses ads on screens "used for alerts, navigation or other behavioral purposes",
+and separately on screens "without publisher-content or with low-value content". A hub is the second
+clause's own example. It is also the same shape as the first rejection — "insufficient content".
+
+These pages are worth keeping; a grouped index is genuinely useful. They are not worth keeping
+**empty**. Fix: give each hub real orientation content — what the section covers, how to choose
+between its pages, what to have ready — and hold them to a word floor in the build.
+
+**F2 — The ad loader sits on the policy pages, contradicting the site's own privacy promise.**
+`privacy.html` §11 tells visitors: *"Advertising is never placed on this Privacy Policy, on the Terms
+of use, on the content disclaimer, or on the copyright and takedown page."* The loader is in the
+`<head>` of all four, and of `/about/` and `/contact/` as well. The loader alone renders nothing, so
+the sentence holds today only because `ad_slot` is empty — but the automatic units inject into any
+page carrying the loader, so the promise depends on an account setting the site cannot see. A false
+statement in a privacy policy is a worse problem than the ad it describes, and it is also the shape
+reviewers call out. Fix: stop emitting the loader on the policy section and on `/search/`, which makes
+the promise true by construction rather than by luck.
+
+**F3 — The homepage advertises a feature the app does not implement.** The Android TV card lists
+*"Auto-start on boot"*. `KEY_AUTO_START_ON_BOOT` is written and read **only inside
+`SettingsGeneralController`** — no other file in the project touches it, and the only `BOOT_COMPLETED`
+receiver in the whole repository is `RecordingBootReceiver`, which re-arms recording alarms rather
+than launching the app. So the row exists in Settings and does nothing. This is the inert-feature
+class already recorded for Multiview, PiP and catch-up: **check the reader, not the string.**
+
+*Corrected while checking:* SMB **is** implemented — `SmbSetupController`, `SmbSetupBinder`,
+`view_smb_setup_overlay.xml`, and the `file_explorer_setup_smb` string — as is the local-playlist file
+explorer (`FileExplorerController`). An early grep in this audit missed both because it was run
+against the wrong scope; the finding above is from the corrected search. Those two claims stay.
+
+**F4 — "the direct download bypasses the filter"** (`/guides/install-android-tv/`). The sentence
+describes Play's hardware filtering accurately, but "bypasses the filter" reads as circumvention to a
+classifier that matches wording rather than intent. Cheap to reword; no meaning lost.
+
+**F5 — `/search/` carries the loader** while being `noindex` and a thin results page with no content
+of its own. Same fix as F2.
+
+### 13.2 What passed
+
+Recorded so this section is not read as "everything is broken":
+
+| Check | Result |
+|---|---|
+| `ads.txt` | Single `google.com, pub-6161953663322185, DIRECT` line. Correct. |
+| `app-ads.txt` | Holds the app networks. Correct split from `ads.txt`. |
+| In-article ad units | **0** — correct before approval |
+| Titles / descriptions | 38 unique of 38, both |
+| Canonical / `<h1>` | Exactly one of each, per page, every page |
+| Real playlist servers | **None.** Every Xtream example is `example.com:8080` or `server:port` |
+| Provider or channel names | **None** |
+| Privacy policy | 13 sections, 2,314 words, cookies and third-party vendors covered |
+| Banned phrasing | 0 after F4. The two hits were "crackling" (audio) and "bypasses" — see §13.1 |
+| `robots.txt` | Correct, including the `preview.html` disallow |
+| SMB / file explorer / recording | **Implemented** — see the correction under F3 |
+| Analytics + loader | In `<head>` on all 38 pages |
+
+Not a violation, worth knowing: there is no `404.html`, so misses land on the host's bare default.
+GitHub Pages does not need one, and it is not a rejection cause — but a custom one is cheap and
+catches the old `/content/...` paths gracefully while they drain from the index.
+
+### 13.3 Fix plan
+
+| # | Action | Rationale |
+|---|---|---|
+| 1 | Real orientation content on the four hubs + a hub word floor in `audit()` | F1 — they are the navigation screens the policy names |
+| 2 | Stop emitting the loader on `policy` pages and `/search/` | F2/F5 — makes §11 true by construction |
+| 3 | Remove "Auto-start on boot" from the homepage card | F3 — unsupported claim |
+| 4 | Reword the Play-filter sentence | F4 — reads as circumvention |
+| 5 | Update `privacy.html` §11 to name exactly which pages carry no advertising | Keep the promise, the build and the markup in step |
+
+Deliberate consequence of #2: the loader ships on **31 pages instead of 38**. Verification does not
+depend on any particular page carrying it, and the exempt set is now the same set the privacy policy
+names, so the two cannot drift apart.
+
+This is a **reversal of the earlier "code in the head of every page" instruction**, and it is
+deliberate: the site had written a promise that instruction made false. Flagged here rather than
+applied quietly, and reversible in one line if the account-side exclusion is preferred instead.
+
+### 13.4 New permanent build checks
+
+- A hub whose orientation content is missing or under its word floor.
+- The loader is **present** on every page that is not `policy` and not `/search/`, and **absent** on
+  every page that is — checked from one flag so the expectation cannot drift from the emission.
+- The banned-phrase list covers the circumvention wording from F4.
+
+### 13.5 Added to the re-application gate
+
+- [ ] Every hub carries real orientation content, not just cards
+- [ ] No ad script on any of `/about/`, `/contact/`, `/terms/`, `/disclaimer/`, `/dmca/`,
+      `privacy.html`, `/search/`
+- [ ] `privacy.html` §11 wording matches the pages that actually carry no advertising
+- [ ] The homepage claims no feature the app does not implement
+
+## 14. Implementation of §13 — 2026-09-12
+
+All five actions from §13.3 are in. What follows records what changed, what was verified after the
+change, and the two places where checking the source contradicted what §13 had assumed.
+
+### 14.1 The five fixes
+
+**1 — Hub orientation content (F1).** New `_hubs/` directory, one HTML fragment per content section:
+`guides.html` (383 words), `features.html` (359), `troubleshooting.html` (378), `remote.html` (416).
+Read verbatim by `hub_intro()` and wrapped in `.doc-body.hub-intro`, so the prose takes the article
+measure rather than the full page width. Whole-page counts now 695-833 words, against 155-308 before.
+
+`_hubs/` is underscore-prefixed for the same reason `_content/` is: Jekyll never copies it, so the
+fragments cannot be served as chrome-less duplicate pages. Verified by the same rule that made
+`_notes/` unreachable in production.
+
+The content is orientation, not padding: what to have ready before starting, which of the three
+playlist types your credentials imply, why install-then-playlist-then-guide is the order that avoids
+rework, how to triage a fault before opening a page, and why the three remote maps differ. Every
+cross-link was checked against a page that exists.
+
+**2 — Loader removed from the policy section and `/search/` (F2/F5).** One `carries_ads()` helper,
+read by both the renderer and `audit()`, returns False for `section_key == "policy"` and for the
+search slug. `PROTECTED_ADS = {"index.html": True, "privacy.html": False}` states the same thing for
+the two hand-written pages, which carry no section key for the helper to read. Loader now ships on
+**31 pages**, not 38 — the seven that carry no loader are `/about/`, `/contact/`, `/terms/`,
+`/disclaimer/`, `/dmca/`, `/search/` and `privacy.html`. Verified absent from each, and present on
+the other 31. (`images/diagrams/preview.html` is the one other HTML file in the repository; it is a
+noindexed contact sheet for the diagram SVGs, disallowed in `robots.txt`, linked from nowhere, and
+not a page — it never carried the loader and is not counted either way.)
+
+**3 — Homepage feature claim (F3).** `<li>Auto-start on boot</li>` removed from the Android TV card
+and replaced with `Favourites and My list`, which the app does implement (the favourites table backs
+both the channel-list `Favorites` entry and the `My List` sidebar view). The list stays at five items
+rather than four.
+
+**4 — Circumvention wording (F4).** The install-android-tv FAQ answer now explains that Play's
+hardware list is Play's own and that the published release build is not subject to it. Three entries
+added to `BANNED`: `bypass the filter`, `bypasses the filter`, `circumvent the`. Bare `bypass` is
+still deliberately absent — the terms page forbids users from circumventing restrictions, which is
+the opposite problem, and a false positive would train whoever runs the build to ignore warnings.
+
+**5 — `privacy.html` §11 (F2).** Ad script removed from `<head>` with a comment recording why. §11
+now names the six exempt pages explicitly and states that no page loads an advertising script except
+the pages that carry advertising. The one-line "Some pages carry advertising" bullet now points to
+that list instead of leaving the reader to guess.
+
+### 14.2 Two corrections found while implementing
+
+Both were caught by checking the source rather than by reasoning, and both would have shipped a wrong
+statement onto a page:
+
+- **The TV guide's Up and Down keys.** §13.3's draft wording said they "scroll the channel list".
+  The page itself says they *move the selection between channels*, and that is why they are not
+  remappable. Reworded to match.
+- **Backup and restore does carry playlists between devices.** The first draft of the corrected
+  homepage FAQ said the two installs do not share playlists and each must be set up by hand. The
+  backup guide's own table lists "Playlists, with their type, credentials and per-playlist settings"
+  as included, and describes restoring onto a second device as the intended use. Reworded, and the
+  JSON-LD answer changed with it so the structured data still matches the visible text.
+
+Separately, the homepage FAQ answer `faq-4` contained "Absolutely!" and "the same powerful feature
+set". Rewritten as plain description, and its twin in the `FAQPage` JSON-LD block rewritten to match.
+
+### 14.3 Verification after the change
+
+- `python build.py` — **no warnings**, 31 pages + 4 hubs, 33,080 words.
+- `python check-assets.py` — 96 local references resolved, none missing; 8 unreferenced images, all
+  pre-existing and all performance rather than policy.
+- Loader placement checked per page in both directions by `audit()`; the same check on the two
+  hand-written pages by `check_protected()`.
+- New content scanned for the usual prose tells and for literal em-dashes; the only em-dashes left
+  are pre-existing ones in the two hand-written pages, not introduced here.
+- Banned-phrase scan across every served page: clean.
+
+### 14.4 What this does not fix
+
+Restating §13.5 because it is the part most likely to be mistaken for done:
+
+- The **consent-management platform** is still account-side. §11 asserts that EEA, UK and Swiss
+  visitors are asked for consent before personalised advertising, and there is still no CMP in the
+  page code. That sentence is true only if Google's own consent message is switched on.
+- **`ad_slot` is still empty**, so there is no in-article unit anywhere. That stays true until the
+  account is approved and an id exists.
+- The **rejection reason** in the console has still not been read. This audit is independent of it.
+
+## 15. Consent Mode v2 — 2026-09-12
+
+Closes the gap §14.4 named first: §11 of the privacy policy described a consent behaviour the site
+did not implement. It is now implemented in the page code, and the half that cannot live in page
+code is written down in §15.4 as an owner action rather than left implied.
+
+### 15.1 Why there is no hand-written banner
+
+The obvious reading of "add a consent message" is to write a cookie banner. That would have been
+the wrong build, and worth recording so nobody adds one later.
+
+To serve personalised ads to visitors in the EEA and the UK, Google requires a consent management
+platform that is **certified by Google and integrated with the IAB Europe Transparency and Consent
+Framework** — EEA since 16 January 2024, UK and Switzerland since 31 July 2024. Certification is a
+property of the CMP, not of the banner's wording. A banner written by hand is not certified no
+matter how correct its text, so it collects consent that cannot be transmitted in the format the ad
+request needs. It looks compliant and changes nothing.
+
+Google's own consent message, configured in the account under **Privacy & messaging**, *is* a
+certified CMP (TCF vendor ID 300) and costs nothing. So the work splits in two:
+
+- **In the page code** — Consent Mode v2 defaults, which decide what happens *before* any answer
+  exists and what happens if no answer ever arrives. This is §15.2, and it is done.
+- **In the account** — the certified message that asks the question. This is §15.4.
+
+The split is clean because the message needs no tag of its own: the existing ad loader delivers it.
+There is no third category of work sitting between the two, and no snippet waiting to be pasted in
+once the message exists.
+
+### 15.2 What was added to the code
+
+`_partials/consent-mode.html`, included by `_layouts/base.html` and pasted into the two
+hand-written pages, sets:
+
+| Signal | EEA / UK / CH | Everywhere else |
+|---|---|---|
+| `ad_storage` | denied | granted |
+| `ad_user_data` | denied | granted |
+| `ad_personalization` | denied | granted |
+| `analytics_storage` | denied | granted |
+
+plus `wait_for_update: 500`, `url_passthrough`, and `ads_data_redaction`.
+
+Three things about this were verified against Google's documentation rather than assumed:
+
+1. **Order is load-bearing and silent.** `gtag.js` and `adsbygoogle.js` both read the defaults when
+   they initialise. A consent block placed after either one parses fine, throws nothing, and has no
+   effect. The block therefore sits above both in every `<head>`, and `check_consent()` compares
+   offsets rather than checking presence, because presence is not the failure mode.
+2. **`"EEA"` is not a region value.** `region` takes ISO 3166-2 codes, so the 27 member states are
+   enumerated, plus IS, LI and NO, plus GB and CH. An earlier draft of this used `'EEA'`, which
+   would have silently matched no one and left the whole EEA on the granted default.
+3. **Specificity resolves the two defaults, not source order.** The regional command wins for the
+   countries it names because it is more specific, and the command with no region covers everyone
+   it does not name.
+
+Denying by default outside those regions was considered and rejected: consent is not the legal
+basis for measurement there, and it would suppress analytics for visitors who were never asked.
+
+### 15.3 Keeping the three copies in step
+
+`index.html` and `privacy.html` are `PROTECTED` — hand-written, never rendered through the layout,
+so `{% include %}` cannot reach them and each holds a pasted copy. Pasted copies drift: the next
+edit to the region list would leave the homepage on the old one, and nothing would report it.
+
+`check_consent()` in `build.py` compares each pasted copy against `_partials/consent-mode.html`
+ignoring indentation, and fails the build when they diverge. All three failure modes were tested by
+deliberately breaking the input and confirming the warning fires:
+
+| Break | Warning |
+|---|---|
+| Changed `wait_for_update` in the partial only | both hand-written pages reported as no longer matching |
+| Moved `gtag.js` above the include in the layout | 36 pages reported as "read too late to apply" |
+| Deleted the block from `index.html` | "loads Google script with no consent defaults in `<head>`" |
+
+Restored after each, and the build returns to no warnings.
+
+### 15.4 Owner action — publish the consent message
+
+**No code is involved, and none is missing.** Google's Funding Choices reference is explicit that
+publishers "don't need to re-tag at all" because "your existing Google Publisher Tag or AdSense tag
+deploys user messages once the message is published". The loader is already on all 31 content
+pages, so the delivery mechanism is in place and the message appears the moment it exists in the
+account. Nothing can be added to this repository to bring that date forward — the message is
+created behind a Google sign-in, and it is the account, not the site, that holds it.
+
+**It is not an approval gate.** The published eligibility criteria are original content that meets
+the programme policies, an owner aged 18 or over, and access to the site's HTML. No CMP, consent
+message or cookie banner appears among them. The CMP requirement governs *serving personalised ads*
+in the EEA, UK and Switzerland after approval — a revenue condition, not a review condition. The
+site can be submitted for review before this is done.
+
+What being un-published actually costs, while it is un-published:
+
+- EEA/UK/CH visitors are never asked, so consent is never granted, so `ad_storage`,
+  `ad_user_data`, `ad_personalization` and `analytics_storage` stay denied for them.
+- Ads still serve there, non-personalised, at a lower rate. Revenue from those regions is reduced,
+  not zero.
+- Nothing on the site becomes untrue: §11 was reworded so the promise rests on the denied-by-default
+  behaviour, which the code guarantees on its own.
+
+In the account: **Privacy & messaging → European regulations → Manage → create the message → select
+all sites → Publish.**
+
+To confirm it afterwards, append Google's own debug parameters to any content page — no EEA IP or
+VPN needed:
+
+```
+https://inoxtv.com/guides/add-m3u-playlist/?fc=alwaysshow&fctype=gdpr
+```
+
+The message must already be published to the site for that to render anything.
+
+**The seven exempt pages will not show the message**, because they deliberately do not load the ad
+script: `privacy.html`, `/terms/`, `/dmca/`, `/disclaimer/`, `/about/`, `/contact/`, `/search/`.
+Adding the loader to them purely to carry the message would put an ad script back on the pages whose
+own text promises there is none, and Auto ads could then place a unit there. The consent defaults
+still apply on those pages — an EEA visitor who lands on one stores nothing — so the trade is a
+visitor who is not *asked* on a policy page, against a policy page that contradicts itself. The
+first is better, and it is why `check_protected()` enforces the absence.
+
+### 15.5 Privacy policy changes that went with it
+
+§11 asserted that visitors "are asked for consent before personalised advertising or non-essential
+measurement cookies are used". That was a claim about a message that did not exist yet.
+
+It now leads with what the code does — cookies are switched off before any Google script is allowed
+to run, and stay off unless consented to — and describes the notice as the way consent is given.
+The measurement bullet gained the same qualifier. Effective date moved to 12 September 2026, since
+the substance changed and not just the wording.
+
+### 15.6 Verification
+
+- `python build.py` — no warnings, 31 pages + 4 hubs, 33,080 words.
+- `python check-assets.py` — MISSING: none.
+- Consent block confirmed ahead of both `gtag.js` and the ad loader by byte offset, not by eye, on
+  every served page: 39 HTML files in the tree, 38 carrying the block and `gtag.js`, 31 of those
+  also carrying the ad loader, 0 ordering violations. The 39th is
+  `images/diagrams/preview.html`, the noindexed local contact sheet, which loads no Google script
+  at all and correctly has no block.
+- The two hand-written pages re-indented to two spaces to match their own heads, and the duplicated
+  `window.dataLayer` / `function gtag()` pair removed — the consent block already defines both, and
+  redefining them after it would have reset the queue.
+
+### 15.7 What is still open after this
+
+Nothing in the repository. Every item below is an account action or a post-approval step, and none
+of them blocks submitting the site for review.
+
+- **Publish the consent message** (§15.4). Affects EEA/UK/CH ad rates, not approval. No code.
+- **`ad_slot` is still empty**, so there is no in-article unit. It cannot be filled until an
+  approved account can create a unit and hand back an id. Unchanged from §14.4.
+- **The console rejection reason has still not been read.** Unchanged from §14.4, and still the one
+  input that could contradict this whole audit.
+
+---
+
+## 16. AI-footprint audit — 2026-09-13
+
+The owner's question was direct: does this site read as machine-produced, and if so, remove every
+trace. Worth stating the actual risk precisely, because it is not the one the question implies.
+
+There is no rule that AI-assisted content is refused. The policy that bites is **scaled content
+abuse**, and it is about content produced at volume with little value, whatever produced it. A human
+writing thirty near-identical pages from a template trips it; a carefully written page does not
+become ineligible because a tool helped. So the thing to remove is not "evidence of a tool" but
+**anything that reads as unconsidered** — and the second is the one a reviewer actually sees.
+
+That reframing decided what to change and what to leave. Every edit below made the prose better on
+its own terms. Nothing was changed merely to defeat a detector.
+
+### 16.1 What was checked, and what was clean
+
+| Category | Method | Result |
+|---|---|---|
+| Vocabulary | 37 tell-words across all rendered pages | **0 hits** |
+| Filler constructions | 13 patterns: "not just X, it's Y", "more than just", "that's where", "under the hood", "peace of mind" … | 2 hits, both ordinary English in context, kept |
+| Generator traces | `generated`, model and vendor names, `meta name="generator"`, SVG editor metadata, EXIF | 4 hits of "generated", **all legitimate** — an M3U link *generated by an Xtream Codes panel*, an EPG *generated alongside your playlist*, key tables *generated from the app's own key definitions* |
+| Structural uniformity | word count, h2 count, FAQ count, HowTo step count per page | Genuine spread: 648–2003 words (median 991), 5 distinct h2 counts, FAQ 3–6, steps 0–7 |
+| Sentence rhythm | mean and sd of sentence length, per page | Page means 13.5–22.0 words; within-page sd 7.6–31.2; sentences from 3 to 230 words |
+| FAQ schema vs visible copy | 125 pairs across 36 pages, plus 12 on the homepage | **0 mismatches** |
+| `updated` dates | checked against git rather than assumed | Uniform date is honest; only one fragment had changed since the commit |
+
+The sentence-rhythm figures are the ones worth keeping. Machine-written prose clusters near 15–20
+words with low deviation because it defaults to one clause shape. A within-page spread of 7.6 to
+31.2, with real three-word sentences and a 230-word table-derived one, is not that.
+
+### 16.2 The em-dash sweep
+
+The one real habit found. 212 in the tree:
+
+- **51 kept.** Inside `<li>` and `<td>`, separating a term from its gloss — "Large — for a source
+  that stalls". That is what the mark is for, and stripping it would have made those tables worse.
+- **161 repaired**, taking running prose to zero.
+
+Repairs were rotated rather than substituted, because replacing every dash with one other mark swaps
+one uniform habit for another. Each was classified by the job it was doing: full stop or semicolon
+for an independent clause, colon where what follows is a gloss or a list, comma for a subordinate
+clause or an appositive, parentheses for a genuine aside. A one-off script did the bulk; every
+result was diffed and 8 comma splices it introduced were fixed by hand.
+
+Three passes were needed, and the reason is worth recording: **a source-only scan misses the front
+matter.** The `card`, `lede` and `faq` fields are JSON, not markup, so they carry literal `—` rather
+than `&mdash;` and never matched the first sweep — but they render into the page, the hub cards and
+the JSON-LD. 20 were caught this way on 15 files, and only because the new guard flagged a rendered
+page the source sweep had called clean.
+
+### 16.3 What was deliberately kept
+
+- **The 19 `.feature-icon` emoji.** A CSS-driven icon system, consistent sitewide. The one inline 💡
+  in a homepage paragraph was removed — that one was decoration inside prose.
+- **`<title>` separators** on `index.html` and `privacy.html`. A separator between a name and a
+  descriptor in a 55-character title is typographic convention, not a sentence. `check_tells()` was
+  taught to skip the title line rather than the titles being damaged to satisfy it.
+- **"unlock"**, which on this site means the parental PIN.
+- The **one `<td>` dash** in `troubleshooting/buffering-and-stuttering`, glossing a table term.
+
+### 16.4 Permanent guards added to `build.py`
+
+Both run on every build, for generated and hand-written pages alike:
+
+- **`TELLS`** — 37 phrases, warned on if they appear in rendered text.
+- **`check_tells()`** — the phrase scan plus an em-dash **rate**, `TELL_DASH_RATE = 3.0` per thousand
+  words, ignoring list rows, table cells and `<title>`. A rate rather than a count, so a long page is
+  not penalised for one dash and a short one cannot hide three.
+
+Wired into **both** `audit()` and `check_protected()`. The second call is what makes it cover
+`index.html` and `privacy.html`, and it is what caught the front-matter class of miss.
+
+### 16.5 Verification
+
+- `python build.py` — **no warnings**. 31 pages + 4 hubs, 32,948 words.
+- `python check-assets.py` — MISSING: none.
+- Prose em-dashes across all 38 served HTML files: **0**.
+- 125 FAQ pairs verified present in the visible markup, plus the homepage's 12: **0 mismatches**.
+- The two one-off scripts (`vary_dashes.py`, `check_faq_parity.py`) deleted. The permanent checks
+  live in `build.py`.
+
+### 16.6 The honest limit of this
+
+No scan proves a negative. What can be said is specific: the measurable habits are gone, the
+structural variation is real rather than simulated, and the site carries the kind of detail only
+someone with the source open could write — the Downloader code, `00:1a:79:00:00:00` as a prefix and
+not an account, four simultaneous recordings, one and a half seconds to first frame on every buffer
+preset, `Assign EPG` present in the menu but not wired.
+
+That last category is the actual defence, and it is the one a detector cannot fake in either
+direction. It is also why §13's rule stands: **write from the app's source, not from what an IPTV
+help page usually says.**

@@ -17,7 +17,7 @@ SEP = chr(92)  # backslash, written this way so shell heredocs can't mangle it
 
 ORIGINS = ("https://inoxtv.com/", "http://inoxtv.com/")
 
-# Not rendered pages: content/ holds fragments, _layouts/ and _partials/ hold
+# Not rendered pages: _content/ holds fragments, _layouts/ and _partials/ hold
 # templates whose placeholders are not real paths, and the diagram preview is a
 # local contact sheet that is never linked from the site.
 SKIP_PARTS = {"content", "_layouts", "_partials", ".git", ".claude", "node_modules"}

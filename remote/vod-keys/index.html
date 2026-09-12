@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -253,9 +304,9 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>The colour buttons are the clearest illustration of why three maps exist. On live TV, guide and channel actions are what you want on a coloured key. In a film, audio tracks and subtitles are what you reach for &mdash; often within the first minute, because a dubbed track or a missing subtitle is something you notice immediately.</p>
+<p>The colour buttons are the clearest illustration of why three maps exist. On live TV, guide and channel actions are what you want on a coloured key. In a film, audio tracks and subtitles are what you reach for. Often within the first minute, because a dubbed track or a missing subtitle is something you notice immediately.</p>
 
-<p>Everything that carries across keeps its live default deliberately: <kbd class="key">Left</kbd> opens the list as an overlay, holding it opens the preview beside a mini player, and holding <kbd class="key">Right</kbd> shows the description box. <kbd class="key">Long Down</kbd> carries the live map's picture&#8209;in&#8209;picture assignment across too, which is less useful than it sounds &mdash; see below.</p>
+<p>Everything that carries across keeps its live default deliberately: <kbd class="key">Left</kbd> opens the list as an overlay, holding it opens the preview beside a mini player, and holding <kbd class="key">Right</kbd> shows the description box. <kbd class="key">Long Down</kbd> carries the live map's picture&#8209;in&#8209;picture assignment across too, which is less useful than it sounds. See below.</p>
 
 <h2 id="actions">Everything a key can be assigned to</h2>
 
@@ -272,7 +323,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="where">Where this map applies, and where it does not</h2>
 
-<p>These assignments govern playback. While a film or an episode is on screen, the keys above are in force. Browsing the catalogue is ordinary navigation: the D&#8209;pad moves the highlight through posters, <kbd class="key">OK</kbd> opens the item, and <kbd class="key">Back</kbd> goes up a level &mdash; there is nothing to remap because nothing is ambiguous.</p>
+<p>These assignments govern playback. While a film or an episode is on screen, the keys above are in force. Browsing the catalogue is ordinary navigation: the D&#8209;pad moves the highlight through posters, <kbd class="key">OK</kbd> opens the item, and <kbd class="key">Back</kbd> goes up a level. There is nothing to remap because nothing is ambiguous.</p>
 
 <p>The detail screen you land on before playing sits in the same category. Its buttons are labelled, and <span class="ui">Play</span>, <span class="ui">Resume</span>, <span class="ui">Trailer</span> and <span class="ui">Add to my list</span> are selected rather than triggered by a key. So if a change you made appears to do nothing, check whether you were watching or browsing at the time.</p>
 
@@ -280,7 +331,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p><strong>Put <span class="ui">Restart from beginning</span> on a key.</strong> It ships unassigned. The catalogue offers <span class="ui">Resume</span> and <span class="ui">Resume S2 E4</span> for picking up where you left off; this is how you deliberately start over, and hunting for it in a menu is worse than one button. <kbd class="key">Long Up</kbd> is the natural home, since it ships set to <span class="ui">Ignore</span> and is doing nothing anyway.</p>
 
-<p><strong>Reassign <kbd class="key">Long Down</kbd>.</strong> It carries <span class="ui">Picture-in-picture</span> from the live map, and that is not connected, so the key is dead as shipped. <span class="ui">Show item description</span> is the useful thing to put there in a catalogue with several thousand titles &mdash; you will want to know what something is more often than you will want anything else on a long press.</p>
+<p><strong>Reassign <kbd class="key">Long Down</kbd>.</strong> It carries <span class="ui">Picture-in-picture</span> from the live map, and that is not connected, so the key is dead as shipped. <span class="ui">Show item description</span> is the useful thing to put there in a catalogue with several thousand titles; you will want to know what something is more often than you will want anything else on a long press.</p>
 
 <p><span class="ui">Restore to defaults</span> on this screen resets these 29 keys and nothing else.</p>
         <section class="faq" aria-labelledby="faq-h">

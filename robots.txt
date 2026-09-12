@@ -12,10 +12,13 @@ Allow: /
 # it is not a page a visitor should land on from a search result.
 Disallow: /images/diagrams/preview.html
 
-# The advertising and measurement crawlers need every page that carries ads,
-# which is every page. Spelled out rather than left to the wildcard above: a
-# named agent ignores the * block entirely, so if a Disallow is ever added up
-# there for an unrelated reason, ad serving does not quietly break with it.
+# The advertising and measurement crawlers need every page that carries ads -
+# the help-centre pages, not the policy pages and not the search results page,
+# which carry no ad script at all. Spelled out rather than left to the wildcard
+# above: a named agent ignores the * block entirely, so if a Disallow is ever
+# added up there for an unrelated reason, ad serving does not quietly break with
+# it. The Allow stays site-wide on purpose - it is not a claim that every page
+# shows ads, only that nothing here is closed to these crawlers.
 User-agent: Mediapartners-Google
 Allow: /
 

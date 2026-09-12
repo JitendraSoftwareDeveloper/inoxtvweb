@@ -40,14 +40,65 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6161953663322185" crossorigin="anonymous"></script>
+
 
 <script type="application/ld+json">
 {
@@ -127,7 +178,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="fastest-route">The fastest route to removal</h2>
 
-<p>If your aim is to get a specific stream taken down, the effective recipients are, in order: the IPTV service distributing it, then the hosting provider or CDN serving the stream URL, then the registrar of the domain that URL sits on. Any one of those can stop the stream. We cannot &mdash; there is no switch on our side that reaches it.</p>
+<p>If your aim is to get a specific stream taken down, the effective recipients are, in order: the IPTV service distributing it, then the hosting provider or CDN serving the stream URL, then the registrar of the domain that URL sits on. Any one of those can stop the stream. We cannot. There is no switch on our side that reaches it.</p>
 
 <p>A notice to us is still the right step in two situations, and we will act on both.</p>
 
@@ -158,7 +209,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="what-happens">What happens after it arrives</h2>
 
-<p>We acknowledge receipt within two working days. Material we publish, where the claim is clear, is removed at that point rather than after an investigation &mdash; we would rather take something down and discuss it than leave it up while we deliberate. Where the notice concerns a third&#8209;party build or a stream, we reply telling you what we have done and, where we can identify them, who else the notice should reach.</p>
+<p>We acknowledge receipt within two working days. Material we publish, where the claim is clear, is removed at that point rather than after an investigation; we would rather take something down and discuss it than leave it up while we deliberate. Where the notice concerns a third&#8209;party build or a stream, we reply telling you what we have done and, where we can identify them, who else the notice should reach.</p>
 
 <p>Repeated notices about the same third&#8209;party distribution channel are aggregated, and we escalate those to the host directly.</p>
 
@@ -168,7 +219,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="misuse">Notices sent in bad faith</h2>
 
-<p>A notice that knowingly misrepresents a claim can carry liability for the sender, including the costs of the party it targeted. We keep every notice on file. This is not a deterrent aimed at rights holders acting properly &mdash; it is aimed at competitors filing against each other's apps, which does happen.</p>
+<p>A notice that knowingly misrepresents a claim can carry liability for the sender, including the costs of the party it targeted. We keep every notice on file. This is not a deterrent aimed at rights holders acting properly. It is aimed at competitors filing against each other's apps, which does happen.</p>
       
     </div>
   </div>

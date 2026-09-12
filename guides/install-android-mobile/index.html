@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -220,7 +271,7 @@ gtag('config', 'G-KRV4ERFF8F');
     </header>
     <div class="doc-grid">
       <div class="doc-body">
-        <p>The phone and tablet build is <code>in.inoxtv.mobile</code>, published on Google Play. Search for <strong>InoxTV</strong>, tap <strong>Install</strong>, and you are done &mdash; there is no sideloading and no permission to grant, because Play carries this build for every normal Android device.</p>
+        <p>The phone and tablet build is <code>in.inoxtv.mobile</code>, published on Google Play. Search for <strong>InoxTV</strong>, tap <strong>Install</strong>, and you are done; there is no sideloading and no permission to grant, because Play carries this build for every normal Android device.</p>
 
 <p>What follows is the part actually worth reading: how the touch version differs, and the two things it does better than the television build.</p>
 
@@ -265,7 +316,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Nothing syncs. There is no account and no server, so playlists, favourites and settings live on each device independently. Moving them means <a href="/guides/backup-and-restore/">a backup file</a>, taken on one device and restored on the other.</p>
 
-<p>Your provider's connection limit applies to both. Most services allow one or two streams at once, and the second device is refused &mdash; often with a vague failure rather than a clear message. If the television suddenly stops mid&#8209;programme when someone picks up their phone, that is what happened, and it is a question for your provider rather than a setting here.</p>
+<p>Your provider's connection limit applies to both. Most services allow one or two streams at once, and the second device is refused. Often with a vague failure rather than a clear message. If the television suddenly stops mid&#8209;programme when someone picks up their phone, that is what happened, and it is a question for your provider rather than a setting here.</p>
 
 <h2 id="local-files">Local playlist files are easy here</h2>
 
@@ -275,7 +326,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="battery">Battery and data</h2>
 
-<p>Video over a mobile connection is the heaviest thing a phone does. A rough figure: a standard&#8209;definition stream is on the order of 0.5&nbsp;GB an hour, a high&#8209;definition one around 2&nbsp;GB, and 4K several times that. Streams come straight from your provider without any transcoding on our side, so the app cannot reduce that &mdash; only choosing a lower&#8209;quality stream, where your provider offers one, changes the number.</p>
+<p>Video over a mobile connection is the heaviest thing a phone does. A rough figure: a standard&#8209;definition stream is on the order of 0.5&nbsp;GB an hour, a high&#8209;definition one around 2&nbsp;GB, and 4K several times that. Streams come straight from your provider without any transcoding on our side, so the app cannot reduce that. Only choosing a lower&#8209;quality stream, where your provider offers one, changes the number.</p>
 
 <p>For long viewing on battery, the software decoders cost noticeably more power than the hardware ones. If you switched a decoder to <span class="ui">Software</span> to fix a specific channel, it is worth switching it back once you are done with that channel.</p>
         <section class="faq" aria-labelledby="faq-h">

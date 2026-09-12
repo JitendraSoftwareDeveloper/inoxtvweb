@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -175,7 +226,31 @@ gtag('config', 'G-KRV4ERFF8F');
         <button class="site-search-go" type="submit"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.3-4.3"></path></svg><span class="site-search-go-label">Search</span></button>
       </form>
     </header>
-    
+    <div class="doc-body hub-intro">
+<h2 id="what-a-page-gives-you">What each page here gives you</h2>
+
+<p>A feature page on this site is not a tour. Each one names the settings path the feature actually sits behind, lists every value its options accept and what choosing each one changes, and separates television behaviour from phone behaviour wherever the two differ. Labels are quoted the way the app spells them, punctuation included, so what you read matches the row you are looking at.</p>
+
+<p>Where a control is on screen but not yet connected in this build, the page says so instead of describing what it looks like it ought to do. A settings row that quietly does nothing wastes more of your time than a missing one, so it is worth knowing which is which before you spend an evening testing it.</p>
+
+<h2 id="two-builds">The two builds are not the same app</h2>
+
+<p>InoxTV ships as a television build and a mobile build. They share the playlist engine and the player, and they diverge wherever input matters: D&#8209;pad focus, overlays, long presses, and menus that exist on one and not the other. A feature you reach from a remote menu on the television may live in a different place on a phone, which is why those differences get their own heading on a page rather than a parenthesis halfway down it.</p>
+
+<h2 id="which-page">If you are not sure which page you want</h2>
+
+<p>Start from what you are trying to do rather than from what the feature is called.</p>
+
+<ul>
+  <li>Watching and switching channels is <a href="/features/live-tv/">live TV</a>, and what is on later is the <a href="/features/tv-guide-epg/">TV guide</a>.</li>
+  <li>Films and series have their own library, described in <a href="/features/movies-and-shows/">movies and shows</a>.</li>
+  <li>Getting back to something you have already watched splits between <a href="/features/favourites-and-my-list/">favourites and My list</a> and <a href="/features/search/">search</a>.</li>
+  <li>Picture problems that are settings rather than faults belong in <a href="/features/playback-quality/">playback and quality</a>, and <a href="/features/recording/">recording</a> covers keeping a copy of what is playing.</li>
+  <li>Who can watch what is <a href="/features/parental-controls/">parental controls</a>; how the app looks and what language it speaks is <a href="/features/themes-and-languages/">themes and languages</a>.</li>
+</ul>
+
+<p>If the behaviour you are seeing is a fault rather than a setting, <a href="/troubleshooting/">troubleshooting</a> will get you there faster than this section will.</p>
+</div>
         <section class="hub-group" aria-labelledby="g-watching">
       <h2 id="g-watching">Watching</h2>
       <ul class="hub-cards">
@@ -185,11 +260,11 @@ gtag('config', 'G-KRV4ERFF8F');
         </a></li>
         <li><a href="/features/tv-guide-epg/">
           <h3>The TV guide</h3>
-          <p>The grid, groups, descriptions and recording — plus what controls how much data is kept.</p>
+          <p>The grid, groups, descriptions and recording, plus what controls how much data is kept.</p>
         </a></li>
         <li><a href="/features/movies-and-shows/">
           <h3>Movies and shows</h3>
-          <p>Seasons and episodes, resuming, My List, sorting — and why an M3U cannot provide any of it.</p>
+          <p>Seasons and episodes, resuming, My List, sorting, and why an M3U cannot provide any of it.</p>
         </a></li>
         <li><a href="/features/recording/">
           <h3>Recording</h3>

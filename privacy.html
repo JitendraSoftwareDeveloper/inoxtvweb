@@ -36,21 +36,73 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Google Analytics 4 -->
-  <!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+  <script>
+  // Google Consent Mode v2. This has to run BEFORE any measurement command or
+  // ad script, because both read the defaults when they initialise - if gtag.js
+  // or adsbygoogle.js lands first, it has already made its own decision and this
+  // block can no longer change it.
+  //
+  // Nothing here shows a banner or asks anyone anything. It states the starting
+  // position, and Google's own consent message - the certified CMP switched on
+  // in the account - calls gtag('consent','update',...) once the visitor answers
+  // it. A self-written banner would not be a certified CMP and would be worse
+  // than no banner at all, so there deliberately is not one.
+  //
+  // The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+  // advertising there, so denying until told otherwise is both the correct
+  // default and the thing that makes the privacy policy's account of consent
+  // true rather than aspirational. Everywhere else starts granted: consent is not
+  // the basis for it, and denying by default would suppress measurement for
+  // visitors who were never asked and never refused.
+  //
+  // The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+  // the 27 member states are spelled out - plus the UK and Switzerland, which
+  // fall under the same requirement without being members. Specificity decides
+  // which default applies, not the order they appear in.
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500,
+    'region': [
+      'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+      'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+      'IS','LI','NO',
+      'GB','CH'
+    ]
+  });
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
+  });
+  // url_passthrough carries the identifiers in the link when advertising cookies
+  // are unavailable, so measurement keeps working for a visitor who has not
+  // consented. ads_data_redaction withholds the ad-click identifiers in that
+  // case. Both apply only to denied traffic; neither switches anything off for
+  // visitors who are outside the consent regions.
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
+  </script>
 
-	  gtag('config', 'G-KRV4ERFF8F');
-	</script>
-	
-  <!-- Ad loader -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6161953663322185"
-     crossorigin="anonymous"></script>
-	
+  <!-- Google Analytics 4. dataLayer and gtag() are already defined by the
+       consent block above; redefining them here would reset the queue. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+  <script>
+  gtag('js', new Date());
+  gtag('config', 'G-KRV4ERFF8F');
+  </script>
+
+  <!-- No ad script on this page, deliberately. The promise in the section
+       "Cookies, Analytics, and Advertising on This Website" is that no
+       advertising is placed here, and the automatic units would fill any page
+       that loaded the loader. Absent, the promise does not depend on an account
+       setting. Verified by check_protected() in build.py. -->
+
 </head>
 <body>
   <!-- Skip to content (a11y) -->
@@ -103,7 +155,7 @@
         <div class="privacy-hero-content reveal">
           <span class="section-badge">Legal</span>
           <h1>Privacy <span class="gradient-text">Policy</span></h1>
-          <p class="privacy-effective">Effective date: <strong>7 September 2026</strong></p>
+          <p class="privacy-effective">Effective date: <strong>12 September 2026</strong></p>
         </div>
       </div>
     </section>
@@ -312,8 +364,8 @@
             <p>Sections 1 to 10 describe the App. This section describes inoxtv.com, the website you are reading now, which is a separate thing with separate behaviour. The website has no accounts, no sign-in, and no forms that submit anywhere. Nothing you read here is recorded against you by us, and our own page scripts store nothing on your device.</p>
             <p>The website does load two services operated by Google, and those do place cookies or read identifiers in your browser:</p>
             <ul>
-              <li><strong>Measurement.</strong> Google Analytics records which pages are opened, roughly where in the world the visit came from, and which browser and screen size were used. We use it to see which help pages get read and which are never found, so the ones people need can be improved. It reports totals to us, not individuals, and we do not combine it with anything from the App.</li>
-              <li><strong>Advertising.</strong> Some pages carry advertising so the help centre and the App can stay free to use.</li>
+              <li><strong>Measurement.</strong> Google Analytics records which pages are opened, roughly where in the world the visit came from, and which browser and screen size were used. We use it to see which help pages get read and which are never found, so the ones people need can be improved. It reports totals to us, not individuals, and we do not combine it with anything from the App. In the regions named further down this section it does not store anything on your device until you have consented to it.</li>
+              <li><strong>Advertising.</strong> Some pages of the help centre carry advertising, so that the help centre and the App can stay free to use. Which ones do and which do not is set out at the end of this section.</li>
             </ul>
             <p>On advertising specifically, the disclosures below apply:</p>
             <ul>
@@ -325,8 +377,8 @@
               <li>How Google handles data from sites that use its services is described in <a href="https://policies.google.com/technologies/partner-sites" rel="noopener nofollow" target="_blank">Google's own policy for partner sites</a>.</li>
             </ul>
             <p>Every browser can block or delete cookies for a site, and Chrome, Firefox, Safari and Edge all keep that control in their privacy settings. Blocking them will not stop the help centre working, because none of the pages need a cookie to be read.</p>
-            <p>If you are in the European Economic Area, the United Kingdom, or Switzerland, you are asked for consent before personalised advertising or non-essential measurement cookies are used, and you can change or withdraw that choice later from the same notice. Where consent is refused or withdrawn, advertising may still appear but is not personalised.</p>
-            <p>Advertising is never placed on this Privacy Policy, on the Terms of use, on the content disclaimer, or on the copyright and takedown page.</p>
+            <p>If you are in the European Economic Area, the United Kingdom, or Switzerland, advertising and measurement cookies are switched off before any Google script on the page is allowed to run, and they stay off unless you consent to them. You are asked through a consent notice provided by Google, which records your answer and can be reopened from that notice to change or withdraw it later. Where consent is refused, withdrawn, or never given, the pages still work and advertising may still appear, but it is not personalised and no advertising cookie is placed.</p>
+            <p>Advertising is never placed on this Privacy Policy, on the Terms of use, on the content disclaimer, on the copyright and takedown page, on the contact page, or on the search results page. No page of this website loads an advertising script except the pages that carry advertising, and the pages listed in this paragraph are not among them.</p>
           </div>
 
           <!-- Section 12 -->

@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -162,7 +213,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "One channel has another channel's programmes. Why?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The guide matches by channel identifier, and yours matched the wrong entry. There is no per-channel override in this build, so the fix is a source keyed the same way as your playlist — usually your provider's own data."
+        "text": "The guide matches by channel identifier, and yours matched the wrong entry. There is no per-channel override in this build, so the fix is a source keyed the same way as your playlist, usually your provider's own data."
       }
     },
     {
@@ -270,7 +321,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>This is the most confusing case and the most common. The app fetched data, read it, and then found nothing in it that corresponds to your channels. Nothing announces that, because from the app's point of view the update did exactly what it was asked to.</p>
 
-<p>Guide data identifies channels by an identifier, and your playlist has to use the same one. When a playlist and a guide come from different places, they frequently do not agree &mdash; one calls a channel by a code, the other by a display name, and no match is found.</p>
+<p>Guide data identifies channels by an identifier, and your playlist has to use the same one. When a playlist and a guide come from different places, they frequently do not agree: one calls a channel by a code, the other by a display name, and no match is found.</p>
 
 <p>What to check, in order:</p>
 
@@ -337,7 +388,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="reset">Starting over</h2>
 
-<p>When the guide is in a state you cannot explain, <span class="ui">Clear TV guide</span> followed by <span class="ui">Update TV guide</span> rebuilds it from scratch. It touches only guide data &mdash; playlists, favourites, groups and key assignments are stored separately and are not affected.</p>
+<p>When the guide is in a state you cannot explain, <span class="ui">Clear TV guide</span> followed by <span class="ui">Update TV guide</span> rebuilds it from scratch. It touches only guide data. Playlists, favourites, groups and key assignments are stored separately and are not affected.</p>
 
 <p>If a clean rebuild still produces nothing, the source does not carry your channels, and the next step is a better source rather than another setting.</p>
         <section class="faq" aria-labelledby="faq-h">
@@ -353,7 +404,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>One channel has another channel&#x27;s programmes. Why?</summary>
-              <div>The guide matches by channel identifier, and yours matched the wrong entry. There is no per-channel override in this build, so the fix is a source keyed the same way as your playlist — usually your provider&#x27;s own data.</div>
+              <div>The guide matches by channel identifier, and yours matched the wrong entry. There is no per-channel override in this build, so the fix is a source keyed the same way as your playlist, usually your provider&#x27;s own data.</div>
             </details>
             <details>
               <summary>What does Not enough memory to load the TV guide mean?</summary>

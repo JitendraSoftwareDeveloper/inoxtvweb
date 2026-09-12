@@ -72,7 +72,7 @@ repeatedly returned "insufficient content". Two independent causes, both must st
 Check for `build.py` / `_layouts/` before assuming.
 
 - **Pre-build-system (original):** `index.html` + `privacy.html`, each with copy-pasted nav/footer/head.
-- **Target:** `build.py` (stdlib Python only) renders `content/**/*.html` fragments through
+- **Target:** `build.py` (stdlib Python only) renders `_content/**/*.html` fragments through
   `_layouts/` + `_partials/` into committed `<slug>/index.html` files.
 
 ### Non-negotiable constraints
@@ -84,7 +84,7 @@ Check for `build.py` / `_layouts/` before assuming.
 | **No runtime JS for nav, content, or footer** | Pages must be server-rendered HTML for the reviewer and for indexing. |
 | **Apex domain only** | `www.inoxtv.com` does not resolve. Every absolute URL must be non-www. |
 | **`privacy.html` never moves** | The shipped app hardcodes `https://inoxtv.com/privacy.html` (`settings_about_privacy_policy_url`). Old installs request it forever and Pages cannot 301. Do not create a duplicate at `/privacy/`. |
-| **Never edit a generated `index.html`** | The next build overwrites it. Edit `content/` or `_layouts/`. |
+| **Never edit a generated `index.html`** | The next build overwrites it. Edit `_content/` or `_layouts/`. |
 | **Never put a stray `.html` in the repo root** | Pages serves it. A scratch file becomes an indexable thin page. |
 
 ### Directory map
@@ -95,7 +95,7 @@ inoxtvweb/
   inoxtv_website_plan.md      <- design system
   build.py                    <- builder (may not exist yet)
   _layouts/  _partials/  _data/site.json
-  content/<section>/<slug>.html   <- HTML fragment + JSON front matter
+  _content/<section>/<slug>.html  <- HTML fragment + JSON front matter
   index.html  privacy.html    <- homepage + privacy (privacy stays flat)
   images/
     diagrams/*.svg            <- hand-authored, see below
@@ -110,7 +110,7 @@ inoxtvweb/
 ## Adding a page
 
 ```
-1. content/<section>/<slug>.html   - front matter + body (structure below)
+1. _content/<section>/<slug>.html  - front matter + body (structure below)
 2. Add 2-3 "related" links to it from existing pages (no orphans)
 3. python build.py
 4. python check-assets.py
@@ -271,7 +271,7 @@ so the crawler can verify the site. Do not name the programme in content.
 
 | Script | Purpose | Known issue |
 |---|---|---|
-| `check-assets.py` | Verifies every local asset reference resolves; lists orphans | Hardcodes `("index.html", "privacy.html")` - must become a recursive glob of generated HTML plus `content/**/*.html` |
+| `check-assets.py` | Verifies every local asset reference resolves; lists orphans | Hardcodes `("index.html", "privacy.html")` - must become a recursive glob of generated HTML plus `_content/**/*.html` |
 | `convert-webp.py` | Writes `.webp` siblings for `images/**/*.png` | Must skip `images/diagrams/` |
 
 Run both from the repo root. `check-assets.py` needs Pillow only for the dimension report.

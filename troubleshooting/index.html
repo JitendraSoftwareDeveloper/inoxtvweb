@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -150,7 +201,28 @@ gtag('config', 'G-KRV4ERFF8F');
         <button class="site-search-go" type="submit"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.3-4.3"></path></svg><span class="site-search-go-label">Search</span></button>
       </form>
     </header>
-    
+    <div class="doc-body hub-intro">
+<h2 id="triage">Narrow it down before you pick a page</h2>
+
+<p>Every page in this section starts by asking you to separate the fault from your theory about the fault, so it is worth doing that once here and arriving already half way through. Three questions settle most of it.</p>
+
+<ul>
+  <li><strong>One channel, or all of them?</strong> One failing while others play is almost always the stream itself, at the source, and no setting in the app reaches it. Everything failing points at the playlist, the account or the connection.</li>
+  <li><strong>Does it fail on a second device too?</strong> If the same playlist fails on a phone and on the television, the cause is not the device. Be careful with this test though: plenty of services allow only one or two streams at a time, so the second device can create the failure it was meant to diagnose.</li>
+  <li><strong>Is the picture wrong, or the information about the picture?</strong> A stream that stalls, stutters or refuses to start is a playback problem. Missing titles, wrong times and empty rows are a programme guide problem. They look equally broken and have nothing to do with each other.</li>
+</ul>
+
+<h2 id="where-symptoms-go">Where the common symptoms go</h2>
+
+<p>Picture freezes every few seconds, or the spinner keeps coming back, is <a href="/troubleshooting/buffering-and-stuttering/">buffering and stuttering</a>. One channel that sits black or throws an error while the rest are fine is <a href="/troubleshooting/channel-wont-play/">a channel that will not play</a>. Nothing in the list at all, or an error the moment you save the playlist, is <a href="/troubleshooting/playlist-wont-load/">a playlist that will not load</a>. Channels present but the guide blank, stuck on yesterday or shifted by hours is <a href="/troubleshooting/no-tv-guide-data/">no TV guide data</a>.</p>
+
+<p>If what you are looking at is a feature behaving in a way you did not expect rather than something broken, the page for that feature in <a href="/features/">features</a> will explain the behaviour, and that is often the whole answer.</p>
+
+<div class="note note--warn">
+  <p class="note-label">Before you delete anything</p>
+  <p>Reinstalling the app and re&#8209;adding the playlist is the most common first move and one of the least useful. It discards favourites, recordings and every setting you have chosen, and it touches none of the causes above. If you are going to do it anyway, run a backup first: <a href="/guides/backup-and-restore/">backup and restore</a> covers what is included and what is not.</p>
+</div>
+</div>
         <section class="hub-group" aria-labelledby="g-playback">
       <h2 id="g-playback">Playback problems</h2>
       <ul class="hub-cards">
@@ -160,7 +232,7 @@ gtag('config', 'G-KRV4ERFF8F');
         </a></li>
         <li><a href="/troubleshooting/channel-wont-play/">
           <h3>A channel that will not play</h3>
-          <p>One dead channel, every channel dead, or sound without picture — each points somewhere different.</p>
+          <p>One dead channel, every channel dead, or sound without picture. Each points somewhere different.</p>
         </a></li>
       </ul>
     </section>
@@ -178,7 +250,7 @@ gtag('config', 'G-KRV4ERFF8F');
       <ul class="hub-cards">
         <li><a href="/troubleshooting/no-tv-guide-data/">
           <h3>No TV guide data, or the wrong programmes</h3>
-          <p>Empty guide, stale guide, or listings on the wrong channel — each has a different cause.</p>
+          <p>Empty guide, stale guide, and listings on the wrong channel all have different causes.</p>
         </a></li>
       </ul>
     </section>

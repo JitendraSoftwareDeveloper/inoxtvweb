@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -225,7 +276,7 @@ gtag('config', 'G-KRV4ERFF8F');
     </header>
     <div class="doc-grid">
       <div class="doc-body">
-        <p>The <a href="/features/tv-guide-epg/">TV guide</a> is the grid of what is on now and next. InoxTV does not produce that data &mdash; it fetches it from a source you configure, or from the API your provider exposes, then matches each programme to a channel in your playlist. Both halves have to work. A source with perfect data still shows an empty guide if the identifiers do not line up.</p>
+        <p>The <a href="/features/tv-guide-epg/">TV guide</a> is the grid of what is on now and next. InoxTV does not produce that data. It fetches it from a source you configure, or from the API your provider exposes, then matches each programme to a channel in your playlist. Both halves have to work. A source with perfect data still shows an empty guide if the identifiers do not line up.</p>
 
 <figure>
   <img src="/images/diagrams/flow-epg-update.svg" alt="Flow of a TV guide update: the configured source is fetched, the XMLTV data is parsed, each channel identifier is matched against the playlist, matched programmes are stored for the configured number of past days, and unmatched channels are left with no listings." width="880" height="400" loading="lazy" decoding="async">
@@ -236,13 +287,13 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Before configuring anything, open the guide. If you connected with <a href="/guides/add-xtream-codes-playlist/">Xtream Codes</a>, the panel usually serves guide data through the same API and the grid is already populated. Adding a second source on top of that gives you nothing and doubles what has to be downloaded.</p>
 
-<p>If you connected with an <a href="/guides/add-m3u-playlist/">M3U playlist</a>, you almost certainly need a source: the file format carries channels, not schedules. Stalker portals sit between the two &mdash; some serve a full week, some serve nothing.</p>
+<p>If you connected with an <a href="/guides/add-m3u-playlist/">M3U playlist</a>, you almost certainly need a source: the file format carries channels, not schedules. Stalker portals sit between the two, some serve a full week, some serve nothing.</p>
 
 <h2 id="add-source">Add the source</h2>
 
 <p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span>. The screen you want is <span class="ui">TV guide sources</span>, which lists the sources the app knows about and is where you add another.</p>
 
-<p>What you add is an XMLTV address &mdash; a URL serving an XML file of programme data, often compressed. Where it comes from matters more than most people expect, so in order of preference:</p>
+<p>What you add is an XMLTV address, a URL serving an XML file of programme data, often compressed. Where it comes from matters more than most people expect, so in order of preference:</p>
 
 <ol>
   <li><strong>Your provider's own EPG URL.</strong> Best by a wide margin. It was generated alongside your playlist, so the channel identifiers match by construction. Ask for it if you were not sent one.</li>
@@ -280,7 +331,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="first-fetch">Fetch it now and read the result</h2>
 
-<p>Choose <span class="ui">Update TV guide</span> to run an update immediately. Progress appears as <span class="ui">Updating TV guide 1/2: <em>playlist name</em></span> &mdash; one pass per playlist that has a source attached.</p>
+<p>Choose <span class="ui">Update TV guide</span> to run an update immediately. Progress appears as <span class="ui">Updating TV guide 1/2: <em>playlist name</em></span>, one pass per playlist that has a source attached.</p>
 
 <p>The message at the end is diagnostic, so it is worth waiting for. On success the screen shows <span class="ui">TV guide updated on</span> with a timestamp. The failures each mean something specific:</p>
 
@@ -302,7 +353,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="matching">When the update succeeds and the guide is still empty</h2>
 
-<p>This is the common case, and it is a matching problem. Programmes are attached to channels by identifier &mdash; the <code>tvg-id</code> in your playlist against the channel ID in the EPG file. Two channels can carry the same name to the letter and still not match, because their identifiers differ.</p>
+<p>This is the common case, and it is a matching problem. Programmes are attached to channels by identifier, the <code>tvg-id</code> in your playlist against the channel ID in the EPG file. Two channels can carry the same name to the letter and still not match, because their identifiers differ.</p>
 
 <p>The practical consequences:</p>
 
@@ -316,7 +367,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="clearing">Clearing and starting again</h2>
 
-<p><span class="ui">Clear TV guide</span> discards all stored programme data. It does not remove your sources or unset <span class="ui">EPG source</span> &mdash; it empties the cache, then the next update refills it. Use it after switching sources, when you would otherwise have two sets of listings overlapping, or when the guide shows data you know is stale. Clearing and updating is also worth trying once when the guide looks corrupted rather than empty; a partial file from an interrupted download can survive otherwise.</p>
+<p><span class="ui">Clear TV guide</span> discards all stored programme data. It does not remove your sources or unset <span class="ui">EPG source</span>; it empties the cache, then the next update refills it. Use it after switching sources, when you would otherwise have two sets of listings overlapping, or when the guide shows data you know is stale. Clearing and updating is also worth trying once when the guide looks corrupted rather than empty; a partial file from an interrupted download can survive otherwise.</p>
 
 <p>If the guide is still not working after all this, <a href="/troubleshooting/no-tv-guide-data/">no TV guide data</a> goes through the remaining causes, including the device&#8209;specific ones.</p>
         <section class="faq" aria-labelledby="faq-h">

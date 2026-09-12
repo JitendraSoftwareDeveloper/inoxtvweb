@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Static site builder for inoxtv.com.
 
-Renders every fragment in content/ through _layouts/ and _partials/ into a
+Renders every fragment in _content/ through _layouts/ and _partials/ into a
 committed <slug>/index.html, and regenerates the navigation, section hubs,
 breadcrumbs, table of contents, structured data and sitemap.xml from one
 registry so none of them can drift as pages are added.
 
-Adding a page is one new file in content/<section>/ plus a rebuild. Nothing
+Adding a page is one new file in _content/<section>/ plus a rebuild. Nothing
 else needs touching.
 
 Site search is off until "cse_id" in _data/site.json holds a hosted search
@@ -35,7 +35,20 @@ from datetime import date, datetime
 from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CONTENT = os.path.join(ROOT, "content")
+# Underscore-prefixed on purpose. GitHub Pages runs Jekyll (there is no
+# .nojekyll), and Jekyll never copies a "_" directory into the served output.
+# Without the underscore every fragment in here is published as a second,
+# chrome-less copy of an article it already renders - 31 duplicate URLs with no
+# nav and no canonical, which is the "low-value content" shape the programme
+# policies refuse. Renaming this back would republish all of them.
+CONTENT = os.path.join(ROOT, "_content")
+# Orientation text for each section hub, one file per section, named after the
+# section key. Kept out of _content because discover() treats every .html there
+# as an article: these carry no front matter and are not pages of their own.
+# A hub that is only a breadcrumb, a lede and a grid of link cards is the
+# "screen used for navigation" the inventory rules name, so each one needs
+# something worth reading on it. See HUB_WORD_FLOOR.
+HUBS = os.path.join(ROOT, "_hubs")
 LAYOUTS = os.path.join(ROOT, "_layouts")
 PARTIALS = os.path.join(ROOT, "_partials")
 DATA = os.path.join(ROOT, "_data")
@@ -47,8 +60,25 @@ MANIFEST = os.path.join(ROOT, "_data", "build-manifest.json")
 # forever, and GitHub Pages cannot issue a redirect.
 PROTECTED = {"index.html", "privacy.html"}
 
+# Whether each hand-written page may load the ad script. They carry no section
+# key, so carries_ads() cannot answer for them and the expectation is stated
+# here instead; check_protected() reads this, so the two stay in step.
+# privacy.html is False because its own §11 tells visitors advertising is never
+# placed on it, and the automatic units fill any page that loads the loader.
+PROTECTED_ADS = {"index.html": True, "privacy.html": False}
+
 TITLE_MAX = 65
 DESC_MIN, DESC_MAX = 120, 165
+
+# Words a section hub has to carry in its own orientation text, measured with
+# the link cards, breadcrumb and lede stripped out. About 330-530 in practice.
+#
+# The number is not the point. A hub whose only prose is one lede sentence is a
+# list of links, and the inventory rules do not allow ads on "screens used for
+# alerts, navigation or other behavioral purposes". This is a minimum that
+# fails the build when a hub loses its content, not a target to pad towards -
+# padding to hit a count is its own problem.
+HUB_WORD_FLOOR = 250
 
 MONTHS = ("January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December")
@@ -77,12 +107,80 @@ BANNED = [
     "playlist link below",
     "playlist we provide",
     "bypass geo",
+    # "bypass" on its own is deliberately not listed: the terms page forbids
+    # users from circumventing restrictions, which is the opposite of the
+    # problem. What has to stay out is the phrasing that presents a route
+    # around a store's device list as the point of the page rather than a
+    # consequence of it.
+    "bypass the filter",
+    "bypasses the filter",
+    "circumvent the",
     "unblock channels",
     "cracked apk",
     "cracked version",
     "torrent",
     "pirated",
 ]
+
+# Phrasing that reads as machine-written. Separate from BANNED because the
+# consequence is different: BANNED is a policy problem that can get the site
+# refused outright, this is a quality signal that makes a reviewer read the
+# pages as low-value filler rather than documentation someone wrote.
+#
+# The test for an entry is whether a developer writing about their own app
+# would ever reach for it. "Comprehensive" and "robust" describe a product
+# being sold; "seamless" and "effortless" are claims a user makes, not a
+# manual. Domain words that merely look similar stay out: "unlock" is the
+# parental PIN, "boost" is not used, and "leverage" would be wrong in any
+# sentence on this site anyway.
+TELLS = [
+    "delve",
+    "seamless",
+    "effortless",
+    "robust",
+    "comprehensive",
+    "leverage",
+    "elevate your",
+    "empower",
+    "streamline",
+    "cutting-edge",
+    "game-changer",
+    "game changer",
+    "state-of-the-art",
+    "revolutionize",
+    "revolutionise",
+    "dive into",
+    "deep dive",
+    "embark on",
+    "a testament to",
+    "the realm of",
+    "unleash",
+    "myriad",
+    "plethora",
+    "in today's",
+    "look no further",
+    "rest assured",
+    "it's worth noting",
+    "it is worth noting",
+    "at the end of the day",
+    "when it comes to",
+    "in conclusion",
+    "to sum up",
+    "let's explore",
+    "we'll explore",
+    "by following these steps",
+    "whether you're a",
+    "not just a",
+    "not only that",
+]
+
+# Em-dashes per thousand words, above which a page is flagged. The mark itself
+# is fine - it does real work in a "label - definition" list row, and those are
+# excluded from the count. What reads as machine-written is the habit of
+# appending an explanatory clause to sentence after sentence with one, which is
+# what this catches. The floor was set after the 2026-09-13 sweep took the
+# prose count to zero; anything above it means the habit is returning.
+TELL_DASH_RATE = 3.0
 
 
 # --------------------------------------------------------------------------
@@ -297,7 +395,7 @@ class Builder:
 
     def discover(self) -> None:
         if not os.path.isdir(CONTENT):
-            raise SystemExit("content/ not found")
+            raise SystemExit("_content/ not found")
         for dirpath, _dirs, files in os.walk(CONTENT):
             for name in sorted(files):
                 if not name.endswith(".html"):
@@ -362,6 +460,28 @@ class Builder:
                 % (html.escape(col["heading"]), links)
             )
         return "\n".join(blocks)
+
+    def carries_ads(self, section_key: str, slug: str = "") -> bool:
+        """Whether a page's <head> may load the ad script.
+
+        One rule, read by both the renderer and audit(), so what the build emits
+        and what it expects cannot drift apart.
+
+        Policy pages and /search/ are excluded, and that exclusion is what makes
+        privacy.html §11 true rather than aspirational: it promises visitors that
+        no advertising is placed on the policy pages, and the automatic units
+        fill any page that loads the loader. The policy section also has no
+        publisher content of its own to sell - legal text, an about page and a
+        contact page are not what the inventory rules call content.
+
+        /search/ is excluded twice over: it is noindex, and a results page has
+        nothing to offer an advertiser.
+        """
+        if section_key == "policy":
+            return False
+        if slug.startswith("search/") or slug.rstrip("/") == "search":
+            return False
+        return True
 
     def ad_slot_id(self, meta: dict) -> str:
         """The in-article unit's id, or empty while there is no real one.
@@ -613,16 +733,25 @@ class Builder:
     def shell(self, *, title, description, canonical, og_type, body_class,
               content, jsonld, current_section, share, report,
               robots="index, follow, max-image-preview:large, max-snippet:-1",
-              cse=False) -> str:
-        # The loader goes in the head of every page without exception, which is
-        # what the programme asks for: it is how the site is verified and how
-        # automatic placements reach pages that carry no hand-placed slot.
-        # Whether a page shows an ad is a separate decision, made by ads_html().
-        ads_loader = (
-            '<script async src="https://pagead2.googlesyndication.com/pagead/js/'
-            'adsbygoogle.js?client=%s" crossorigin="anonymous"></script>'
-            % self.site["ads_client"]
-        )
+              cse=False, ads=True) -> str:
+        # The loader goes in the head of every page that can show an ad, which is
+        # how the site is verified and how automatic placements reach pages that
+        # carry no hand-placed slot. Whether a page shows an ad is a separate
+        # decision, made by ads_html().
+        #
+        # "ads=False" is not a soft preference, it is what keeps privacy.html
+        # §11 honest: that section promises visitors no advertising on the policy
+        # pages, and the automatic units fill any page that loads this script, so
+        # leaving it there would make the promise depend on an account setting the
+        # site cannot see. Absent from the head, the promise is true by
+        # construction. Verified per page in audit().
+        ads_loader = ""
+        if ads:
+            ads_loader = (
+                '<script async src="https://pagead2.googlesyndication.com/pagead/js/'
+                'adsbygoogle.js?client=%s" crossorigin="anonymous"></script>'
+                % self.site["ads_client"]
+            )
         return self.tpl.render(
             "layout",
             "base",
@@ -714,9 +843,38 @@ class Builder:
             current_section="" if is_policy else page["section"],
             share=share,
             report=self.report_band(canonical, meta["h1"]),
+            ads=self.carries_ads(page["section"], page["slug"]),
         )
         self.emit(os.path.join(page["slug"], "index.html"), out)
         self.audit(page, out)
+
+    def hub_intro(self, key: str, section: dict) -> str:
+        """The orientation prose that sits above a hub's link cards.
+
+        Read verbatim from _hubs/<section>.html and wrapped so it takes the
+        article measure rather than the full page width. One file per section,
+        so editing one hub cannot collide with another, and adding a page to a
+        section never touches this.
+
+        Returns empty for a section with no file, and warns rather than raising:
+        a missing fragment should be visible in the build output, not fatal.
+        """
+        path = os.path.join(HUBS, "%s.html" % key)
+        if not os.path.isfile(path):
+            self.warn(
+                "hub /%s/ has no orientation text (_hubs/%s.html): a page that "
+                "is only links is a navigation screen" % (key, key)
+            )
+            return ""
+        with open(path, encoding="utf-8") as fh:
+            body = fh.read().strip()
+        words = word_count(body)
+        if words < HUB_WORD_FLOOR:
+            self.warn(
+                "hub /%s/: %d words of orientation text, floor is %d"
+                % (key, words, HUB_WORD_FLOOR)
+            )
+        return '<div class="doc-body hub-intro">\n%s\n</div>' % body
 
     def render_hub(self, key: str, section: dict) -> None:
         url = "/%s/" % key
@@ -735,6 +893,7 @@ class Builder:
             groups.append(self.hub_group("More", "more", rest))
 
         trail = [("Home", "/"), (section["title"], url)]
+        intro = self.hub_intro(key, section)
         rendered = self.tpl.render(
             "layout",
             "hub",
@@ -743,7 +902,7 @@ class Builder:
                 "h1": html.escape(section["h1"]),
                 "lede": section.get("lede", ""),
                 "search_hero": self.search_form("hub"),
-                "content": "",
+                "content": intro,
                 "groups": "\n".join(groups),
                 "disclaimer": html.escape(self.site["disclaimer"]),
             },
@@ -778,6 +937,7 @@ class Builder:
             current_section=key,
             share=self.share_links(canonical, section["h1"], section["description"]),
             report=self.report_band(canonical, section["h1"]),
+            ads=self.carries_ads(key, "%s/" % key),
         )
         self.emit(os.path.join(key, "index.html"), out)
         self.hubs += 1
@@ -848,6 +1008,7 @@ class Builder:
             report=self.report_band(canonical, h1, "search"),
             robots="noindex, follow",
             cse=True,
+            ads=self.carries_ads("search", "search/"),
         )
         self.emit(os.path.join("search", "index.html"), out)
 
@@ -909,15 +1070,39 @@ class Builder:
         for phrase in BANNED:
             if phrase in lowered:
                 self.warn("%s: contains banned phrasing '%s'" % (page["slug"], phrase))
+        self.check_tells(page["slug"], rendered)
         if 'class="adsbygoogle"' in rendered and page["section"] == "policy":
             self.warn("%s: policy page must carry no ad slot" % page["slug"])
-        # The loader belongs in the head of every page without exception. Checked
-        # per page so that a layout edit cannot quietly drop it from one of them.
+        # Checked in both directions off carries_ads(), so the page that may not
+        # load the script cannot quietly start loading it, and one that may
+        # cannot quietly lose it.
         head = rendered[: rendered.lower().find("</head>")]
-        if "googlesyndication.com/pagead/js/adsbygoogle.js" not in head:
-            self.warn("%s: no ad loader in <head>" % page["slug"])
+        has_loader = "googlesyndication.com/pagead/js/adsbygoogle.js" in head
+        if self.carries_ads(page["section"], page["slug"]):
+            if not has_loader:
+                self.warn("%s: no ad loader in <head>" % page["slug"])
+        elif has_loader:
+            self.warn(
+                "%s: loads the ad script but is exempt - the automatic units "
+                "would fill it, which the privacy policy says does not happen"
+                % page["slug"]
+            )
         if 'data-ad-slot=""' in rendered:
             self.warn("%s: ad unit with an empty slot id" % page["slug"])
+        # A page that does not name itself as the canonical version is what lets
+        # a duplicate compete with it. Both halves matter: exactly one tag, and
+        # the address it names has to be this page's own.
+        canonicals = re.findall(r'<link\s+rel="canonical"\s+href="([^"]+)"', rendered)
+        want = self.base + page["url"]
+        if len(canonicals) != 1:
+            self.warn(
+                "%s: %d canonical tags, want exactly 1" % (page["slug"], len(canonicals))
+            )
+        elif canonicals[0] != want:
+            self.warn(
+                "%s: canonical points at %s, want %s"
+                % (page["slug"], canonicals[0], want)
+            )
 
     def check_links(self) -> None:
         """Warn on any root-relative href or img src that will 404.
@@ -1026,14 +1211,60 @@ class Builder:
             json.dumps({"written": sorted(self.written)}, indent=2) + "\n",
         )
 
-    def check_protected(self) -> None:
-        """Keep the two hand-written pages in step with the search gate.
+    def check_tells(self, label: str, rendered: str) -> None:
+        """Flag phrasing and punctuation habits that read as machine-written.
 
-        index.html and privacy.html are never rewritten by this script, so their
-        masthead field was pasted in by hand. That makes them the one place the
-        gate cannot reach: blanking "cse_id" would strip the field from every
-        generated page and leave these two aiming at a /search/ that no longer
-        exists. Checked in both directions so neither half can drift.
+        Called for generated pages from audit() and for the two hand-written
+        ones from check_protected(), because a tell on the homepage is the one
+        a reviewer meets first.
+
+        The dash count deliberately ignores list and table rows. A row that
+        reads "Large - for a source that stalls" is using the mark as
+        typography between a term and its gloss, which is what it is for. The
+        habit worth catching is in running prose, where a dash appended to
+        sentence after sentence is doing the job a full stop, a colon or a pair
+        of brackets should be sharing.
+
+        <title> is skipped for the same reason: a separator between a name and
+        a descriptor in a 55-character title is a typographic convention, not a
+        sentence, and shortening a good title to satisfy this check would cost
+        more than it gains.
+        """
+        lowered = strip_tags(rendered).lower()
+        for phrase in TELLS:
+            if phrase in lowered:
+                self.warn("%s: phrasing reads as machine-written, '%s'" % (label, phrase))
+
+        prose_dashes = 0
+        for line in rendered.split("\n"):
+            stripped = line.strip()
+            if stripped.startswith("<li>") or "<td>" in stripped or "<th>" in stripped:
+                continue
+            if stripped.startswith("<title>"):
+                continue
+            prose_dashes += stripped.count("&mdash;") + stripped.count("—")
+
+        words = word_count(rendered)
+        if words >= 200 and prose_dashes:
+            rate = prose_dashes / words * 1000
+            if rate > TELL_DASH_RATE:
+                self.warn(
+                    "%s: %d em-dashes in running prose, %.1f per 1000 words "
+                    "(over %.1f) - vary the punctuation"
+                    % (label, prose_dashes, rate, TELL_DASH_RATE)
+                )
+
+    def check_protected(self) -> None:
+        """Check the two hand-written pages the builder never renders.
+
+        index.html and privacy.html are excluded from emit(), so audit() never
+        sees them and every check it performs stops at the edge of the generated
+        set. That makes this the only place the policy and search-gate checks can
+        reach them, and it has to be kept in step with audit() by hand.
+
+        The search half is checked in both directions: blanking "cse_id" strips
+        the field from every generated page, which would leave these two aiming
+        at a /search/ that no longer exists.
         """
         for rel in sorted(PROTECTED):
             path = os.path.join(ROOT, rel)
@@ -1051,6 +1282,179 @@ class Builder:
                     "(it is hand-written, so the builder cannot add it)" % rel
                 )
 
+            # audit() only ever sees pages this script renders, so until now the
+            # two hand-written pages were the one place banned phrasing could sit
+            # unchecked - and the homepage was carrying "thousands of channels"
+            # in both its FAQ copy and the matching schema. The phrase was
+            # describing playlist capacity rather than offering anything, but a
+            # classifier matches wording, not intent.
+            rendered = read(path)
+            lowered = strip_tags(rendered).lower()
+            for phrase in BANNED:
+                if phrase in lowered:
+                    self.warn("%s: contains banned phrasing '%s'" % (rel, phrase))
+            self.check_tells(rel, rendered)
+            if 'name="keywords"' in rendered:
+                self.warn("%s: has a keywords meta tag" % rel)
+            head = rendered[: rendered.lower().find("</head>")]
+            # Same rule as carries_ads(), stated per page because these two are
+            # hand-written and carry no section key for it to read. The homepage
+            # shows ads; privacy.html is the page the promise in its own §11 is
+            # about, so it must not load the script.
+            if PROTECTED_ADS[rel]:
+                if "googlesyndication.com/pagead/js/adsbygoogle.js" not in head:
+                    self.warn("%s: no ad loader in <head>" % rel)
+            elif "googlesyndication.com/pagead/js/adsbygoogle.js" in head:
+                self.warn(
+                    "%s: loads the ad script, but this page promises visitors no "
+                    "advertising - remove it from the <head>" % rel
+                )
+            if "googletagmanager.com/gtag/js" not in head:
+                self.warn("%s: no analytics in <head>" % rel)
+
+    def check_consent(self) -> None:
+        """Check the consent defaults on every page that loads Google script.
+
+        Consent Mode is order-sensitive in a way nothing else here is: gtag.js
+        and adsbygoogle.js both read the defaults when they initialise, so a
+        block that runs after either of them has no effect at all and fails
+        silently - the page looks right, the tags fire, and the EEA visitor is
+        measured anyway. A diff of the file will not show it. Only the offsets
+        will, which is why this compares positions rather than presence.
+
+        The generated pages all inherit one copy through the layout's
+        {% include consent-mode %}. index.html and privacy.html are hand-written
+        and cannot, so they hold pasted copies, and a pasted copy is a copy that
+        drifts: the next change to the partial would leave the homepage on the
+        old region list. So the two are compared against the partial itself,
+        ignoring indentation, because the hand-written pages indent their head
+        two spaces and the partial does not.
+        """
+        partial = os.path.join(PARTIALS, "consent-mode.html")
+        if not os.path.isfile(partial):
+            self.warn(
+                "_partials/consent-mode.html is missing: every page would load "
+                "gtag.js with no consent defaults ahead of it"
+            )
+            return
+
+        def squash(text: str) -> str:
+            """Compare on content, not on how deeply a file happens to indent."""
+            return "\n".join(
+                line.strip() for line in text.split("\n") if line.strip()
+            )
+
+        want = squash(read(partial))
+
+        # self.written carries sitemap.xml too; only pages have a head to check.
+        pages = sorted(PROTECTED) + sorted(
+            r for r in self.written if r.endswith(".html")
+        )
+        for rel in pages:
+            path = os.path.join(ROOT, rel)
+            if not os.path.isfile(path):
+                continue
+            text = read(path)
+            head = text[: text.lower().find("</head>")]
+
+            consent = head.find("gtag('consent', 'default'")
+            tagjs = head.find("googletagmanager.com/gtag/js")
+            adjs = head.find("googlesyndication.com/pagead/js/adsbygoogle.js")
+
+            if consent < 0:
+                if tagjs >= 0 or adjs >= 0:
+                    self.warn(
+                        "%s: loads Google script with no consent defaults in "
+                        "<head>" % rel
+                    )
+                continue
+            if tagjs >= 0 and tagjs < consent:
+                self.warn(
+                    "%s: gtag.js is loaded before the consent defaults, so the "
+                    "defaults are read too late to apply" % rel
+                )
+            if adjs >= 0 and adjs < consent:
+                self.warn(
+                    "%s: the ad script is loaded before the consent defaults, so "
+                    "the defaults are read too late to apply" % rel
+                )
+
+            # Both hand-written pages hold a pasted copy. Anything generated got
+            # its copy from the partial by construction, so there is nothing to
+            # compare - only the paste can drift.
+            if rel in PROTECTED:
+                start = head.rfind("<script>", 0, consent)
+                end = head.find("</script>", consent)
+                if start < 0 or end < 0:
+                    self.warn("%s: consent block is not in a <script> tag" % rel)
+                    continue
+                got = squash(head[start : end + len("</script>")])
+                if got != want:
+                    self.warn(
+                        "%s: its consent block no longer matches "
+                        "_partials/consent-mode.html - this page is hand-written, "
+                        "so the partial does not reach it and the copy has to be "
+                        "updated by hand" % rel
+                    )
+
+    def check_exposure(self) -> None:
+        """Find source files the host would publish as pages.
+
+        This is the check that was missing when the site was rejected on
+        2026-09-12. The fragments lived in content/, which has no underscore, so
+        Jekyll copied all 31 of them into the served output: every article also
+        answered at /content/<section>/<slug>.html as a chrome-less, canonical-less
+        wall of text. Two near-identical URLs per article, and the duplicate is
+        exactly the "low-value content" shape the policies refuse.
+
+        Nothing here inspects the build's own output - it inspects the repository
+        the way the host will see it, because that is where this class of fault
+        lives. Rendered pages are checked by audit() instead.
+        """
+        nojekyll = os.path.join(ROOT, ".nojekyll")
+        if os.path.exists(nojekyll):
+            self.warn(
+                ".nojekyll exists, which switches Jekyll off and starts serving "
+                "every _ directory - _content, _layouts, _partials and _data "
+                "would all become public. Delete it."
+            )
+
+        # Jekyll drops "_" and "." directories. Everything else ships.
+        served_dirs = [
+            name
+            for name in sorted(os.listdir(ROOT))
+            if os.path.isdir(os.path.join(ROOT, name))
+            and not name.startswith(("_", "."))
+        ]
+        for name in served_dirs:
+            for dirpath, dirs, files in os.walk(os.path.join(ROOT, name)):
+                dirs[:] = [d for d in dirs if not d.startswith((".", "_"))]
+                for filename in sorted(files):
+                    if not filename.endswith(".html"):
+                        continue
+                    path = os.path.join(dirpath, filename)
+                    text = read(path)
+                    # A fragment carries JSON front matter and no document shell.
+                    # A rendered page has both a doctype and an <html> element.
+                    if FRONT_RE.match(text) or "<html" not in text.lower():
+                        self.warn(
+                            "%s would be served as a page but is an unrendered "
+                            "fragment - move it under a _ directory"
+                            % os.path.relpath(path, ROOT).replace(os.sep, "/")
+                        )
+
+        # A stray .html at the repository root becomes an indexable thin page,
+        # and the two that belong there are hand-written and already accounted for.
+        for filename in sorted(os.listdir(ROOT)):
+            if not filename.endswith(".html") or filename in PROTECTED:
+                continue
+            if not os.path.isfile(os.path.join(ROOT, filename)):
+                continue
+            self.warn(
+                "%s sits in the repository root, so it is served as a page - "
+                "move it into a section or delete it" % filename
+            )
+
     def run(self) -> int:
         self.discover()
         for page in self.pages:
@@ -1064,6 +1468,8 @@ class Builder:
         self.check_links()
         self.check_reachability()
         self.check_protected()
+        self.check_consent()
+        self.check_exposure()
         self.prune()
         self.save_manifest()
         return self.report()

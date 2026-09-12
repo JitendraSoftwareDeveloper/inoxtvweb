@@ -40,10 +40,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
+{% include consent-mode %}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{analytics_id}}"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '{{analytics_id}}');
 </script>

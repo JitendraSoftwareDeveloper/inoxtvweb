@@ -1,0 +1,147 @@
+<!-- {
+  "title": "Parental controls and the PIN in InoxTV",
+  "h1": "Parental controls",
+  "description": "What the InoxTV parental PIN actually locks, the seven unlock windows, the two Require PIN toggles that are not yet enforced, and why forgetting it is serious.",
+  "lede": "This feature locks configuration, not content. Knowing that before you turn it on saves you setting it up for a job it does not do. It is genuinely good at the job it does do.",
+  "section": "features",
+  "slug": "features/parental-controls",
+  "group": "control",
+  "order": 1,
+  "card": "What the PIN locks, the seven unlock windows, and the one mistake that locks you out for good.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/backup-and-restore",
+    "features/tv-guide-epg",
+    "troubleshooting/playlist-wont-load"
+  ],
+  "howto": {
+    "name": "Set up the parental PIN in InoxTV",
+    "steps": [
+      "Open Settings, then Parental controls.",
+      "Turn On, and enter a four-digit PIN when prompted.",
+      "Enter the same four digits again to confirm.",
+      "Under Require PIN for, choose Settings to lock everything, or Settings | Playlists and Settings | TV Guide to lock only those.",
+      "Set Don't require PIN after unlocking to how long one entry should last.",
+      "Write the PIN down somewhere outside the device."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Does the PIN stop a channel from playing?",
+      "a": "No. It locks settings screens, so a playlist cannot be added, edited or removed and the guide cannot be reconfigured. Every channel in an enabled playlist stays playable to anyone holding the remote."
+    },
+    {
+      "q": "How long is the PIN?",
+      "a": "Four digits, and it submits itself as soon as you enter the fourth. There is no OK to press. It is stored as a SHA-256 hash rather than as the digits themselves."
+    },
+    {
+      "q": "What happens if I enter it wrong?",
+      "a": "The four dots shake and clear, and you try again. There is no error message, no attempt counter and no lockout, so a wrong entry costs you nothing but the retype."
+    },
+    {
+      "q": "I forgot the PIN. How do I reset it?",
+      "a": "You cannot. There is no account, no email recovery and no master code, because nothing about your setup leaves the device. Clearing the app's data is the only way back in, and that removes your playlists and settings along with the PIN."
+    },
+    {
+      "q": "Why does the PIN screen keep asking on a phone even though I chose Picker?",
+      "a": "Picker needs a D-pad, so on a phone or tablet the app ignores that preference and always brings up the on-screen keyboard. The setting only takes effect on a television."
+    }
+  ]
+} -->
+
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Parental controls</span> and the first thing worth knowing is what the feature is for, because the name leads most people to expect something else.</p>
+
+<h2 id="what-it-locks">What it locks, and what it does not</h2>
+
+<p>The PIN protects the screens where the app is configured. It does not filter, rate or block anything you watch.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Locked</th><th>Not locked</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>The settings screen as a whole</td><td>Any channel in an enabled playlist</td></tr>
+      <tr><td><span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &mdash; adding, editing, deleting, disabling</td><td>The movies and shows catalogue</td></tr>
+      <tr><td><span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span> &mdash; sources and update behaviour</td><td>The programme guide</td></tr>
+      <tr><td>The parental controls screen itself</td><td>Search, favourites, recording</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>So the honest description is a configuration lock. It stops a playlist being swapped for another one, stops your guide setup being undone, and stops the lock itself being switched off, which is a real and useful thing on a shared television. It is not a content filter, and it cannot become one: the app knows a stream's name and its group, and nothing whatever about what is inside it.</p>
+
+<div class="note note--warn">
+  <p class="note-label">If you need content restriction</p>
+  <p>Restrict what gets onto the device instead of what the player shows. A playlist limited to the categories you are willing to have in the house, requested from your provider, is the only approach that actually works, and it survives the app being replaced with a different one.</p>
+</div>
+
+<h2 id="setting-up">Setting it up</h2>
+
+<p>Turn on <span class="ui">On</span>. Because no PIN exists yet, the app asks for one straight away under <span class="ui">To set parental controls, create PIN</span>, then again as <span class="ui">Confirm PIN</span>. Four digits, and the dialog submits on the fourth digit rather than waiting for a button.</p>
+
+<p>Get the confirmation wrong and the four dots shake, the dialog resets to the first step, and you start over. No message explains what happened, so if it shakes twice, slow down rather than assuming something is broken.</p>
+
+<p>The PIN is hashed with SHA&#8209;256 before it is stored, so the digits are not written anywhere on the device. That is the right way round for security and it has one consequence you need to plan for, covered below.</p>
+
+<h2 id="require-for">Require PIN for: three that work, two that do not</h2>
+
+<p><span class="ui">Require PIN for</span> lists five surfaces. This is the part of the screen where being told the truth saves you an evening.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Option</th><th>State in this build</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Settings</span></td><td>Enforced. The whole settings screen asks for the PIN before it draws anything.</td></tr>
+      <tr><td><span class="ui">Settings | Playlists</span></td><td>Enforced, when <span class="ui">Settings</span> is off.</td></tr>
+      <tr><td><span class="ui">Settings | TV Guide</span></td><td>Enforced, when <span class="ui">Settings</span> is off.</td></tr>
+      <tr><td><span class="ui">Group options</span></td><td>Stores your choice and nothing reads it. No prompt appears.</td></tr>
+      <tr><td><span class="ui">Channel options</span></td><td>The same. Nothing prompts.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The last two are switches for the group and channel menu rows that are laid out but not yet connected; there is nothing behind them to protect, so the gate has nothing to gate. Leave them alone; turning them on changes nothing and turning them off loses you nothing.</p>
+
+<p>Notice also that <span class="ui">Settings</span> and the two below it are deliberately exclusive. Switch <span class="ui">Settings</span> on and the app greys out <span class="ui">Settings | Playlists</span> and <span class="ui">Settings | TV Guide</span>, because locking the whole screen already covers both. Switch it off and the two become available again for a narrower lock.</p>
+
+<p>Which to pick comes down to one question: do you want the other person changing playback settings and remote keys? <span class="ui">Settings</span> says no to everything. The narrower pair leaves buffer size, decoders, themes and key mappings open while protecting the two things that are painful to rebuild.</p>
+
+<h2 id="unlock-window">How long one entry lasts</h2>
+
+<p><span class="ui">Don't require PIN after unlocking</span> decides how much typing the lock costs you day to day. Seven values:</p>
+
+<ul>
+  <li><span class="ui">Always require</span> &mdash; every protected screen, every time. Nothing is ever treated as unlocked.</li>
+  <li><span class="ui">Until next app start</span> &mdash; one entry covers the rest of the session.</li>
+  <li><span class="ui">Until switching to not blocked channel</span> &mdash; the unlock is dropped the moment you change channel.</li>
+  <li><span class="ui">During 10 minutes</span>, <span class="ui">During 30 minutes</span>, <span class="ui">During 1 hour</span>, <span class="ui">During 2 hours</span> &mdash; measured from the entry.</li>
+</ul>
+
+<p>One property of the implementation matters more than the choice between them: the unlock is held in memory only and is never written to storage. A freshly started app process is always locked, whichever value you picked. That means <span class="ui">During 2 hours</span> does not survive the app being closed, and it means a timed window cannot be extended by leaving the app open in the background and coming back.</p>
+
+<p><span class="ui">Until next app start</span> is the sensible default for a household where the lock exists to stop accidents. <span class="ui">Always require</span> is the one to use when it exists to stop a person.</p>
+
+<h2 id="input-method">Picker or keyboard</h2>
+
+<p><span class="ui">PIN input method</span> offers <span class="ui">Picker</span> and <span class="ui">Keyboard</span>. Picker takes the digits from the remote's number keys and D&#8209;pad and keeps the on-screen keyboard out of the way; Keyboard brings up the usual text input.</p>
+
+<p>On a phone or tablet the setting is ignored and you always get the keyboard, because Picker depends on a remote that is not there. The preference is stored either way, so the same backup restored onto a television will use what you chose.</p>
+
+<h2 id="forgetting">The one thing to get right before you leave this screen</h2>
+
+<p>Write the PIN down somewhere that is not the device.</p>
+
+<p>There is no recovery path, and this is not an oversight. The app has no account, contacts no server about your configuration, and stores a hash rather than the number, so there is nobody who can look it up for you and nothing on the device that could be read back. <span class="ui">Change PIN</span> asks for the current one first, and reaching that screen at all needs the current one, so a forgotten PIN cannot be replaced from inside the app.</p>
+
+<p>With <span class="ui">Require PIN for</span> &rsaquo; <span class="ui">Settings</span> switched on, forgetting it locks you out of every setting permanently. Playback still works and the channels you already have keep playing, but you cannot add a playlist, fix the guide, remap a key or turn the lock off. Clearing the app's data through Android's own app settings is the only way back, and that takes your playlists, favourites and key mappings with it.</p>
+
+<p>Which is the argument for doing <a href="/guides/backup-and-restore/">taking a backup</a> before you turn this on. A backup file taken beforehand turns a forgotten PIN from a rebuild into a five&#8209;minute restore.</p>
+
+<h2 id="turning-off">Turning it off</h2>
+
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Parental controls</span>, enter the PIN, and switch <span class="ui">On</span> off. Any active unlock is dropped at the same moment, so nothing stays open behind you.</p>
+
+<p>The PIN itself is kept. Switching the feature back on later reuses it rather than asking for a new one, and <span class="ui">Change PIN</span> is how you replace it. It asks for the current PIN, then the new one twice. There is no row that removes the PIN outright, which is worth knowing if you were expecting the feature to reset itself completely when switched off.</p>

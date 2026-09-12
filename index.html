@@ -70,16 +70,66 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Google Analytics 4 -->
-  <!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+  <script>
+  // Google Consent Mode v2. This has to run BEFORE any measurement command or
+  // ad script, because both read the defaults when they initialise - if gtag.js
+  // or adsbygoogle.js lands first, it has already made its own decision and this
+  // block can no longer change it.
+  //
+  // Nothing here shows a banner or asks anyone anything. It states the starting
+  // position, and Google's own consent message - the certified CMP switched on
+  // in the account - calls gtag('consent','update',...) once the visitor answers
+  // it. A self-written banner would not be a certified CMP and would be worse
+  // than no banner at all, so there deliberately is not one.
+  //
+  // The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+  // advertising there, so denying until told otherwise is both the correct
+  // default and the thing that makes the privacy policy's account of consent
+  // true rather than aspirational. Everywhere else starts granted: consent is not
+  // the basis for it, and denying by default would suppress measurement for
+  // visitors who were never asked and never refused.
+  //
+  // The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+  // the 27 member states are spelled out - plus the UK and Switzerland, which
+  // fall under the same requirement without being members. Specificity decides
+  // which default applies, not the order they appear in.
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500,
+    'region': [
+      'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+      'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+      'IS','LI','NO',
+      'GB','CH'
+    ]
+  });
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
+  });
+  // url_passthrough carries the identifiers in the link when advertising cookies
+  // are unavailable, so measurement keeps working for a visitor who has not
+  // consented. ads_data_redaction withholds the ad-click identifiers in that
+  // case. Both apply only to denied traffic; neither switches anything off for
+  // visitors who are outside the consent regions.
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
+  </script>
 
-	  gtag('config', 'G-KRV4ERFF8F');
-	</script>
+  <!-- Google Analytics 4. dataLayer and gtag() are already defined by the
+       consent block above; redefining them here would reset the queue. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+  <script>
+  gtag('js', new Date());
+  gtag('config', 'G-KRV4ERFF8F');
+  </script>
 	
   <!-- Ad loader -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6161953663322185"
@@ -161,11 +211,11 @@
     "mainEntity": [
       {"@type":"Question","name":"What is InoxTV and how does it work?","acceptedAnswer":{"@type":"Answer","text":"InoxTV is an IPTV player for Android phones, tablets, Android TV and Fire TV. It carries no channels of its own. You point it at a playlist you already have and it reads the streams, the categories and the guide references out of it: an M3U or M3U8 file or URL, Xtream Codes credentials, or a Stalker Portal address with a MAC. From there the app handles playback, the channel list, search, favourites, the programme guide and recording."}},
       {"@type":"Question","name":"Is InoxTV free to download?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both builds are free on Google Play, and there is no paid tier that unlocks the player. What the app does not come with is anything to watch. It is a player, so the playlist has to come from you, from whatever service or source you already use. Install it without one and you get an empty channel list and a prompt to add a playlist."}},
-      {"@type":"Question","name":"What playlist formats does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports M3U/M3U8, Xtream Codes, and Stalker Portal — the three major IPTV playlist formats."}},
-      {"@type":"Question","name":"Can I use InoxTV on both my phone and TV?","acceptedAnswer":{"@type":"Answer","text":"Yes. InoxTV has two dedicated builds — one for Android phones and tablets with touch controls, and another for Android TV and Fire TV with D-pad navigation."}},
+      {"@type":"Question","name":"What playlist formats does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports M3U/M3U8, Xtream Codes, and Stalker Portal, the three major IPTV playlist formats."}},
+      {"@type":"Question","name":"Can I use InoxTV on both my phone and TV?","acceptedAnswer":{"@type":"Answer","text":"Yes, with the same playlist on each. InoxTV ships as two separate installs: one for Android phones and tablets with touch controls, and one for Android TV and Fire TV built around a D-pad. Nothing syncs between them on its own, but a backup file restores your playlists and settings onto the second device in one step."}},
       {"@type":"Question","name":"Does InoxTV have an Electronic Program Guide (EPG)?","acceptedAnswer":{"@type":"Answer","text":"Yes. The guide shows what is on now, what is coming up and what has already aired, and you can open a channel straight from a programme. The listings come from an XMLTV source you attach to the playlist rather than from InoxTV, so a channel the source does not cover shows nothing at all. When that happens the fix is a better source, not a setting in the app."}},
       {"@type":"Question","name":"Can I change what the remote buttons do?","acceptedAnswer":{"@type":"Answer","text":"On Android TV, yes. Every key carries a short press and a long press, and both are reassignable in Settings, Remote control, which keeps three separate maps: Player, TV guide, and Movies and shows. The shipped defaults are printed key by key on the remote control pages, so you can check what a button already does before you move it. Two actions in that list, Multiview and Picture-in-Picture, are not connected in this build, so a key assigned to either one does nothing."}},
-      {"@type":"Question","name":"How many playlists can I add to InoxTV?","acceptedAnswer":{"@type":"Answer","text":"We recommend adding up to 5 playlists to InoxTV for the best performance. While each playlist can contain thousands of channels, keeping it to 5 ensures smooth loading, fast guide updates, and optimal app responsiveness."}},
+      {"@type":"Question","name":"How many playlists can I add to InoxTV?","acceptedAnswer":{"@type":"Answer","text":"There is no hard limit, but five is the point where things stay quick. A single playlist can be very large on its own, so past that the app spends longer loading, guide refreshes take longer, and browsing starts to feel heavy on a TV box with limited memory."}},
       {"@type":"Question","name":"How do I backup and restore my playlists?","acceptedAnswer":{"@type":"Answer","text":"Go to Settings, General, where Backup data and Restore data sit together, and write a backup file holding your playlists, favourites, key mappings and settings. Restoring it on another device rebuilds the same setup."}},
       {"@type":"Question","name":"Does InoxTV support parental controls?","acceptedAnswer":{"@type":"Answer","text":"There is a four-digit PIN, and it is a configuration lock rather than a content filter. It closes the settings screen, or just Settings, Playlists and Settings, TV guide if you would rather leave the rest open, so a playlist cannot be swapped, your guide setup cannot be undone and the lock cannot be turned off without it. It does not restrict what plays: the Group options and Channel options entries in that list store your choice but nothing reads them in this build. The PIN is kept as a SHA-256 hash, so there is no recovery route."}},
       {"@type":"Question","name":"What languages does InoxTV support?","acceptedAnswer":{"@type":"Answer","text":"InoxTV supports 19 languages for the full application interface: English, Hindi, Arabic, French, German, Spanish, Russian, Turkish, Italian, Dutch, Polish, Portuguese, Bulgarian, Greek, Danish, Swedish, Slovak, Ukrainian, and Indonesian. The app follows your device language on first launch and you can override it at any time."}},
@@ -226,7 +276,7 @@
         <picture><source srcset="images/logo.webp" type="image/webp"><img src="images/logo.png" alt="InoxTV app icon" class="hero-logo" width="140" height="140"></picture>
         <h1><span class="brand-inox">Inox</span><span class="brand-tv">tv</span></h1>
         <p class="hero-tagline">Entertainment. <span class="highlight">Anytime. Anywhere.</span></p>
-        <p class="hero-subtitle">An IPTV player for Android phones, Android TV and Fire TV. Bring your own M3U, Xtream Codes or Stalker Portal playlist &mdash; InoxTV takes care of the guide, the recording and the remote.</p>
+        <p class="hero-subtitle">An IPTV player for Android phones, Android TV and Fire TV. Bring your own M3U, Xtream Codes or Stalker Portal playlist, and InoxTV takes care of the guide, the recording and the remote.</p>
         <div class="hero-cta">
           <a href="https://play.google.com/store/apps/details?id=in.inoxtv.mobile&utm_source=inoxtv_website&utm_medium=organic&utm_campaign=play_store_download&utm_content=mobile" target="_blank" rel="noopener noreferrer" class="btn-download btn-download-mobile" data-download="mobile" id="hero-download-mobile">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.523 2.246a.75.75 0 0 0-.862-.054 12.7 12.7 0 0 1-4.661 1.3 12.7 12.7 0 0 1-4.661-1.3.75.75 0 0 0-1.112.655v5.903a6.75 6.75 0 0 0 3.792 6.073l1.553.776a.75.75 0 0 0 .671 0l1.553-.776a6.75 6.75 0 0 0 3.792-6.073V2.847a.75.75 0 0 0-.25-.601H17.523Z"/></svg>
@@ -291,7 +341,7 @@
           <div class="feature-card reveal reveal-delay-2" id="feature-playlists">
             <div class="feature-icon">📂</div>
             <h3>Three Playlist Formats</h3>
-            <p>M3U and M3U8 by URL or file, Xtream Codes, and Stalker Portal — several at once, in any mix. <a href="/guides/choose-playlist-type/">Which format to use &rarr;</a></p>
+            <p>M3U and M3U8 by URL or file, Xtream Codes, and Stalker Portal: several at once, in any mix. <a href="/guides/choose-playlist-type/">Which format to use &rarr;</a></p>
           </div>
 
           <div class="feature-card reveal reveal-delay-3" id="feature-favorites">
@@ -373,7 +423,7 @@
               <li>DPAD remote control navigation</li>
               <li>Big-screen optimized layouts</li>
               <li>File explorer for local playlists</li>
-              <li>Auto-start on boot</li>
+              <li>Favourites and My list</li>
               <li>SMB network file support</li>
             </ul>
             <a href="https://play.google.com/store/apps/details?id=in.inoxtv.tv&utm_source=inoxtv_website&utm_medium=organic&utm_campaign=play_store_download&utm_content=tv" target="_blank" rel="noopener noreferrer" class="btn-play-store" data-download="tv" id="platform-download-tv">
@@ -605,7 +655,7 @@
               <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p>Absolutely! InoxTV has two dedicated versions — one optimized for Android phones and tablets with touch controls, and another designed specifically for Android TV with DPAD remote control navigation. Both versions share the same powerful feature set with interfaces tailored for each platform.</p>
+              <p>Yes, with the same playlist on each. Phones and tablets get the touch build; Android TV and Fire TV get the television build, which is designed around a D-pad rather than scaled up from the phone layout. They are two separate installs and nothing syncs between them on its own, but you do not have to type the details in twice: <a href="/guides/backup-and-restore/">a backup file</a> restores your playlists and settings onto the second device in one step.</p>
             </div>
           </div>
 
@@ -636,15 +686,14 @@
               <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p>We recommend adding up to <strong>5 playlists</strong> to InoxTV for the best experience. Here's why this is the ideal number:</p>
+              <p>There is no hard limit in the app, but <strong>five</strong> is the point where things stay quick. A single playlist can be very large on its own, and the cost of adding more shows up in four places:</p>
               <ul>
-                <li><strong>Optimal Performance:</strong> Each playlist can contain thousands of channels, movies, and series. Keeping it to 5 ensures the app remains fast and responsive.</li>
-                <li><strong>Faster EPG Updates:</strong> With fewer playlists, the Electronic Program Guide loads and refreshes much more quickly, so your TV guide is always up to date.</li>
-                <li><strong>Smooth Navigation:</strong> Browsing between categories, searching across channels, and switching playlists stays buttery smooth with 5 or fewer playlists.</li>
-                <li><strong>Lower Memory Usage:</strong> The app uses less device memory and storage, which is especially important on Android TV boxes with limited RAM.</li>
-                <li><strong>Reliable Auto-Updates:</strong> Playlist auto-update scheduling works most reliably when managing up to 5 playlists, ensuring your content is always fresh.</li>
+                <li>Loading. Every playlist is parsed at startup, so the wait before the channel list appears grows with each one.</li>
+                <li>Guide refreshes. Each playlist can carry its own XMLTV source, and they are fetched and merged on refresh.</li>
+                <li>Memory. Android TV boxes and older sticks have little to spare, and this is usually what you notice first.</li>
+                <li>Auto-update scheduling. The more playlists are queued to refresh, the more likely one is still working when you open the app.</li>
               </ul>
-              <p class="faq-playlist-note">💡 <strong>Tip:</strong> You can add playlists in any combination of formats — for example, 2 M3U playlists, 2 Xtream Codes, and 1 Stalker Portal. InoxTV reads all three side by side.</p>
+              <p class="faq-playlist-note"><strong>Tip:</strong> You can add playlists in any combination of formats. Two M3U playlists, two Xtream Codes and one Stalker Portal all work side by side.</p>
             </div>
           </div>
 
@@ -701,7 +750,7 @@
               <svg class="faq-chevron" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p>The Downloader app code for InoxTV is <strong>2910810</strong>. Enter it in the Downloader app on your Fire TV Stick to fetch the official Android TV APK. The code points at our signed release build on GitHub — it is the same file as the direct APK link on this page, with no modifications or bundled extras.</p>
+              <p>The Downloader app code for InoxTV is <strong>2910810</strong>. Enter it in the Downloader app on your Fire TV Stick to fetch the official Android TV APK. The code points at our signed release build on GitHub. It is the same file as the direct APK link on this page, with no modifications or bundled extras.</p>
             </div>
           </div>
 
@@ -715,7 +764,7 @@
         <div class="download-content reveal">
           <span class="section-badge">Download Now</span>
           <h2 class="section-title">Start Streaming <span class="gradient-text">Today</span></h2>
-          <p class="section-desc">InoxTV is free on Google Play for both Android Mobile and Android TV. Have your playlist details ready &mdash; the app needs one before there is anything to watch.</p>
+          <p class="section-desc">InoxTV is free on Google Play for both Android Mobile and Android TV. Have your playlist details ready, because the app needs one before there is anything to watch.</p>
           <div class="download-buttons">
             <a href="https://play.google.com/store/apps/details?id=in.inoxtv.mobile&utm_source=inoxtv_website&utm_medium=organic&utm_campaign=play_store_download&utm_content=mobile" target="_blank" rel="noopener noreferrer" class="download-card" data-download="mobile" id="cta-download-mobile">
               <picture><source srcset="images/mobile-icon.webp" type="image/webp"><img src="images/mobile-icon.png" alt="InoxTV Mobile" width="48" height="48"></picture>

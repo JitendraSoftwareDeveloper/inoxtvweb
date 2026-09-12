@@ -1,0 +1,136 @@
+<!-- {
+  "title": "Install InoxTV on a Fire TV Stick",
+  "h1": "Installing InoxTV on Fire TV",
+  "description": "Install InoxTV on a Fire TV Stick or Fire TV Cube using the Downloader app and code 2910810, including the setting Amazon hides and how to update later.",
+  "lede": "Fire TV has no Play Store, so the television build is installed from a direct download. It takes about four minutes, and the only fiddly part is one setting Amazon moved.",
+  "section": "guides",
+  "slug": "guides/install-fire-tv-stick",
+  "group": "install",
+  "order": 2,
+  "card": "Downloader code 2910810, the permission Amazon hides, and how updates work afterwards.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/install-android-tv",
+    "guides/first-hour-with-inoxtv",
+    "guides/choose-playlist-type"
+  ],
+  "howto": {
+    "name": "Install InoxTV on a Fire TV Stick",
+    "steps": [
+      "Install the Downloader app from the Amazon Appstore.",
+      "Open Settings, My Fire TV, Developer options and turn on Install unknown apps for Downloader.",
+      "Open Downloader and enter the code 2910810.",
+      "Wait for the download to finish, then choose Install.",
+      "Choose Open to launch InoxTV, or Done to return to Downloader.",
+      "Delete the downloaded APK when Downloader offers to, to free space."
+    ]
+  },
+  "faq": [
+    {
+      "q": "What is the Downloader code for InoxTV?",
+      "a": "2910810. Enter it on the Downloader home screen and it fetches the current Android TV build."
+    },
+    {
+      "q": "Why is InoxTV not in the Amazon Appstore?",
+      "a": "Fire TV runs a fork of Android with its own store, and the app is published on Google Play. The direct download is the supported route on Fire TV, which is why the Downloader code exists."
+    },
+    {
+      "q": "Is sideloading safe on a Fire TV Stick?",
+      "a": "Installing from an unknown source means you are trusting the source rather than a store's review. Amazon's own Developer options exist for it, and the permission is granted per app rather than globally. Turn it back off after installing if you prefer."
+    },
+    {
+      "q": "How do I update the app later?",
+      "a": "Repeat the Downloader step with the same code. The new version installs over the old one and your playlists, favourites and settings are kept. This is an update, not a fresh install."
+    },
+    {
+      "q": "Which Fire TV devices does it work on?",
+      "a": "Fire TV Stick, Fire TV Stick 4K, 4K Max, Fire TV Cube and Fire TV built into televisions. The oldest first-generation Stick has too little memory to be comfortable with a large playlist."
+    }
+  ]
+} -->
+
+<p>Fire TV devices run Amazon's fork of Android with the Amazon Appstore instead of Google Play, so the television build of InoxTV is installed by downloading it directly. Amazon supports this (the setting for it ships in Fire TV's own menus), and the whole thing takes about four minutes.</p>
+
+<figure>
+  <img src="/images/diagrams/flow-firetv-sideload.svg" alt="Four stages of installing on Fire TV: install the Downloader app from the Amazon Appstore, allow Downloader to install unknown apps in Developer options, enter code 2910810 in Downloader, then install the downloaded file and delete it." width="880" height="330" loading="lazy" decoding="async">
+  <figcaption><strong>The order matters.</strong> Downloader has to exist before the permission screen lists it, which is why the permission is the second step rather than the first.</figcaption>
+</figure>
+
+<h2 id="downloader">Step 1: install Downloader</h2>
+
+<p>From the Fire TV home screen, search for <strong>Downloader</strong> and install it from the Amazon Appstore. It is a free browser and file-fetching app, published by AFTVnews, and it is the standard tool for this on Fire TV.</p>
+
+<p>Install it before touching any settings. The permission screen in the next step lists apps that are already installed, so Downloader has to be there for you to grant it anything.</p>
+
+<h2 id="permission">Step 2: allow Downloader to install apps</h2>
+
+<p>This is the step people get stuck on, because Amazon has moved it more than once. Go to <strong>Settings</strong> &rsaquo; <strong>My Fire TV</strong> &rsaquo; <strong>Developer options</strong>, then turn on <strong>Install unknown apps</strong> for <strong>Downloader</strong>.</p>
+
+<p>Two variations you may hit:</p>
+
+<ul>
+  <li><strong>No Developer options entry.</strong> Newer builds hide it. Go to <strong>Settings</strong> &rsaquo; <strong>My Fire TV</strong> &rsaquo; <strong>About</strong>, highlight your device name, and press <kbd class="key">Select</kbd> seven times. A message confirms developer options are on, and the entry appears in the previous menu.</li>
+  <li><strong>Apps from Unknown Sources instead.</strong> Older builds show a single global switch rather than a per&#8209;app list. Turn it on, and turn it back off after installing if you would rather not leave it enabled.</li>
+</ul>
+
+<p>The modern per&#8209;app form is the better arrangement: you are permitting Downloader specifically, not everything on the device.</p>
+
+<h2 id="download">Step 3: enter the code</h2>
+
+<p>Open Downloader. The home screen has a URL box. Enter:</p>
+
+<pre><code>2910810</code></pre>
+
+<p>and choose <strong>Go</strong>. That short code resolves to the current InoxTV television build, and it saves you typing a long GitHub release URL with a remote control. If you would rather use the full address, it is <code>https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk</code>.</p>
+
+<p>The download runs with a progress bar. On a normal home connection it finishes in well under a minute.</p>
+
+<h2 id="install">Step 4: install, then clean up</h2>
+
+<p>When the download completes, Fire TV shows the installer with the app name and the permissions it requests. Choose <strong>Install</strong>, wait for it, then <strong>Open</strong> to launch InoxTV straight away or <strong>Done</strong> to go back to Downloader.</p>
+
+<p>Downloader then offers to delete the downloaded file. Accept: the app is installed and the APK is just taking up space, which matters on a 8&nbsp;GB Stick more than you would like.</p>
+
+<div class="note note--go">
+  <p class="note-label">You are done installing</p>
+  <p>InoxTV now opens from the Fire TV home screen, though it will sit under <strong>Your Apps &amp; Channels</strong> rather than on the main row until you move it. The app has no channels yet: that comes next, and it comes from your own IPTV service.</p>
+</div>
+
+<h2 id="next">Step 5: add a playlist</h2>
+
+<p>On first launch you will see the intro screen explaining that InoxTV supplies no channels of its own, with an <span class="ui">Add Playlist</span> button. What you enter there depends on what your provider gave you: <a href="/guides/choose-playlist-type/">which playlist type to choose</a> covers the decision in two minutes, and <a href="/guides/first-hour-with-inoxtv/">your first hour with InoxTV</a> takes the whole setup from there in order.</p>
+
+<h2 id="updating">Updating later</h2>
+
+<p>Repeat step 3 with the same code. The new build installs over the existing one, and your playlists, favourites, groups, key assignments and settings are all preserved. Android treats it as an update rather than a new app, provided you do not uninstall first.</p>
+
+<p>There is no automatic update on Fire TV, because that is a store function and there is no store involved. Checking every couple of months is reasonable; the release notes say whether anything you use has changed.</p>
+
+<h2 id="devices">Which Fire TV devices work well</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Device</th><th>How it goes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Fire TV Stick 4K, 4K Max</td><td>The comfortable choice. Handles large playlists and a full programme guide without complaint.</td></tr>
+      <tr><td>Fire TV Cube</td><td>The fastest of them. Channel switching is noticeably quicker.</td></tr>
+      <tr><td>Fire TV Stick (3rd gen), Lite</td><td>Fine for normal use. A very large guide file can run it out of memory; lowering <span class="ui">Past days to keep EPG</span> fixes that.</td></tr>
+      <tr><td>Fire TV built into a television</td><td>Works the same way. Menu wording sometimes differs slightly by manufacturer.</td></tr>
+      <tr><td>Fire TV Stick (1st gen)</td><td>Installs, but has too little memory to be pleasant with a large playlist.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="problems">If something goes wrong</h2>
+
+<p><strong>Downloader says the app cannot be installed.</strong> Almost always the permission from step 2. Check it is granted to Downloader specifically, not to another app.</p>
+
+<p><strong>The download fails or stalls.</strong> Retry once. If it fails again, check the Stick has a working connection by loading anything else, since Downloader gives the same message for a network problem as for a missing file.</p>
+
+<p><strong>Not enough storage.</strong> Fire TV Sticks fill up quickly. Uninstall something you do not use, or delete old downloads inside Downloader's own file list.</p>
+
+<p><strong>Video plays but there is no sound.</strong> Fire TV devices are particular about audio formats, and a channel using one your setup cannot handle plays silently rather than complaining. Switch <span class="ui">Audio decoder</span> to <span class="ui">Software</span> in <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span>, which is the fix that works most often here, the hardware decoder on these sticks accepts more formats than it handles well. The setting applies to everything you play, so put it back if it makes no difference.</p>
+
+<p><strong>The app installs but the remote does nothing useful.</strong> The Fire TV remote is missing several buttons a full Android TV remote has. Every key in InoxTV is reassignable, so the fix is to map what you need onto the buttons you actually have, the <a href="/remote/player-keys/">player key reference</a> lists the defaults and every action available.</p>

@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -144,7 +195,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "What does No Information mean under a channel name?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "There is no programme entry for that channel at that time. The stream itself is unaffected — it is the guide data that is missing, not the channel."
+        "text": "There is no programme entry for that channel at that time. The stream itself is unaffected. It is the guide data that is missing, not the channel."
       }
     }
   ]
@@ -202,7 +253,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Where guide data is missing you get <span class="ui">No Information</span> in place of the programme title, and a programme that has finished but is still selected shows <span class="ui">Ended</span>. Both are statements about the listings rather than the stream.</p>
 
-<p>The same press also opens <span class="ui">History</span> &mdash; a list of channels you have been through, each with its playlist and group, and a <span class="ui">Clear</span> button when it gets long. Before you have watched anything it reads <span class="ui">No history</span>.</p>
+<p>The same press also opens <span class="ui">History</span>, a list of channels you have been through, each with its playlist and group, and a <span class="ui">Clear</span> button when it gets long. Before you have watched anything it reads <span class="ui">No history</span>.</p>
 
 <h2 id="lists">Two ways to see the channel list</h2>
 
@@ -220,9 +271,9 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>In either mode, moving the highlight does not change the channel &mdash; you browse, then press <kbd class="key">OK</kbd>. The three filters along the top are <span class="ui">Favorites</span>, <span class="ui">All Channels</span> and <span class="ui">All Playlists</span>, and an empty list under a filter reads <span class="ui">No channels</span> rather than looking broken.</p>
+<p>In either mode, moving the highlight does not change the channel. You browse, then press <kbd class="key">OK</kbd>. The three filters along the top are <span class="ui">Favorites</span>, <span class="ui">All Channels</span> and <span class="ui">All Playlists</span>, and an empty list under a filter reads <span class="ui">No channels</span> rather than looking broken.</p>
 
-<p>Holding <kbd class="key">OK</kbd> on a channel opens the channel menu, which is grouped into three parts: what applies to the programme, what applies to the channel, and what applies to the group. Five rows do something in this build &mdash; <span class="ui">Search</span>, <span class="ui">Settings</span>, <span class="ui">Record</span>, <span class="ui">Custom recording</span> and <span class="ui">Add to favorites</span>. The rest are placed and not yet wired; <a href="/remote/tv-guide-keys/">the guide key reference</a> lists which is which so you are not left pressing a row that highlights and does nothing.</p>
+<p>Holding <kbd class="key">OK</kbd> on a channel opens the channel menu, which is grouped into three parts: what applies to the programme, what applies to the channel, and what applies to the group. Five rows do something in this build: <span class="ui">Search</span>, <span class="ui">Settings</span>, <span class="ui">Record</span>, <span class="ui">Custom recording</span> and <span class="ui">Add to favorites</span>. The rest are placed and not yet wired; <a href="/remote/tv-guide-keys/">the guide key reference</a> lists which is which so you are not left pressing a row that highlights and does nothing.</p>
 
 <h2 id="switching">Switching channels</h2>
 
@@ -237,9 +288,9 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="tools">The player menu</h2>
 
-<p><kbd class="key">Long OK</kbd> or <kbd class="key">Menu</kbd> opens the tool strip &mdash; a row of icons along the bottom rather than a list of names. <kbd class="key">Left</kbd> and <kbd class="key">Right</kbd> walk it and wrap around at either end, and it hides itself after five seconds if you leave it alone.</p>
+<p><kbd class="key">Long OK</kbd> or <kbd class="key">Menu</kbd> opens the tool strip, a row of icons along the bottom rather than a list of names. <kbd class="key">Left</kbd> and <kbd class="key">Right</kbd> walk it and wrap around at either end, and it hides itself after five seconds if you leave it alone.</p>
 
-<p>Eight of the tiles go somewhere: <span class="ui">Search</span>, <span class="ui">TV List</span>, <span class="ui">Video track</span>, <span class="ui">Audio track</span>, <span class="ui">Subtitle track</span>, <span class="ui">Aspect ratio</span>, <span class="ui">Add to favorites</span> and <span class="ui">Settings</span>. The strip also carries <span class="ui">Multiview</span>, <span class="ui">Recordings</span>, an audio&#8209;delay tile and a reminder tile, and those four are drawn but not connected yet &mdash; they are the shape the menu is heading towards rather than four things you are failing to use correctly.</p>
+<p>Eight of the tiles go somewhere: <span class="ui">Search</span>, <span class="ui">TV List</span>, <span class="ui">Video track</span>, <span class="ui">Audio track</span>, <span class="ui">Subtitle track</span>, <span class="ui">Aspect ratio</span>, <span class="ui">Add to favorites</span> and <span class="ui">Settings</span>. The strip also carries <span class="ui">Multiview</span>, <span class="ui">Recordings</span>, an audio&#8209;delay tile and a reminder tile, and those four are drawn but not connected yet. They are the shape the menu is heading towards rather than four things you are failing to use correctly.</p>
 
 <p>One detail that confuses people at first: the four stateful tiles are labelled with their current value, not with their name. The aspect tile reads <span class="ui">Normal</span> or <span class="ui">Zoom</span>, the track tiles read the track you are on, and the subtitle tile reads <span class="ui">off</span> until you pick one. So the strip tells you the state of the channel at a glance, which is the point, but you learn it by icon rather than by word.</p>
 
@@ -247,7 +298,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="aspect">Aspect ratio, per channel</h2>
 
-<p>Some channels arrive with black bars the broadcaster put there, and no player can recover the missing picture &mdash; but you can crop to fill the screen. <span class="ui">Aspect ratio</span> offers <span class="ui">Normal</span>, <span class="ui">Full</span>, <span class="ui">Zoom</span>, <span class="ui">Reduced</span> and <span class="ui">Zoom - 2.35:1</span>.</p>
+<p>Some channels arrive with black bars the broadcaster put there, and no player can recover the missing picture, but you can crop to fill the screen. <span class="ui">Aspect ratio</span> offers <span class="ui">Normal</span>, <span class="ui">Full</span>, <span class="ui">Zoom</span>, <span class="ui">Reduced</span> and <span class="ui">Zoom - 2.35:1</span>.</p>
 
 <p>The setting applies to the channel you are on, which is the behaviour you want when one channel in fifty is wrong. <span class="ui">Apply to all channels</span> makes it global if the whole playlist has the same problem.</p>
 
@@ -259,7 +310,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="live-edge">Seeking on a live stream</h2>
 
-<p>Two actions exist for moving around inside a live stream, and neither is on a key by default: <span class="ui">Restart current program</span> jumps to the beginning of the buffer, and <span class="ui">Go to live stream</span> returns to the live edge. Both are plain seeks, and how far they can actually take you is decided entirely by the stream, not by the app &mdash; a stream served with a rolling window lets you move inside it, and a stream served without one has nowhere to go.</p>
+<p>Two actions exist for moving around inside a live stream, and neither is on a key by default: <span class="ui">Restart current program</span> jumps to the beginning of the buffer, and <span class="ui">Go to live stream</span> returns to the live edge. Both are plain seeks, and how far they can actually take you is decided entirely by the stream, not by the app, a stream served with a rolling window lets you move inside it, and a stream served without one has nowhere to go.</p>
 
 <p>That is the honest limit of it. There is no catch&#8209;up or archive browsing in this build: the app cannot request yesterday's programme from a provider, and the <span class="ui">Watch from start</span> row you will see in the channel menu is one of the rows that is placed but not yet wired. If your provider offers recorded programming, it does so through its own on&#8209;demand catalogue, which turns up under <a href="/features/movies-and-shows/">movies and shows</a> rather than in the guide.</p>
 
@@ -289,7 +340,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>What does No Information mean under a channel name?</summary>
-              <div>There is no programme entry for that channel at that time. The stream itself is unaffected — it is the guide data that is missing, not the channel.</div>
+              <div>There is no programme entry for that channel at that time. The stream itself is unaffected. It is the guide data that is missing, not the channel.</div>
             </details>
           </div>
         </section>

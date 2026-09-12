@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -162,7 +213,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "It loads on my phone but not on my TV.",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Usually a connection limit — the phone is holding the one connection your service allows. Close the app completely on the phone, not just to the background, then retry on the television."
+        "text": "Usually a connection limit: the phone is holding the one connection your service allows. Close the app completely on the phone, not just to the background, then retry on the television."
       }
     },
     {
@@ -297,7 +348,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="stalls">When it starts and then stops</h2>
 
-<p>A playlist that climbs through <span class="ui">Live TV</span>, <span class="ui">Movies</span> and <span class="ui">Shows</span> counts and then stops partway has usually run out of memory. Very large M3U files &mdash; tens of thousands of entries &mdash; have to be read in full before anything is usable, and a television stick has considerably less room than a phone.</p>
+<p>A playlist that climbs through <span class="ui">Live TV</span>, <span class="ui">Movies</span> and <span class="ui">Shows</span> counts and then stops partway has usually run out of memory. Very large M3U files, tens of thousands of entries, have to be read in full before anything is usable, and a television stick has considerably less room than a phone.</p>
 
 <p>Two ways out, better one first:</p>
 
@@ -306,7 +357,7 @@ gtag('config', 'G-KRV4ERFF8F');
   <li><strong>Ask for a smaller list.</strong> Many providers can issue a link limited to the categories you actually watch, and it is a five&#8209;minute email that solves the problem permanently.</li>
 </ul>
 
-<p>The third thing everybody tries is worth ruling out explicitly. Unticking <span class="ui">Include Vod</span> on the import screen looks like it should halve the work, and it does nothing &mdash; that tick box is not connected to the importer in this build, so the file is parsed in full whichever way you leave it. Neither is <span class="ui">Include live tv</span>. If a large M3U is failing, the two options above are the only real ones.</p>
+<p>The third thing everybody tries is worth ruling out explicitly. Unticking <span class="ui">Include Vod</span> on the import screen looks like it should halve the work, and it does nothing, that tick box is not connected to the importer in this build, so the file is parsed in full whichever way you leave it. Neither is <span class="ui">Include live tv</span>. If a large M3U is failing, the two options above are the only real ones.</p>
 
 <h2 id="loaded-but-empty">It loaded, but the list is empty</h2>
 
@@ -321,7 +372,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="after">Once it loads</h2>
 
-<p>A playlist that imports cleanly can still have individual channels that fail, which is a separate matter &mdash; <a href="/troubleshooting/channel-wont-play/">a channel that will not play</a> covers those. An empty programme guide after a successful import is also normal on some sources, and <a href="/troubleshooting/no-tv-guide-data/">missing guide data</a> deals with it.</p>
+<p>A playlist that imports cleanly can still have individual channels that fail, which is a separate matter, <a href="/troubleshooting/channel-wont-play/">a channel that will not play</a> covers those. An empty programme guide after a successful import is also normal on some sources, and <a href="/troubleshooting/no-tv-guide-data/">missing guide data</a> deals with it.</p>
 
 <p>Editing a working playlist is safer than replacing it. If a password changes, edit the existing entry rather than adding a new one, so your favourites, your group visibility and the guide source attached to it all survive.</p>
         <section class="faq" aria-labelledby="faq-h">
@@ -337,7 +388,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>It loads on my phone but not on my TV.</summary>
-              <div>Usually a connection limit — the phone is holding the one connection your service allows. Close the app completely on the phone, not just to the background, then retry on the television.</div>
+              <div>Usually a connection limit: the phone is holding the one connection your service allows. Close the app completely on the phone, not just to the background, then retry on the television.</div>
             </details>
             <details>
               <summary>The counts stop partway and never finish.</summary>

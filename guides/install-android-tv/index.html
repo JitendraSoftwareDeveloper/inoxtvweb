@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -151,7 +202,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Why does the Play Store say the app is not available for my device?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Play filters by declared hardware. Some TV boxes report themselves as phones, or omit the leanback feature that marks a device as a television, and the television build is then hidden. The app runs perfectly well on those boxes; the direct download bypasses the filter."
+        "text": "Play filters by declared hardware. Some TV boxes report themselves as phones, or omit the leanback feature that marks a device as a television, and the television build is then hidden. The app runs perfectly well on those boxes. Play's hardware list is Play's own, and the build published on the release page is not subject to it, so on a box Play will not list, that page is the way to install the same app."
       }
     },
     {
@@ -231,7 +282,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Open the Google Play Store on the television, search for <strong>InoxTV</strong>, and install it. On a certified Android TV or Google TV device that is all there is to it, and updates arrive automatically afterwards.</p>
 
-<p>Searching by voice usually works better than the on&#8209;screen keyboard here. If the results show the phone build rather than the television one, you are looking at a store that has decided your device is not a television &mdash; which brings us to the other route.</p>
+<p>Searching by voice usually works better than the on&#8209;screen keyboard here. If the results show the phone build rather than the television one, you are looking at a store that has decided your device is not a television, which brings us to the other route.</p>
 
 <h2 id="why-hidden">Why Play sometimes hides it</h2>
 
@@ -252,7 +303,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </li>
   <li>
     <p class="step-title">Fetch the build</p>
-    <p>In Downloader, enter the code <code>2910810</code>. The full address, if you prefer it, is <code>https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk</code> &mdash; the code exists because typing that with a D&#8209;pad is unpleasant.</p>
+    <p>In Downloader, enter the code <code>2910810</code>. The full address, if you prefer it, is <code>https://github.com/jitendrasoftdev/inoxtv-release/releases/download/inoxtv/tv-release.apk</code>, the code exists because typing that with a D&#8209;pad is unpleasant.</p>
   </li>
   <li>
     <p class="step-title">Install and tidy up</p>
@@ -262,7 +313,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <div class="note">
   <p class="note-label">Which route you used matters later</p>
-  <p>Apps installed from Play update themselves. Apps installed directly do not &mdash; you repeat the download when a new version comes out. Mixing the two is not possible: switching an existing install from one route to the other means uninstalling first, which discards your playlists unless you have taken a backup.</p>
+  <p>Apps installed from Play update themselves. Apps installed directly do not. You repeat the download when a new version comes out. Mixing the two is not possible: switching an existing install from one route to the other means uninstalling first, which discards your playlists unless you have taken a backup.</p>
 </div>
 
 <h2 id="first-run">First run</h2>
@@ -292,17 +343,17 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Three failures account for nearly all of them, and Android's wording for each is unhelpfully similar.</p>
 
-<p><strong>App not installed.</strong> Almost always a signature clash: a copy of InoxTV is already on the device from a different source, and Android will not replace one with the other. Uninstall the existing copy first &mdash; and <a href="/guides/backup-and-restore/">take a backup before you do</a>, because uninstalling takes your playlists with it.</p>
+<p><strong>App not installed.</strong> Almost always a signature clash: a copy of InoxTV is already on the device from a different source, and Android will not replace one with the other. Uninstall the existing copy first, and <a href="/guides/backup-and-restore/">take a backup before you do</a>, because uninstalling takes your playlists with it.</p>
 
 <p><strong>The install screen never appears.</strong> The permission from step 2 was granted to the wrong app, or not at all. Go back to the security settings and check the entry for the app you are downloading with, rather than a global switch elsewhere.</p>
 
 <p><strong>Not enough storage.</strong> Common on 8&nbsp;GB boxes and Sticks. Downloading needs room for the file and then room for the installed app at the same time, so clearing a little space before you start is easier than clearing it halfway through. Deleting the downloaded file afterwards gets that half back.</p>
 
-<p>Both builds can sit on one device if you want them to &mdash; they are separate packages, so a TV box can run the television build and a tablet build side by side without either interfering with the other.</p>
+<p>Both builds can sit on one device if you want them to; they are separate packages, so a TV box can run the television build and a tablet build side by side without either interfering with the other.</p>
 
 <h2 id="remote">Before you go further: the remote</h2>
 
-<p>Remotes shipped with TV boxes vary enormously in which buttons they have. InoxTV lets you reassign every key in the player, the channel list and the guide, so a remote missing a colour&#8209;button row or a dedicated guide button is not a problem &mdash; it just needs mapping once. The <a href="/remote/player-keys/">player key reference</a> lists every default and every action you can move.</p>
+<p>Remotes shipped with TV boxes vary enormously in which buttons they have. InoxTV lets you reassign every key in the player, the channel list and the guide, so a remote missing a colour&#8209;button row or a dedicated guide button is not a problem. It just needs mapping once. The <a href="/remote/player-keys/">player key reference</a> lists every default and every action you can move.</p>
 
 <p>Doing that early is worth it. Discovering after a month that the button you keep pressing by accident could have been the one you wanted is a common regret.</p>
         <section class="faq" aria-labelledby="faq-h">
@@ -310,7 +361,7 @@ gtag('config', 'G-KRV4ERFF8F');
           <div class="faq-list">
             <details>
               <summary>Why does the Play Store say the app is not available for my device?</summary>
-              <div>Play filters by declared hardware. Some TV boxes report themselves as phones, or omit the leanback feature that marks a device as a television, and the television build is then hidden. The app runs perfectly well on those boxes; the direct download bypasses the filter.</div>
+              <div>Play filters by declared hardware. Some TV boxes report themselves as phones, or omit the leanback feature that marks a device as a television, and the television build is then hidden. The app runs perfectly well on those boxes. Play&#x27;s hardware list is Play&#x27;s own, and the build published on the release page is not subject to it, so on a box Play will not list, that page is the way to install the same app.</div>
             </details>
             <details>
               <summary>Should I install the TV build or the mobile build on a TV box?</summary>

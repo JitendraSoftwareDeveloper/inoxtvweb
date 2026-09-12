@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -251,7 +302,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </li>
   <li>
     <p class="step-title">Enter the server URL</p>
-    <p><span class="ui">Server url*</span> takes the scheme, the host and the port &mdash; <code>http://example.com:8080</code>. Three details cause most of the failures here:</p>
+    <p><span class="ui">Server url*</span> takes the scheme, the host and the port: <code>http://example.com:8080</code>. Three details cause most of the failures here:</p>
     <ul>
       <li>Include <code>http://</code> or <code>https://</code>. Without it you get <span class="ui">Enter a valid server URL.</span></li>
       <li>Include the port if it is not the default. Panels rarely run on 80 or 443.</li>
@@ -302,7 +353,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <div class="note note--warn">
   <p class="note-label">One connection at a time</p>
-  <p>If your service allows a single connection, watching on the television while the app is open on a phone will fail on one of them, often mid&#8209;programme rather than at login. Backgrounding an app is not always enough to release the connection &mdash; close it fully.</p>
+  <p>If your service allows a single connection, watching on the television while the app is open on a phone will fail on one of them, often mid&#8209;programme rather than at login. Backgrounding an app is not always enough to release the connection. Close it fully.</p>
 </div>
 
 <h2 id="advantages">What you gain over an M3U</h2>
@@ -311,13 +362,13 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p><strong>Films and series are separated properly.</strong> The API distinguishes live channels, movies and series, so <a href="/features/movies-and-shows/">movies and shows</a> becomes a real library: seasons, episode lists, posters and descriptions, rather than several thousand entries in the channel list.</p>
 
-<p><strong>The programme guide usually needs no setting up.</strong> Every Xtream panel exposes its listings at the same address as everything else, so the app builds that URL from the credentials you already entered and fetches the guide without being told to. Because the listings and the channels come out of one database, the channel identifiers match by construction &mdash; which removes the single most common reason a guide arrives full of data and still looks empty. On an M3U you supply a guide address separately and hope the two agree.</p>
+<p><strong>The programme guide usually needs no setting up.</strong> Every Xtream panel exposes its listings at the same address as everything else, so the app builds that URL from the credentials you already entered and fetches the guide without being told to. Because the listings and the channels come out of one database, the channel identifiers match by construction, which removes the single most common reason a guide arrives full of data and still looks empty. On an M3U you supply a guide address separately and hope the two agree.</p>
 
 <p><strong>Account state is visible.</strong> Expiry date, active connections and the allowed maximum come straight from the API. That turns a vague failure into a specific one, and it is the fastest way to settle whether a problem is yours or your provider's.</p>
 
 <h2 id="account-info">Where to read your account details</h2>
 
-<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, select the playlist, and choose <span class="ui">Account Information</span>. It splits into <span class="ui">User Information</span> and <span class="ui">Server Information</span> &mdash; the first is your expiry and connection allowance, the second is what the panel reports about itself. If the panel does not return any of it you get <span class="ui">No account info available</span>, which is a limitation of that server rather than a fault.</p>
+<p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, select the playlist, and choose <span class="ui">Account Information</span>. It splits into <span class="ui">User Information</span> and <span class="ui">Server Information</span>. The first is your expiry and connection allowance, the second is what the panel reports about itself. If the panel does not return any of it you get <span class="ui">No account info available</span>, which is a limitation of that server rather than a fault.</p>
 
 <p>This screen is worth checking before you spend an evening on a playback problem. An expired subscription and a wrong password look identical from the channel list, and this is the one place the app can tell you which you are dealing with.</p>
 
@@ -325,7 +376,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Category contents come from the server each time, so an Xtream playlist needs less maintenance than a file. <span class="ui">Update all playlists</span> under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> refreshes everything on demand, and <span class="ui">Update playlist on app start</span> on the playlist itself does it automatically. With Xtream Codes that automatic refresh is cheap enough to leave on.</p>
 
-<p>If your provider changes your password, edit the existing playlist rather than adding a new one &mdash; that keeps your favourites, groups and guide association intact.</p>
+<p>If your provider changes your password, edit the existing playlist rather than adding a new one, that keeps your favourites, groups and guide association intact.</p>
         <section class="faq" aria-labelledby="faq-h">
           <h2 id="faq-h">Questions people ask</h2>
           <div class="faq-list">

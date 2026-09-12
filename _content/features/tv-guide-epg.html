@@ -1,0 +1,118 @@
+<!-- {
+  "title": "The InoxTV TV guide, explained",
+  "h1": "The TV guide",
+  "description": "How the InoxTV TV guide works: the grid, groups, programme descriptions, recording from the guide, and the settings that control how much data it keeps.",
+  "lede": "The guide is a grid of channels against time, and it is the fastest route to the two things worth doing with a programme: reading what it is, and recording it.",
+  "section": "features",
+  "slug": "features/tv-guide-epg",
+  "group": "watching",
+  "order": 2,
+  "card": "The grid, groups, descriptions and recording, plus what controls how much data is kept.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/set-up-tv-guide-epg",
+    "remote/tv-guide-keys",
+    "troubleshooting/no-tv-guide-data"
+  ],
+  "faq": [
+    {
+      "q": "How do I open the TV guide?",
+      "a": "Guide, Red or Long Menu from the player, all of which open it in overlay mode. It is also the TV List tile in the player's tool strip."
+    },
+    {
+      "q": "How far ahead does the guide go?",
+      "a": "As far as your data source carries. Some serve a fortnight, some serve two days, and some serve only the programme currently airing. Nothing in the app extends it."
+    },
+    {
+      "q": "How much past programming is kept?",
+      "a": "Seven days by default, set by Past days to keep EPG. Lowering it is the standard fix on a device that runs out of memory loading a large guide."
+    },
+    {
+      "q": "How do I hide the groups I never watch?",
+      "a": "Settings, then Playlists, then Manage groups. Each group has a visibility switch, and there are Show all groups and Hide all groups shortcuts for starting from either end."
+    },
+    {
+      "q": "Can I record from the guide?",
+      "a": "Yes. Record on the channel menu records the selected programme, and Custom recording opens a booking panel with a start date, start time, duration and repeat. A recordings folder has to be set first."
+    }
+  ]
+} -->
+
+<p>The guide draws channels down the left and time across the top, with the current moment marked. It is a separate screen with its <a href="/remote/tv-guide-keys/">own key map</a>, because the same buttons need to mean different things in a grid than they do over a video.</p>
+
+<h2 id="moving">Moving around it</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>What you want</th><th>How</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Next or previous channel</td><td><kbd class="key">Up</kbd> and <kbd class="key">Down</kbd>, which move the selection rather than switching anything</td></tr>
+      <tr><td>Later in the day</td><td><kbd class="key">Right</kbd>, which scrolls the time axis forward</td></tr>
+      <tr><td>A screenful of channels at a time</td><td><kbd class="key">Pg+(Ch+)</kbd> and <kbd class="key">Pg-(Ch-)</kbd>, or <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd></td></tr>
+      <tr><td>Watch the selected channel</td><td><kbd class="key">OK</kbd></td></tr>
+      <tr><td>Full description of a programme</td><td><kbd class="key">Info</kbd> or <kbd class="key">Play/Pause</kbd></td></tr>
+      <tr><td>Back to what you were watching</td><td><kbd class="key">Backspace</kbd>, or hold <kbd class="key">Back</kbd></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The description panel carries whatever the source provides: year, country, genre, director and cast where they are present, and nothing where they are not. Sources vary enormously in how much they include, and a sparse description is the data rather than a fault.</p>
+
+<h2 id="groups">Groups, which is how a large playlist becomes usable</h2>
+
+<p>A playlist of several thousand channels is unusable as one list. <kbd class="key">Left</kbd> opens the groups panel, and from then on the grid shows one group at a time.</p>
+
+<p>Three keys open that panel by default (<kbd class="key">Left</kbd>, <kbd class="key">Long Menu</kbd> and <kbd class="key">Guide</kbd>), because it is the panel people reach for most, and because a remote missing one of the three still has another.</p>
+
+<p>Editing groups happens elsewhere. <kbd class="key">Yellow</kbd> is mapped to <span class="ui">Open group options</span>, and that menu is placed but not yet connected, so nothing happens when you press it. The working route is <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &rsaquo; <span class="ui">Manage groups</span>, and it is more capable than the menu would have been:</p>
+
+<ul>
+  <li>A visibility switch per group, plus <span class="ui">Show all groups</span> and <span class="ui">Hide all groups</span> &mdash; so on a playlist with two hundred groups you hide the lot and switch back on the six you watch, rather than turning off a hundred and ninety&#8209;four.</li>
+  <li><span class="ui">Groups sorting</span>: <span class="ui">By order in playlist</span>, <span class="ui">By name</span> or <span class="ui">Manual</span>.</li>
+  <li><span class="ui">Reorder groups</span>, which becomes available once sorting is set to <span class="ui">Manual</span> &mdash; a hand&#8209;made order cannot survive alongside an automatic one.</li>
+</ul>
+
+<p>Doing this is the single highest&#8209;value thing you can do to a large playlist, and it is a few minutes of work rather than the hours that going channel by channel would take. The groups you switch off disappear from the guide and from the channel lists together.</p>
+
+<h2 id="channel-menu">What you can do to a programme</h2>
+
+<p>Holding <kbd class="key">OK</kbd> on a channel, the same gesture as a long press on touch, opens the channel menu. It is divided into three parts, labelled with the programme, the channel and the group it would act on, so it is always clear what a row applies to.</p>
+
+<p>Five rows are wired in this build, and two of them are the point of the menu:</p>
+
+<ul>
+  <li><span class="ui">Record</span> &mdash; records the selected programme. It needs a recordings folder first, and says <span class="ui">Set a recordings folder first</span> if there is none.</li>
+  <li><span class="ui">Custom recording</span> &mdash; the booking panel: <span class="ui">Start date</span>, <span class="ui">Start time</span>, <span class="ui">Duration, h:min</span>, <span class="ui">Repeat</span> and <span class="ui">Name</span>, for a programme the guide does not list or a slot you want every week.</li>
+  <li><span class="ui">Add to favorites</span>, <span class="ui">Search</span> and <span class="ui">Settings</span> &mdash; the three shortcuts that save you closing the guide first.</li>
+</ul>
+
+<p>The remaining rows are laid out but not yet connected: <span class="ui">Watch from start</span>, the blocking and visibility entries, <span class="ui">Assign EPG</span>, the reordering entries and the group entries. They highlight and do nothing. That is deliberate: the menu keeps the shape it is going to have, rather than changing under you as each piece lands. <a href="/remote/tv-guide-keys/">The guide key reference</a> lists them so you do not spend an evening wondering what you are doing wrong.</p>
+
+<p>Hold a cell for a programme that has not started yet and the menu narrows itself: the rows about something on air disappear, leaving <span class="ui">Custom recording</span>, which asks for the window outright. Recording is honest about its limits too. The confirmation says it may not work on all channels and may need more than one server connection, which is worth reading before you rely on it. Scheduled recordings report their state as <span class="ui">Scheduled</span>, <span class="ui">Recording</span>, <span class="ui">Completed</span> or <span class="ui">Failed</span>, and a failure names its reason rather than leaving you guessing.</p>
+
+<h2 id="data">What controls the data behind it</h2>
+
+<p>The guide is only as good as the source feeding it. Five settings under <span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span> govern that:</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Setting</th><th>Effect</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">TV guide sources</span></td><td>Where data comes from, per playlist.</td></tr>
+      <tr><td><span class="ui">Past days to keep EPG</span></td><td>How much history is retained. Default 7. Lower it on a device short of memory.</td></tr>
+      <tr><td><span class="ui">Update interval, hours</span></td><td>How often it refreshes on its own. Default 24.</td></tr>
+      <tr><td><span class="ui">Update on app start</span> / <span class="ui">Update on playlists change</span></td><td>Extra triggers. The second one is cheap and worth having on.</td></tr>
+      <tr><td><span class="ui">Update TV guide</span> / <span class="ui">Clear TV guide</span></td><td>Run it now, or throw everything away and start clean.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The screen also reports what happened last time: <span class="ui">TV guide updated on</span> with a date, or <span class="ui">TV guide update failed on</span> with a reason. That line is the first thing to read when the guide looks wrong.</p>
+
+<h2 id="empty">When the guide is empty</h2>
+
+<p>An empty guide has three quite different causes: no source configured, a source that failed to load, or a source that loaded but does not match your channels. The third is the confusing one, because the update reports success. <a href="/troubleshooting/no-tv-guide-data/">Missing TV guide data</a> separates them, and <a href="/guides/set-up-tv-guide-epg/">setting up the guide</a> covers configuring a source properly in the first place.</p>

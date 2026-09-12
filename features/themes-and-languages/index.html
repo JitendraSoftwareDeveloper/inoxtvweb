@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -170,7 +221,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "My language is not in the list.",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Then the app has no translation for it and System will fall back to English. Nothing in the list is a partial translation, which is deliberate — a half-translated menu is worse to use than an English one."
+        "text": "Then the app has no translation for it and System will fall back to English. Nothing in the list is a partial translation, which is deliberate: a half-translated menu is worse to use than an English one."
       }
     },
     {
@@ -186,7 +237,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Do my playlists survive a theme or language change?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The restart rebuilds the screens, not the data — playlists, favourites, groups, key assignments and every other setting are untouched."
+        "text": "Yes. The restart rebuilds the screens, not the data. Playlists, favourites, groups, key assignments and every other setting are untouched."
       }
     }
   ]
@@ -238,7 +289,7 @@ gtag('config', 'G-KRV4ERFF8F');
       <div class="doc-body">
         <p><span class="ui">Settings</span> &rsaquo; <span class="ui">Appearance</span> holds three rows: <span class="ui">Color theme</span>, <span class="ui">Language</span> and <span class="ui">Font size</span>. The first two do what they say. The third is discussed at the bottom of this page, because it does nothing yet and you should know that before you spend time on it.</p>
 
-<p>One thing about the settings screen in general is worth knowing first, since it catches people here more than anywhere else. Every option row takes two presses: the first press selects the row and the second commits it. On a colour theme that is deliberate, because committing throws you out of the screen &mdash; nobody should lose their place in the settings by pressing <kbd class="key">OK</kbd> while scrolling past.</p>
+<p>One thing about the settings screen in general is worth knowing first, since it catches people here more than anywhere else. Every option row takes two presses: the first press selects the row and the second commits it. On a colour theme that is deliberate, because committing throws you out of the screen. Nobody should lose their place in the settings by pressing <kbd class="key">OK</kbd> while scrolling past.</p>
 
 <h2 id="themes">The seven palettes</h2>
 
@@ -318,7 +369,7 @@ gtag('config', 'G-KRV4ERFF8F');
   <p>The app records what you were watching as you watch it, so after the restart it reopens what was playing. Nothing stored is touched: playlists, favourites, groups, guide data and key assignments all come back exactly as they were.</p>
 </div>
 
-<p>Re&#8209;selecting the theme you already have does nothing at all &mdash; no restart, no flicker. The same is true of the language: the app only rebuilds when the value you committed is actually different from the one it was using. So if you are cycling through the list to look at them, expect a restart on each change and none on a second press of the one you have landed on.</p>
+<p>Re&#8209;selecting the theme you already have does nothing at all, no restart, no flicker. The same is true of the language: the app only rebuilds when the value you committed is actually different from the one it was using. So if you are cycling through the list to look at them, expect a restart on each change and none on a second press of the one you have landed on.</p>
 
 <h2 id="no-light">Where the light theme is</h2>
 
@@ -364,11 +415,11 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Each of the nineteen is a complete translation. There are 609 pieces of text in the English build and every one of the other eighteen files carries 606 of them, so a menu in Polish or Turkish will not drop back into English halfway down a screen. Arabic reads right to left, and the layouts follow it.</p>
 
-<p>The setting is Android's own per&#8209;app language underneath, which has two useful consequences. On Android 13 and later the same choice appears in the device's own settings, under the app's entry, and changing it there changes it here. And on any version, this affects InoxTV alone &mdash; setting the app to German does not touch anything else on the television.</p>
+<p>The setting is Android's own per&#8209;app language underneath, which has two useful consequences. On Android 13 and later the same choice appears in the device's own settings, under the app's entry, and changing it there changes it here. And on any version, this affects InoxTV alone. Setting the app to German does not touch anything else on the television.</p>
 
 <h2 id="language-edges">Two edges worth knowing</h2>
 
-<p><strong>A language the app no longer offers.</strong> If a stored choice does not match anything in the current list &mdash; after an update that renamed or removed one &mdash; the app treats it as <span class="ui">System</span> rather than failing to start. The same holds for a stored theme: an unrecognised name falls back to <span class="ui">Dark &bull; black</span>.</p>
+<p><strong>A language the app no longer offers.</strong> If a stored choice does not match anything in the current list (after an update that renamed or removed one), the app treats it as <span class="ui">System</span> rather than failing to start. The same holds for a stored theme: an unrecognised name falls back to <span class="ui">Dark &bull; black</span>.</p>
 
 <p><strong>Indonesian.</strong> Android used to write Indonesian as <code>in</code> and now writes it as <code>id</code>. The app accepts both and stores the modern form, so an older device that saved the old code still gets Indonesian rather than dropping to <span class="ui">System</span>.</p>
 
@@ -407,7 +458,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>My language is not in the list.</summary>
-              <div>Then the app has no translation for it and System will fall back to English. Nothing in the list is a partial translation, which is deliberate — a half-translated menu is worse to use than an English one.</div>
+              <div>Then the app has no translation for it and System will fall back to English. Nothing in the list is a partial translation, which is deliberate: a half-translated menu is worse to use than an English one.</div>
             </details>
             <details>
               <summary>Changing Font size does nothing.</summary>
@@ -415,7 +466,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>Do my playlists survive a theme or language change?</summary>
-              <div>Yes. The restart rebuilds the screens, not the data — playlists, favourites, groups, key assignments and every other setting are untouched.</div>
+              <div>Yes. The restart rebuilds the screens, not the data. Playlists, favourites, groups, key assignments and every other setting are untouched.</div>
             </details>
           </div>
         </section>

@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -234,7 +285,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="before">Before you start</h2>
 
-<p>Have the M3U URL where you can paste it. If it arrived by email, opening that email on the same device and copying the link is far easier than typing it on a television, and the <span class="ui">Paste from clipboard</span> button exists for exactly that. If your provider also offers a username and password, read <a href="/guides/choose-playlist-type/">which playlist type to choose</a> first &mdash; Xtream Codes is usually the better connection for the same account.</p>
+<p>Have the M3U URL where you can paste it. If it arrived by email, opening that email on the same device and copying the link is far easier than typing it on a television, and the <span class="ui">Paste from clipboard</span> button exists for exactly that. If your provider also offers a username and password, read <a href="/guides/choose-playlist-type/">which playlist type to choose</a> first; Xtream Codes is usually the better connection for the same account.</p>
 
 <h2 id="steps">Adding the playlist</h2>
 
@@ -258,7 +309,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </li>
   <li>
     <p class="step-title">Decide what gets imported</p>
-    <p><span class="ui">Include live tv</span> and <span class="ui">Include Vod</span> are both ticked, and neither is read by the importer in this build &mdash; the file is parsed in full whichever way you leave them. If you came here looking for the setting that shortens a slow import, it is not this one; the answer for a very large M3U is <a href="/guides/add-xtream-codes-playlist/">Xtream Codes</a> if your provider offers it, or a link limited to the categories you watch if they do not.</p>
+    <p><span class="ui">Include live tv</span> and <span class="ui">Include Vod</span> are both ticked, and neither is read by the importer in this build: the file is parsed in full whichever way you leave them. If you came here looking for the setting that shortens a slow import, it is not this one; the answer for a very large M3U is <a href="/guides/add-xtream-codes-playlist/">Xtream Codes</a> if your provider offers it, or a link limited to the categories you watch if they do not.</p>
   </li>
   <li>
     <p class="step-title">Add programme guide data, if you have it</p>
@@ -293,7 +344,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="multiple">Running more than one playlist</h2>
 
-<p>InoxTV has no limit on the number of playlists, and you can mix types &mdash; an M3U from one provider alongside Xtream Codes from another is fine. Channels from every enabled playlist appear together, so the practical limit is how long a combined list you are willing to scroll. <span class="ui">Playlists sorting</span> and <span class="ui">Reordered playlists</span> control which one's channels come first.</p>
+<p>InoxTV has no limit on the number of playlists, and you can mix types, an M3U from one provider alongside Xtream Codes from another is fine. Channels from every enabled playlist appear together, so the practical limit is how long a combined list you are willing to scroll. <span class="ui">Playlists sorting</span> and <span class="ui">Reordered playlists</span> control which one's channels come first.</p>
 
 <p>If you add the same service twice by two different methods, expect every channel to appear twice. That is worth doing deliberately while comparing, and worth undoing afterwards with <span class="ui">Enable playlist</span>.</p>
         <section class="faq" aria-labelledby="faq-h">

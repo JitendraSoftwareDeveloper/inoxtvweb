@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -146,7 +197,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Does raising the buffer size fix buffering?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Often, on a connection that is fast enough on average but uneven, because a larger buffer rides out the dips. It costs memory rather than channel switching speed — every preset starts playing after the same one and a half seconds. It cannot help a connection that is simply too slow."
+        "text": "Often, on a connection that is fast enough on average but uneven, because a larger buffer rides out the dips. It costs memory rather than channel switching speed; every preset starts playing after the same one and a half seconds. It cannot help a connection that is simply too slow."
       }
     },
     {
@@ -154,7 +205,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Every channel buffers. Is that the app?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Almost never. When everything buffers equally the cause is upstream of the app — your connection, your router, or your provider's server. Test the same channel on another network before changing settings."
+        "text": "Almost never. When everything buffers equally the cause is upstream of the app: your connection, your router, or your provider's server. Test the same channel on another network before changing settings."
       }
     },
     {
@@ -250,7 +301,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <div class="note note--go">
   <p class="note-label">The test that settles it</p>
-  <p>Play the problem channel on a phone using mobile data, with Wi&#8209;Fi turned off. If it is clean there, the stream and your provider are fine and the problem is inside your home. If it buffers there too, no setting in the app will fix it &mdash; that is a conversation with your provider.</p>
+  <p>Play the problem channel on a phone using mobile data, with Wi&#8209;Fi turned off. If it is clean there, the stream and your provider are fine and the problem is inside your home. If it buffers there too, no setting in the app will fix it, that is a conversation with your provider.</p>
 </div>
 
 <h2 id="network">If the network is the cause</h2>
@@ -270,7 +321,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="buffer">Buffer size, and what it can and cannot do</h2>
 
-<p><span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> &rsaquo; <span class="ui">Buffer size</span> offers <span class="ui">Normal</span>, <span class="ui">Large</span> and <span class="ui">Very large</span>: the player library's own default, about two and a half minutes of video held in hand, and about five minutes. The note on the screen warns that raising it increases channel switching time, and that part is out of date &mdash; all three presets start playing after the same one and a half seconds of media, so a switch costs the same whichever you choose.</p>
+<p><span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> &rsaquo; <span class="ui">Buffer size</span> offers <span class="ui">Normal</span>, <span class="ui">Large</span> and <span class="ui">Very large</span>: the player library's own default, about two and a half minutes of video held in hand, and about five minutes. The note on the screen warns that raising it increases channel switching time, and that part is out of date. All three presets start playing after the same one and a half seconds of media, so a switch costs the same whichever you choose.</p>
 
 <p>The real cost is memory, and the wait after a break. Once a stream has genuinely dropped, <span class="ui">Large</span> banks ten seconds before resuming and <span class="ui">Very large</span> fifteen, against a couple of seconds on <span class="ui">Normal</span>. That is sensible on a feed that keeps failing and tedious on one that failed once. Five minutes of held video is also real memory on an inexpensive box, so raise it a step at a time rather than going straight to the top.</p>
 
@@ -318,7 +369,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Two symptoms get reported as buffering and are something else entirely.</p>
 
-<p><strong>A slow start, then flawless playback.</strong> That is the stream being fetched, not a fault, and lowering <span class="ui">Buffer size</span> will not shorten it &mdash; the wait before the first frame is the same on all three presets. A consistently slow start on every channel is usually name resolution or a provider under load, both covered above.</p>
+<p><strong>A slow start, then flawless playback.</strong> That is the stream being fetched, not a fault, and lowering <span class="ui">Buffer size</span> will not shorten it, the wait before the first frame is the same on all three presets. A consistently slow start on every channel is usually name resolution or a provider under load, both covered above.</p>
 
 <p><strong>It stops dead rather than pausing.</strong> A stream that fails outright, with <span class="ui">Unable to play this content right now</span> or a return to the list, is a different problem. <a href="/troubleshooting/channel-wont-play/">A channel that will not play</a> covers connection limits, expired subscriptions and dead streams.</p>
         <section class="faq" aria-labelledby="faq-h">
@@ -326,11 +377,11 @@ gtag('config', 'G-KRV4ERFF8F');
           <div class="faq-list">
             <details>
               <summary>Does raising the buffer size fix buffering?</summary>
-              <div>Often, on a connection that is fast enough on average but uneven, because a larger buffer rides out the dips. It costs memory rather than channel switching speed — every preset starts playing after the same one and a half seconds. It cannot help a connection that is simply too slow.</div>
+              <div>Often, on a connection that is fast enough on average but uneven, because a larger buffer rides out the dips. It costs memory rather than channel switching speed; every preset starts playing after the same one and a half seconds. It cannot help a connection that is simply too slow.</div>
             </details>
             <details>
               <summary>Every channel buffers. Is that the app?</summary>
-              <div>Almost never. When everything buffers equally the cause is upstream of the app — your connection, your router, or your provider&#x27;s server. Test the same channel on another network before changing settings.</div>
+              <div>Almost never. When everything buffers equally the cause is upstream of the app: your connection, your router, or your provider&#x27;s server. Test the same channel on another network before changing settings.</div>
             </details>
             <details>
               <summary>Why does one channel break up while the rest are fine?</summary>

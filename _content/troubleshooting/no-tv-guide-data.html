@@ -1,0 +1,162 @@
+<!-- {
+  "title": "InoxTV TV guide is empty: how to fix it",
+  "h1": "No TV guide data, or the wrong programmes",
+  "description": "Why the InoxTV programme guide is empty or shows the wrong listings, what each update failure message means, and how to pick a source that matches your channels.",
+  "lede": "An empty guide and a guide full of wrong programmes are different faults with different fixes. The first is usually the source; the second is almost always name matching.",
+  "section": "troubleshooting",
+  "slug": "troubleshooting/no-tv-guide-data",
+  "group": "guide-data",
+  "order": 1,
+  "card": "Empty guide, stale guide, and listings on the wrong channel all have different causes.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/set-up-tv-guide-epg",
+    "remote/tv-guide-keys",
+    "troubleshooting/playlist-wont-load"
+  ],
+  "howto": {
+    "name": "Fix an empty TV guide in InoxTV",
+    "steps": [
+      "Open Settings, then TV guide, and read the line under the update button.",
+      "If it reports a failure, match the message to the table on this page.",
+      "If it reports a successful update, the source has no data for your channels.",
+      "Press Update TV guide to force a fresh fetch.",
+      "If listings land on the wrong channels, switch to a source keyed to the same channel identifiers as your playlist."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Where do I see whether the guide updated?",
+      "a": "Settings, then TV guide. The screen reports TV guide updated on with a date when the last run succeeded, or TV guide update failed on with the reason when it did not. That one line tells you whether to look at the source or at your channels."
+    },
+    {
+      "q": "My guide shows No Information on every channel.",
+      "a": "That is the app saying there is no programme entry for the time you are looking at. Either no data was loaded at all, or the data that loaded does not match your channel identifiers."
+    },
+    {
+      "q": "One channel has another channel's programmes. Why?",
+      "a": "The guide matches by channel identifier, and yours matched the wrong entry. There is no per-channel override in this build, so the fix is a source keyed the same way as your playlist, usually your provider's own data."
+    },
+    {
+      "q": "What does Not enough memory to load the TV guide mean?",
+      "a": "The guide file is larger than the device can hold while parsing it. Lowering Past days to keep EPG is the usual fix, and it works because it reduces how much of the file is kept."
+    },
+    {
+      "q": "How often does the guide refresh by itself?",
+      "a": "Every 24 hours by default, set by Update interval, hours. You can also refresh on app start, on playlist changes, or on demand with Update TV guide."
+    }
+  ]
+} -->
+
+<p>Start at <span class="ui">Settings</span> &rsaquo; <span class="ui">TV guide</span>. That screen reports the outcome of the last run, and it decides which half of this page applies to you:</p>
+
+<ul>
+  <li><span class="ui">TV guide updated on</span> with a recent date &mdash; the fetch worked. Your problem is matching, further down.</li>
+  <li><span class="ui">TV guide update failed on</span> with a reason &mdash; the fetch did not work. The table below covers the reasons.</li>
+  <li>Nothing at all &mdash; no update has been attempted yet. Press <span class="ui">Update TV guide</span> and watch.</li>
+</ul>
+
+<figure>
+  <img src="/images/diagrams/flow-epg-update.svg" alt="The four stages of a TV guide update: fetch, parse, match and store. The fetch and parse stages report their failures with messages. The match stage fails silently, producing an empty guide even though the update succeeded." width="880" height="400" loading="lazy" decoding="async">
+  <figcaption><strong>Only three of the four stages announce a problem.</strong> Matching is the one that fails quietly, which is why a successful update and an empty guide are not a contradiction.</figcaption>
+</figure>
+
+<h2 id="failures">When the update reports a failure</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Message</th><th>What it means</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Unable to reach the TV guide server.</span></td><td>The address could not be contacted. Check the URL, and check whether it loads in a browser on the same network.</td></tr>
+      <tr><td><span class="ui">TV guide update timed out for</span> &hellip;</td><td>The server answered too slowly. Common with large files on a slow host; try again at a quieter hour before changing anything.</td></tr>
+      <tr><td><span class="ui">No TV guide data available for</span> &hellip;</td><td>The source was reached and returned nothing usable for that playlist. This is the source's limitation, not a fault here.</td></tr>
+      <tr><td><span class="ui">Not enough memory to load the TV guide.</span></td><td>The file is too large to parse on this device. Lower <span class="ui">Past days to keep EPG</span>.</td></tr>
+      <tr><td><span class="ui">TV guide for</span> &hellip; <span class="ui">is too large for this device.</span></td><td>The same problem, named per playlist. A guide covering two weeks of several thousand channels will do this to a television stick.</td></tr>
+      <tr><td><span class="ui">EPG processing failed:</span> &hellip;</td><td>Data arrived but could not be read. Usually a source serving something that is not valid XMLTV, or a compressed file the server described wrongly.</td></tr>
+      <tr><td><span class="ui">Unable to update TV guide for</span> &hellip;</td><td>A per-playlist failure with the reason appended. Other playlists may have updated fine.</td></tr>
+      <tr><td>A count of playlists that failed, with a reason after it</td><td>More than one source failed in the same run. Fix them one at a time, starting with the one you actually watch.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <p class="note-label">Memory failures are worth taking seriously</p>
+  <p>The default <span class="ui">Past days to keep EPG</span> is 7. On a Fire TV Stick or an older box with a large guide, dropping it to 1 or 2 is often the difference between a working guide and no guide at all. All you give up is scrolling the grid back to see what aired last week.</p>
+</div>
+
+<h2 id="matched-nothing">When the update succeeded and the guide is still empty</h2>
+
+<p>This is the most confusing case and the most common. The app fetched data, read it, and then found nothing in it that corresponds to your channels. Nothing announces that, because from the app's point of view the update did exactly what it was asked to.</p>
+
+<p>Guide data identifies channels by an identifier, and your playlist has to use the same one. When a playlist and a guide come from different places, they frequently do not agree: one calls a channel by a code, the other by a display name, and no match is found.</p>
+
+<p>What to check, in order:</p>
+
+<ol class="steps">
+  <li>
+    <p class="step-title">Is the guide pointed at the right playlist</p>
+    <p><span class="ui">EPG source</span> on the playlist itself decides which data that playlist uses. A source attached to the wrong playlist produces exactly this symptom.</p>
+  </li>
+  <li>
+    <p class="step-title">Does the source cover your channels at all</p>
+    <p>A guide for one country will not carry listings for another country's channels. If you added a source you found rather than one your provider gave you, this is the likely answer.</p>
+  </li>
+  <li>
+    <p class="step-title">Is it only some channels</p>
+    <p>Partial coverage is normal and is not a fault. Most sources carry the main channels and skip the rest.</p>
+  </li>
+  <li>
+    <p class="step-title">Try your provider's own data first</p>
+    <p>An Xtream Codes panel usually serves guide data through the same API, matched to the same channel identifiers, which removes the matching problem entirely. That is the cleanest fix when it is available.</p>
+  </li>
+</ol>
+
+<p><a href="/guides/set-up-tv-guide-epg/">Setting up the TV guide</a> goes through source configuration properly, including which field to use and what a good source looks like.</p>
+
+<h2 id="wrong-channel">When the listings are on the wrong channel</h2>
+
+<p>One channel showing another channel's programmes means it matched, and matched the wrong entry. Two channels with similar names, or a source using a naming scheme close to but not the same as your playlist's, will do this.</p>
+
+<p>There is no per&#8209;channel override in this build. You will see an <span class="ui">Assign EPG</span> row in the channel menu, and it is one of the rows that is laid out but not yet connected, so it will not help you. The remedies that do work are both about the source:</p>
+
+<ol class="steps">
+  <li>
+    <p class="step-title">Use your provider's own guide data</p>
+    <p>An Xtream Codes panel usually serves listings through the same API that serves the channels, keyed to the same identifiers. When both halves come from one place, mismatching stops being possible. This is the fix, not a workaround.</p>
+  </li>
+  <li>
+    <p class="step-title">Or find a source that matches your playlist's naming</p>
+    <p>If you are stuck with a separate guide, the one that agrees with your playlist's channel identifiers is worth more than the one with the most listings in it. Two sources for the same country can behave completely differently on the same playlist.</p>
+  </li>
+</ol>
+
+<p>Judge a source by whether your channels have listings, not by how large it is. A guide covering ten thousand channels of which none are yours is worse than a small one that matches.</p>
+
+<h2 id="stale">When the guide is stale rather than missing</h2>
+
+<p>Programmes that were correct yesterday and are now wrong by hours or days point at the update schedule rather than the data.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Setting</th><th>What it controls</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Update interval, hours</span></td><td>How often the guide refreshes on its own. The default is 24, which suits a source updated daily.</td></tr>
+      <tr><td><span class="ui">Update on app start</span></td><td>Refreshes every time you open the app. Reliable, but it makes launching slower.</td></tr>
+      <tr><td><span class="ui">Update on playlists change</span></td><td>Refreshes when you add or edit a playlist, which is when the old data is most likely to be wrong.</td></tr>
+      <tr><td><span class="ui">Update TV guide</span></td><td>Runs it now. The progress line names each playlist as it goes.</td></tr>
+      <tr><td><span class="ui">Clear TV guide</span></td><td>Throws away everything stored, so the next update starts clean. The right move when data looks corrupted rather than merely old.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Wrong by exactly one or several whole hours is a different thing again: that is a time zone difference between the source and your device, and it is a property of the data. A source that publishes correct times for your region is the only real fix.</p>
+
+<h2 id="reset">Starting over</h2>
+
+<p>When the guide is in a state you cannot explain, <span class="ui">Clear TV guide</span> followed by <span class="ui">Update TV guide</span> rebuilds it from scratch. It touches only guide data. Playlists, favourites, groups and key assignments are stored separately and are not affected.</p>
+
+<p>If a clean rebuild still produces nothing, the source does not carry your channels, and the next step is a better source rather than another setting.</p>

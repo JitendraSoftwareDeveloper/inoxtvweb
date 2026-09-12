@@ -40,14 +40,65 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6161953663322185" crossorigin="anonymous"></script>
+
 
 <script type="application/ld+json">
 {
@@ -131,7 +182,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="builds">Two builds, one codebase</h2>
 
-<p>The phone and tablet build is <code>in.inoxtv.mobile</code>. The television build is <code>in.inoxtv.tv</code>, and it is a genuinely different interface rather than the same layout scaled up. Both come from one codebase, so a feature usually lands in both, though the way you reach it differs &mdash; a long&#8209;press on a phone is often an <kbd class="key">OK</kbd> hold on a remote.</p>
+<p>The phone and tablet build is <code>in.inoxtv.mobile</code>. The television build is <code>in.inoxtv.tv</code>, and it is a genuinely different interface rather than the same layout scaled up. Both come from one codebase, so a feature usually lands in both, though the way you reach it differs, a long&#8209;press on a phone is often an <kbd class="key">OK</kbd> hold on a remote.</p>
 
 <p>Both are on Google Play. The television build is also published as a direct APK on a GitHub release, because Fire TV devices do not have Play, and because some Android TV boxes ship a Play Store that will not show it. Installing that way is covered in the <a href="/guides/install-fire-tv-stick/">Fire TV guide</a>.</p>
 
@@ -150,7 +201,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Every page here is written against the shipping app, with the settings screen open. On&#8209;screen labels are quoted exactly as the app renders them in English, so searching for a phrase you can see on your television lands you on the right page. Key&#8209;map tables come from the app's own key definitions rather than from memory, and the default column reflects the build you can install today.</p>
 
-<p>Pages carry a last&#8209;updated date at the top. When app behaviour changes, the affected page changes with it &mdash; a guide describing a screen that no longer looks like that is worse than no guide.</p>
+<p>Pages carry a last&#8209;updated date at the top. When app behaviour changes, the affected page changes with it, a guide describing a screen that no longer looks like that is worse than no guide.</p>
 
 <p>The site carries advertising and uses analytics, which is what pays for the domain and the time spent writing these pages. What that collects, and how to opt out, is in the <a href="/privacy.html">privacy policy</a>.</p>
 

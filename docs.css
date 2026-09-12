@@ -821,8 +821,16 @@ td code.hex {
   border-bottom: 1px solid var(--line);
 }
 
-.hub-group + .hub-group { margin-top: 3.2rem; }
-.hub-group h2 {
+/* Orientation prose above a hub's link cards. Reuses the article styles so the
+   two read alike, and inherits .doc-body's measure so the lines stay readable. */
+.hub-intro {
+  margin-bottom: 3.2rem;
+  padding-bottom: 2.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.hub-intro > h2:first-child { margin-top: 0; }
+
+.hub-group + .hub-group { margin-top: 3.2rem; }.hub-group h2 {
   margin: 0 0 1.2rem;
   font-family: var(--font-display);
   font-size: 1.3rem;

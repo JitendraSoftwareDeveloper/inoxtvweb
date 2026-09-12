@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -136,7 +187,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Why do some rows in the channel menu do nothing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Five rows are wired in this build — Search, Settings, Record, Custom recording and Add to favorites. The rest are laid out so the menu keeps the shape it is going to have rather than rearranging itself as each piece lands."
+        "text": "Five rows are wired in this build: Search, Settings, Record, Custom recording and Add to favorites. The rest are laid out so the menu keeps the shape it is going to have rather than rearranging itself as each piece lands."
       }
     },
     {
@@ -235,7 +286,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>Three keys open the groups panel &mdash; <kbd class="key">Left</kbd>, <kbd class="key">Long Menu</kbd> and <kbd class="key">Guide</kbd> &mdash; because that is the panel people reach for most, and because a remote missing one of the three still has another. If you never use groups, those are the first three keys worth spending on something else.</p>
+<p>Three keys open the groups panel: <kbd class="key">Left</kbd>, <kbd class="key">Long Menu</kbd> and <kbd class="key">Guide</kbd>, because that is the panel people reach for most, and because a remote missing one of the three still has another. If you never use groups, those are the first three keys worth spending on something else.</p>
 
 <p><kbd class="key">Yellow</kbd> is the one to reassign first. <span class="ui">Open group options</span> is a menu the guide is going to have and does not have yet, so the key is swallowed and nothing happens. <span class="ui">Return to current programs</span> is the obvious replacement, for the reason given below.</p>
 
@@ -258,7 +309,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="channel-options">What the channel menu contains</h2>
 
-<p><kbd class="key">Long OK</kbd> and <kbd class="key">Green</kbd> both open it, and so does a long press on a touch screen &mdash; the two gestures were kept the same on purpose. The panel is divided into three labelled parts, naming the programme, the channel and the group a row would act on, so it is always clear what you are about to change.</p>
+<p><kbd class="key">Long OK</kbd> and <kbd class="key">Green</kbd> both open it, and so does a long press on a touch screen, the two gestures were kept the same on purpose. The panel is divided into three labelled parts, naming the programme, the channel and the group a row would act on, so it is always clear what you are about to change.</p>
 
 <p>Five rows work:</p>
 
@@ -279,9 +330,9 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Hold a cell for a programme that has not started yet and the menu narrows: the rows about something on air disappear, leaving <span class="ui">Custom recording</span> to book the slot outright.</p>
 
-<p>The rest of the panel &mdash; <span class="ui">Watch from start</span>, <span class="ui">Block channel</span>, <span class="ui">Hide channel</span>, <span class="ui">Assign EPG</span>, <span class="ui">Channel options</span>, the three <span class="ui">Manage&hellip;</span> rows, <span class="ui">Reorder channels</span>, <span class="ui">Copy channels</span>, <span class="ui">Create group</span>, <span class="ui">Block group</span>, <span class="ui">Hide group</span> and <span class="ui">Group options</span> &mdash; highlights and does nothing. They mark out the menu's eventual shape. A row that highlights and does nothing is a smaller surprise than a row that appears later in a menu you have already learned, which is why they are there rather than hidden.</p>
+<p>The rest of the panel: <span class="ui">Watch from start</span>, <span class="ui">Block channel</span>, <span class="ui">Hide channel</span>, <span class="ui">Assign EPG</span>, <span class="ui">Channel options</span>, the three <span class="ui">Manage&hellip;</span> rows, <span class="ui">Reorder channels</span>, <span class="ui">Copy channels</span>, <span class="ui">Create group</span>, <span class="ui">Block group</span>, <span class="ui">Hide group</span> and <span class="ui">Group options</span>; highlights and does nothing. They mark out the menu's eventual shape. A row that highlights and does nothing is a smaller surprise than a row that appears later in a menu you have already learned, which is why they are there rather than hidden.</p>
 
-<p>The practical consequence: there is no channel blocking or channel hiding in this build at all, and no way to point one channel at a different guide entry. If a channel's listings are wrong, the answer is a source whose identifiers match your playlist &mdash; <a href="/troubleshooting/no-tv-guide-data/">missing TV guide data</a> covers how to get one.</p>
+<p>The practical consequence: there is no channel blocking or channel hiding in this build at all, and no way to point one channel at a different guide entry. If a channel's listings are wrong, the answer is a source whose identifiers match your playlist: <a href="/troubleshooting/no-tv-guide-data/">missing TV guide data</a> covers how to get one.</p>
 
 <h2 id="group-options">Managing groups, which is not in this menu</h2>
 
@@ -315,7 +366,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>Why do some rows in the channel menu do nothing?</summary>
-              <div>Five rows are wired in this build — Search, Settings, Record, Custom recording and Add to favorites. The rest are laid out so the menu keeps the shape it is going to have rather than rearranging itself as each piece lands.</div>
+              <div>Five rows are wired in this build: Search, Settings, Record, Custom recording and Add to favorites. The rest are laid out so the menu keeps the shape it is going to have rather than rearranging itself as each piece lands.</div>
             </details>
             <details>
               <summary>Can a key do different things in the guide and in the player?</summary>

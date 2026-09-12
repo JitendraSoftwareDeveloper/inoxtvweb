@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -175,7 +226,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "How do I update the app later?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Repeat the Downloader step with the same code. The new version installs over the old one and your playlists, favourites and settings are kept — this is an update, not a fresh install."
+        "text": "Repeat the Downloader step with the same code. The new version installs over the old one and your playlists, favourites and settings are kept. This is an update, not a fresh install."
       }
     },
     {
@@ -233,7 +284,7 @@ gtag('config', 'G-KRV4ERFF8F');
     </header>
     <div class="doc-grid">
       <div class="doc-body">
-        <p>Fire TV devices run Amazon's fork of Android with the Amazon Appstore instead of Google Play, so the television build of InoxTV is installed by downloading it directly. Amazon supports this &mdash; the setting for it ships in Fire TV's own menus &mdash; and the whole thing takes about four minutes.</p>
+        <p>Fire TV devices run Amazon's fork of Android with the Amazon Appstore instead of Google Play, so the television build of InoxTV is installed by downloading it directly. Amazon supports this (the setting for it ships in Fire TV's own menus), and the whole thing takes about four minutes.</p>
 
 <figure>
   <img src="/images/diagrams/flow-firetv-sideload.svg" alt="Four stages of installing on Fire TV: install the Downloader app from the Amazon Appstore, allow Downloader to install unknown apps in Developer options, enter code 2910810 in Downloader, then install the downloaded file and delete it." width="880" height="330" loading="lazy" decoding="async">
@@ -273,7 +324,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>When the download completes, Fire TV shows the installer with the app name and the permissions it requests. Choose <strong>Install</strong>, wait for it, then <strong>Open</strong> to launch InoxTV straight away or <strong>Done</strong> to go back to Downloader.</p>
 
-<p>Downloader then offers to delete the downloaded file. Accept &mdash; the app is installed and the APK is just taking up space, which matters on a 8&nbsp;GB Stick more than you would like.</p>
+<p>Downloader then offers to delete the downloaded file. Accept: the app is installed and the APK is just taking up space, which matters on a 8&nbsp;GB Stick more than you would like.</p>
 
 <div class="note note--go">
   <p class="note-label">You are done installing</p>
@@ -282,11 +333,11 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="next">Step 5: add a playlist</h2>
 
-<p>On first launch you will see the intro screen explaining that InoxTV supplies no channels of its own, with an <span class="ui">Add Playlist</span> button. What you enter there depends on what your provider gave you &mdash; <a href="/guides/choose-playlist-type/">which playlist type to choose</a> covers the decision in two minutes, and <a href="/guides/first-hour-with-inoxtv/">your first hour with InoxTV</a> takes the whole setup from there in order.</p>
+<p>On first launch you will see the intro screen explaining that InoxTV supplies no channels of its own, with an <span class="ui">Add Playlist</span> button. What you enter there depends on what your provider gave you: <a href="/guides/choose-playlist-type/">which playlist type to choose</a> covers the decision in two minutes, and <a href="/guides/first-hour-with-inoxtv/">your first hour with InoxTV</a> takes the whole setup from there in order.</p>
 
 <h2 id="updating">Updating later</h2>
 
-<p>Repeat step 3 with the same code. The new build installs over the existing one, and your playlists, favourites, groups, key assignments and settings are all preserved &mdash; Android treats it as an update rather than a new app, provided you do not uninstall first.</p>
+<p>Repeat step 3 with the same code. The new build installs over the existing one, and your playlists, favourites, groups, key assignments and settings are all preserved. Android treats it as an update rather than a new app, provided you do not uninstall first.</p>
 
 <p>There is no automatic update on Fire TV, because that is a store function and there is no store involved. Checking every couple of months is reasonable; the release notes say whether anything you use has changed.</p>
 
@@ -315,9 +366,9 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p><strong>Not enough storage.</strong> Fire TV Sticks fill up quickly. Uninstall something you do not use, or delete old downloads inside Downloader's own file list.</p>
 
-<p><strong>Video plays but there is no sound.</strong> Fire TV devices are particular about audio formats, and a channel using one your setup cannot handle plays silently rather than complaining. Switch <span class="ui">Audio decoder</span> to <span class="ui">Software</span> in <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span>, which is the fix that works most often here &mdash; the hardware decoder on these sticks accepts more formats than it handles well. The setting applies to everything you play, so put it back if it makes no difference.</p>
+<p><strong>Video plays but there is no sound.</strong> Fire TV devices are particular about audio formats, and a channel using one your setup cannot handle plays silently rather than complaining. Switch <span class="ui">Audio decoder</span> to <span class="ui">Software</span> in <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span>, which is the fix that works most often here, the hardware decoder on these sticks accepts more formats than it handles well. The setting applies to everything you play, so put it back if it makes no difference.</p>
 
-<p><strong>The app installs but the remote does nothing useful.</strong> The Fire TV remote is missing several buttons a full Android TV remote has. Every key in InoxTV is reassignable, so the fix is to map what you need onto the buttons you actually have &mdash; the <a href="/remote/player-keys/">player key reference</a> lists the defaults and every action available.</p>
+<p><strong>The app installs but the remote does nothing useful.</strong> The Fire TV remote is missing several buttons a full Android TV remote has. Every key in InoxTV is reassignable, so the fix is to map what you need onto the buttons you actually have, the <a href="/remote/player-keys/">player key reference</a> lists the defaults and every action available.</p>
         <section class="faq" aria-labelledby="faq-h">
           <h2 id="faq-h">Questions people ask</h2>
           <div class="faq-list">
@@ -335,7 +386,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>How do I update the app later?</summary>
-              <div>Repeat the Downloader step with the same code. The new version installs over the old one and your playlists, favourites and settings are kept — this is an update, not a fresh install.</div>
+              <div>Repeat the Downloader step with the same code. The new version installs over the old one and your playlists, favourites and settings are kept. This is an update, not a fresh install.</div>
             </details>
             <details>
               <summary>Which Fire TV devices does it work on?</summary>

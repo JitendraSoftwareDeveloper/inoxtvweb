@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -214,13 +265,13 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>The description panel carries whatever the source provides &mdash; year, country, genre, director and cast where they are present, and nothing where they are not. Sources vary enormously in how much they include, and a sparse description is the data rather than a fault.</p>
+<p>The description panel carries whatever the source provides: year, country, genre, director and cast where they are present, and nothing where they are not. Sources vary enormously in how much they include, and a sparse description is the data rather than a fault.</p>
 
 <h2 id="groups">Groups, which is how a large playlist becomes usable</h2>
 
 <p>A playlist of several thousand channels is unusable as one list. <kbd class="key">Left</kbd> opens the groups panel, and from then on the grid shows one group at a time.</p>
 
-<p>Three keys open that panel by default &mdash; <kbd class="key">Left</kbd>, <kbd class="key">Long Menu</kbd> and <kbd class="key">Guide</kbd> &mdash; because it is the panel people reach for most, and because a remote missing one of the three still has another.</p>
+<p>Three keys open that panel by default (<kbd class="key">Left</kbd>, <kbd class="key">Long Menu</kbd> and <kbd class="key">Guide</kbd>), because it is the panel people reach for most, and because a remote missing one of the three still has another.</p>
 
 <p>Editing groups happens elsewhere. <kbd class="key">Yellow</kbd> is mapped to <span class="ui">Open group options</span>, and that menu is placed but not yet connected, so nothing happens when you press it. The working route is <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span> &rsaquo; <span class="ui">Manage groups</span>, and it is more capable than the menu would have been:</p>
 
@@ -234,7 +285,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="channel-menu">What you can do to a programme</h2>
 
-<p>Holding <kbd class="key">OK</kbd> on a channel &mdash; the same gesture as a long press on touch &mdash; opens the channel menu. It is divided into three parts, labelled with the programme, the channel and the group it would act on, so it is always clear what a row applies to.</p>
+<p>Holding <kbd class="key">OK</kbd> on a channel, the same gesture as a long press on touch, opens the channel menu. It is divided into three parts, labelled with the programme, the channel and the group it would act on, so it is always clear what a row applies to.</p>
 
 <p>Five rows are wired in this build, and two of them are the point of the menu:</p>
 
@@ -244,9 +295,9 @@ gtag('config', 'G-KRV4ERFF8F');
   <li><span class="ui">Add to favorites</span>, <span class="ui">Search</span> and <span class="ui">Settings</span> &mdash; the three shortcuts that save you closing the guide first.</li>
 </ul>
 
-<p>The remaining rows &mdash; <span class="ui">Watch from start</span>, the blocking and visibility entries, <span class="ui">Assign EPG</span>, the reordering entries and the group entries &mdash; are laid out but not yet connected. They highlight and do nothing. That is deliberate: the menu keeps the shape it is going to have, rather than changing under you as each piece lands. <a href="/remote/tv-guide-keys/">The guide key reference</a> lists them so you do not spend an evening wondering what you are doing wrong.</p>
+<p>The remaining rows are laid out but not yet connected: <span class="ui">Watch from start</span>, the blocking and visibility entries, <span class="ui">Assign EPG</span>, the reordering entries and the group entries. They highlight and do nothing. That is deliberate: the menu keeps the shape it is going to have, rather than changing under you as each piece lands. <a href="/remote/tv-guide-keys/">The guide key reference</a> lists them so you do not spend an evening wondering what you are doing wrong.</p>
 
-<p>Hold a cell for a programme that has not started yet and the menu narrows itself: the rows about something on air disappear, leaving <span class="ui">Custom recording</span>, which asks for the window outright. Recording is honest about its limits too &mdash; the confirmation says it may not work on all channels and may need more than one server connection, which is worth reading before you rely on it. Scheduled recordings report their state as <span class="ui">Scheduled</span>, <span class="ui">Recording</span>, <span class="ui">Completed</span> or <span class="ui">Failed</span>, and a failure names its reason rather than leaving you guessing.</p>
+<p>Hold a cell for a programme that has not started yet and the menu narrows itself: the rows about something on air disappear, leaving <span class="ui">Custom recording</span>, which asks for the window outright. Recording is honest about its limits too. The confirmation says it may not work on all channels and may need more than one server connection, which is worth reading before you rely on it. Scheduled recordings report their state as <span class="ui">Scheduled</span>, <span class="ui">Recording</span>, <span class="ui">Completed</span> or <span class="ui">Failed</span>, and a failure names its reason rather than leaving you guessing.</p>
 
 <h2 id="data">What controls the data behind it</h2>
 
@@ -267,7 +318,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>The screen also reports what happened last time &mdash; <span class="ui">TV guide updated on</span> with a date, or <span class="ui">TV guide update failed on</span> with a reason. That line is the first thing to read when the guide looks wrong.</p>
+<p>The screen also reports what happened last time: <span class="ui">TV guide updated on</span> with a date, or <span class="ui">TV guide update failed on</span> with a reason. That line is the first thing to read when the guide looks wrong.</p>
 
 <h2 id="empty">When the guide is empty</h2>
 

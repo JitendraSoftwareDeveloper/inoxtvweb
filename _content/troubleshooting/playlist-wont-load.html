@@ -1,0 +1,146 @@
+<!-- {
+  "title": "InoxTV playlist will not load: what to check",
+  "h1": "A playlist that will not load",
+  "description": "Every reason an M3U, Xtream Codes or Stalker Portal playlist fails to load in InoxTV, the message each one produces, and the order to check them in.",
+  "lede": "The app validates what you typed before it goes anywhere near the network, so the message you get narrows the problem down considerably. This is what each one means.",
+  "section": "troubleshooting",
+  "slug": "troubleshooting/playlist-wont-load",
+  "group": "playlists",
+  "order": 1,
+  "card": "What each validation and processing message means, and the checks that fix them.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/choose-playlist-type",
+    "guides/add-xtream-codes-playlist",
+    "troubleshooting/channel-wont-play"
+  ],
+  "howto": {
+    "name": "Fix a playlist that will not load in InoxTV",
+    "steps": [
+      "Read the exact message the app shows and match it to the table on this page.",
+      "If it is a validation message, correct the field it names.",
+      "If it is a processing failure, close the app fully on every other device and retry.",
+      "Check your subscription is active with your provider.",
+      "Try the same details on a phone over mobile data to rule out your network."
+    ]
+  },
+  "faq": [
+    {
+      "q": "The app says Enter a valid server URL but the address looks right.",
+      "a": "Three things trip this: a missing http:// or https://, a missing port when the panel does not run on the default one, and a path left on the end such as /get.php or /player_api.php. The scheme, host and port are all it wants."
+    },
+    {
+      "q": "What does Processing failed mean?",
+      "a": "The details passed validation and the app got as far as fetching and reading the list, then something went wrong. The text after the colon is the underlying reason. A refused login, an expired account and a connection limit all arrive this way."
+    },
+    {
+      "q": "It loads on my phone but not on my TV.",
+      "a": "Usually a connection limit: the phone is holding the one connection your service allows. Close the app completely on the phone, not just to the background, then retry on the television."
+    },
+    {
+      "q": "The counts stop partway and never finish.",
+      "a": "A large M3U file on a modest device can run out of memory partway through. Xtream Codes avoids this by fetching categories on demand, so if your provider offers it, switching connection type is the real fix."
+    },
+    {
+      "q": "Can InoxTV recover my playlist details if I lost them?",
+      "a": "No. Nothing you enter leaves your device, so there is no copy of it anywhere but on the device itself and in a backup file you made. Your provider issued the details and only they can reissue them."
+    }
+  ]
+} -->
+
+<p>A playlist can fail at three different stages, and knowing which one you reached removes most of the guesswork:</p>
+
+<ol class="steps">
+  <li>
+    <p class="step-title">Validation, before anything is sent</p>
+    <p>The app checks the shape of what you typed. These messages appear instantly and always name a specific field.</p>
+  </li>
+  <li>
+    <p class="step-title">Fetching, once the details look valid</p>
+    <p>The app contacts the server. Failures here are about reachability and credentials rather than typing.</p>
+  </li>
+  <li>
+    <p class="step-title">Processing, once data has arrived</p>
+    <p>You see counts climbing. A failure now means the data itself, or the device's ability to hold it.</p>
+  </li>
+</ol>
+
+<h2 id="validation">Stage one: the message names a field</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Message</th><th>What to do</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="ui">Enter playlist URL or select a local playlist file.</span></td><td>An M3U playlist with neither a URL nor a file. Nothing was sent.</td></tr>
+      <tr><td><span class="ui">Enter a valid URL or select a local playlist file.</span></td><td>Include <code>http://</code> or <code>https://</code>. Check for a space at the start or end, which is what pasting from a chat app usually adds.</td></tr>
+      <tr><td><span class="ui">Please reselect the local playlist file.</span></td><td>The file is still there but Android has withdrawn the app's permission to read it. Pick it again through <span class="ui">Select local playlist</span>.</td></tr>
+      <tr><td><span class="ui">Server URL is required.</span></td><td>An Xtream playlist with no server address.</td></tr>
+      <tr><td><span class="ui">Enter a valid server URL.</span></td><td>Scheme, host and port only &mdash; <code>http://example.com:8080</code>. No trailing path.</td></tr>
+      <tr><td><span class="ui">Username is required.</span> / <span class="ui">Password is required.</span></td><td>Both are mandatory for Xtream Codes and neither can be recovered by us.</td></tr>
+      <tr><td><span class="ui">Portal URL is required.</span> / <span class="ui">Enter a valid portal URL.</span></td><td>Keep the path your provider gave you, including a trailing <code>/c/</code> if it had one.</td></tr>
+      <tr><td><span class="ui">MAC address is required.</span> / <span class="ui">Enter a valid MAC address.</span></td><td>Colons rather than hyphens, and replace the pre&#8209;filled <code>00:1a:79:00:00:00</code> entirely.</td></tr>
+      <tr><td><span class="ui">Enter a valid EPG URL.</span></td><td>An optional field that has been filled in wrongly. Empty it if you are not sure you need it.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>All of these are about the text in the box. None of them mean your subscription is wrong.</p>
+
+<h2 id="processing">Stage three: Processing failed</h2>
+
+<p>The app reports <span class="ui">Processing failed: </span> followed by the underlying reason, and where nothing specific came back, <span class="ui">Unknown error</span>. If the source itself was never readable you get <span class="ui">Unable to process playlist: source input is missing.</span></p>
+
+<p>Work through these in order. The first two account for most cases by a wide margin.</p>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Cause</th><th>How to confirm it</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Connection limit reached</td><td>It works after you fully close the app on every other device. Backgrounding is not always enough.</td></tr>
+      <tr><td>Subscription expired or suspended</td><td>Your provider's account page says so. On an existing Xtream playlist, <span class="ui">Account Information</span> shows the expiry date directly.</td></tr>
+      <tr><td>Credentials changed</td><td>A provider migrating servers reissues details and does not always tell you. Ask for the current ones.</td></tr>
+      <tr><td>Server down or moved</td><td>Nothing loads for anybody. Wait rather than editing settings you had right.</td></tr>
+      <tr><td>Network blocking the route</td><td>The same details work on mobile data but not on your home connection, or the reverse. Try another DNS server.</td></tr>
+      <tr><td>The file is not a playlist</td><td>A link that returns a web page or an error page instead of a list. Open it in a browser and look at what comes back.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note note--go">
+  <p class="note-label">The two-minute test</p>
+  <p>Enter the same details on a phone over mobile data. Working there and failing at home points at your network. Failing in both places points at the account or the server, and that is your provider's side rather than a setting here.</p>
+</div>
+
+<h2 id="stalls">When it starts and then stops</h2>
+
+<p>A playlist that climbs through <span class="ui">Live TV</span>, <span class="ui">Movies</span> and <span class="ui">Shows</span> counts and then stops partway has usually run out of memory. Very large M3U files, tens of thousands of entries, have to be read in full before anything is usable, and a television stick has considerably less room than a phone.</p>
+
+<p>Two ways out, better one first:</p>
+
+<ul>
+  <li><strong>Use Xtream Codes if your provider offers it.</strong> Categories are fetched as you open them, so the size of the full catalogue stops mattering. Your existing M3U link often <a href="/guides/add-xtream-codes-playlist/">contains the credentials you need</a>.</li>
+  <li><strong>Ask for a smaller list.</strong> Many providers can issue a link limited to the categories you actually watch, and it is a five&#8209;minute email that solves the problem permanently.</li>
+</ul>
+
+<p>The third thing everybody tries is worth ruling out explicitly. Unticking <span class="ui">Include Vod</span> on the import screen looks like it should halve the work, and it does nothing, that tick box is not connected to the importer in this build, so the file is parsed in full whichever way you leave it. Neither is <span class="ui">Include live tv</span>. If a large M3U is failing, the two options above are the only real ones.</p>
+
+<h2 id="loaded-but-empty">It loaded, but the list is empty</h2>
+
+<p>A successful load with nothing to watch is a different problem, and almost always something switched off rather than something broken.</p>
+
+<ul>
+  <li><strong><span class="ui">Enable playlist</span> is off.</strong> Check it under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playlists</span>, on the playlist itself.</li>
+  <li><strong>You are looking at a filtered list.</strong> <span class="ui">Favorites</span> shows nothing until you add something. Switch to <span class="ui">All Channels</span>.</li>
+  <li><strong>Groups are hidden.</strong> If you used <span class="ui">Hide all groups</span> while tidying up, <span class="ui">Manage groups</span> is where you bring them back.</li>
+  <li><strong>Nothing landed in the list you are looking at.</strong> The import counts three things separately, and where they stopped tells you where the content went. A source that finished on <span class="ui">Live TV: 0</span> with <span class="ui">Movies</span> and <span class="ui">Shows</span> in the thousands carries no live channels at all, and what you are after is in <a href="/features/movies-and-shows/">movies and shows</a> rather than the channel list.</li>
+</ul>
+
+<h2 id="after">Once it loads</h2>
+
+<p>A playlist that imports cleanly can still have individual channels that fail, which is a separate matter, <a href="/troubleshooting/channel-wont-play/">a channel that will not play</a> covers those. An empty programme guide after a successful import is also normal on some sources, and <a href="/troubleshooting/no-tv-guide-data/">missing guide data</a> deals with it.</p>
+
+<p>Editing a working playlist is safer than replacing it. If a password changes, edit the existing entry rather than adding a new one, so your favourites, your group visibility and the guide source attached to it all survive.</p>

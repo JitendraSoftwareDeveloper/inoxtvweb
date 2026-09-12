@@ -1,0 +1,109 @@
+<!-- {
+  "title": "Movies and shows in InoxTV",
+  "h1": "Movies and shows",
+  "description": "How the InoxTV on-demand catalogue works: seasons and episodes, resuming, My List, sorting, trailers, and why it needs an Xtream Codes or portal connection.",
+  "lede": "This is the part of the app that needs a connection type capable of describing a library. On an M3U playlist there is nothing here to show, and that is a property of the format rather than a missing feature.",
+  "section": "features",
+  "slug": "features/movies-and-shows",
+  "group": "watching",
+  "order": 3,
+  "card": "Seasons and episodes, resuming, My List, sorting, and why an M3U cannot provide any of it.",
+  "updated": "2026-09-07",
+  "related": [
+    "guides/add-xtream-codes-playlist",
+    "remote/vod-keys",
+    "guides/choose-playlist-type"
+  ],
+  "faq": [
+    {
+      "q": "Why are my movies and shows sections empty?",
+      "a": "Almost always the connection type. An M3U file has no way to express a series with seasons and episodes, so films and programmes arrive as ordinary channel entries. Xtream Codes and Stalker Portal both describe a library properly."
+    },
+    {
+      "q": "Does it remember where I stopped?",
+      "a": "Yes. Resume appears on the item, and for a series it names the episode, Resume S2 E4, so you can tell at a glance what continuing will play."
+    },
+    {
+      "q": "What is My List?",
+      "a": "Your own shortlist, built with Add to my list. It sits in the sidebar and is the practical answer to a catalogue with several thousand titles in it."
+    },
+    {
+      "q": "Can I sort the catalogue?",
+      "a": "Yes: By order in playlist, By name, By rating or By date added. Date added is the one worth using, because it surfaces what your provider added most recently."
+    },
+    {
+      "q": "Why does an episode play but the film beside it does not?",
+      "a": "On-demand files vary in format more than live streams do. Try the software video decoder under Settings, Playback. That is the setting that fixes most single-title failures."
+    }
+  ]
+} -->
+
+<p>Films and series live on their own screens, with their own <a href="/remote/vod-keys/">key map</a> and their own browsing model. Whether you have them at all depends on how you connected.</p>
+
+<h2 id="requirements">What it needs to work</h2>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Connection</th><th>What you get</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Xtream Codes</td><td>A full library: films and series separated, seasons, episode lists, posters, descriptions and ratings.</td></tr>
+      <tr><td>Stalker Portal</td><td>A library, with the detail varying by portal.</td></tr>
+      <tr><td>M3U</td><td>Nothing here. Films and episodes arrive as channel entries in the main list, because the file format cannot describe anything else.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>That last row is the answer to most reports of an empty catalogue. It is not a setting and not a fault, an M3U is a flat list of streams with no structure to read. If your provider offers Xtream Codes, the credentials are often <a href="/guides/add-xtream-codes-playlist/">already inside the M3U link you have</a>, and switching gets you the library with no new subscription.</p>
+
+<h2 id="browsing">Browsing</h2>
+
+<p>The sidebar carries <span class="ui">TV</span>, the two catalogue entries and <span class="ui">My List</span>. Inside a catalogue, <span class="ui">All movies</span> and <span class="ui">All shows</span> show everything, and your provider's categories break it down.</p>
+
+<p>On a large catalogue the sort order matters more than the categories do. <span class="ui">Sorting</span> offers:</p>
+
+<ul>
+  <li><span class="ui">By order in playlist</span> &mdash; whatever order your provider used.</li>
+  <li><span class="ui">By name</span> &mdash; alphabetical, useful when you know what you are looking for.</li>
+  <li><span class="ui">By rating</span> &mdash; where the source supplies ratings.</li>
+  <li><span class="ui">By date added</span> &mdash; the most useful of the four, because it puts new arrivals first.</li>
+</ul>
+
+<p>There is also <span class="ui">Group "All Movies" by categories</span>, which decides whether the films view is one long list or a set of category rows. On a catalogue with thousands of entries, rows are far easier to move through with a D&#8209;pad.</p>
+
+<h2 id="item">The detail screen</h2>
+
+<p>Opening a title gives you its poster, description and the buttons that act on it:</p>
+
+<ul>
+  <li><span class="ui">Play</span>, or <span class="ui">Resume</span> when you have watched part of it. For a series it names the episode &mdash; <span class="ui">Resume S2 E4</span> &mdash; so you know what continuing will play. With nothing watched yet it says <span class="ui">Nothing to resume yet</span> rather than starting from the top unannounced.</li>
+  <li><span class="ui">Trailer</span>, where the source provides one; <span class="ui">Trailer not available</span> where it does not.</li>
+  <li><span class="ui">Add to my list</span>, which becomes <span class="ui">Remove from my list</span> once the title is on it.</li>
+  <li><span class="ui">Open in external player</span> is present but locked in the current build, showing <span class="ui">Available for premium users</span>. Nothing on this page depends on it.</li>
+</ul>
+
+<p>A series shows <span class="ui">Seasons</span> and <span class="ui">Episodes</span> with a count per season. Each card carries a progress bar for how much of it you have watched (per episode inside a season, and across the whole series on the series card), which is the point of the screen for anyone working through a long run of something.</p>
+
+<h2 id="resuming">Resuming, and My List</h2>
+
+<p>Playback position is remembered per title, on this device. There is no account and no server, so a film you started on a phone does not appear as half&#8209;watched on the television, the two devices keep separate records. Before you have started anything, the resume row reads <span class="ui">Nothing to resume yet</span>.</p>
+
+<p><span class="ui">My List</span> is the more important of the two features, and it is the one people ignore at first. A provider catalogue is not curated for you and is often enormous; a shortlist you built yourself is the only version of it that is quick to use. Add a title the moment you notice it rather than trusting yourself to find it again.</p>
+
+<h2 id="playing">While it is playing</h2>
+
+<p>The on&#8209;demand player differs from the live one in the ways you would expect, and the <a href="/remote/vod-keys/">key map for it</a> reflects that. The differences worth knowing:</p>
+
+<ul>
+  <li><kbd class="key">Right</kbd> seeks forward instead of switching channel, and <kbd class="key">Rewind(RW)</kbd> and <kbd class="key">Fast forward(FF)</kbd> seek rather than showing channel information.</li>
+  <li><kbd class="key">Green</kbd> is <span class="ui">Audio tracks</span> and <kbd class="key">Yellow</kbd> is <span class="ui">Closed captions</span>, because in a film those are what you reach for &mdash; usually in the first minute, when you discover the audio is dubbed or the subtitles are off.</li>
+  <li><kbd class="key">Up</kbd> and <kbd class="key">Down</kbd> move between items, which in a series means the next and previous episode.</li>
+  <li><span class="ui">Restart from beginning</span> exists but ships on no key. If you watch series, it is the first thing worth assigning.</li>
+</ul>
+
+<h2 id="problems">When something will not play</h2>
+
+<p>On&#8209;demand files vary in container and codec far more than live streams do, so a single title failing while everything else works is common and is usually decoding rather than the network. Switch <span class="ui">Video decoder</span> to <span class="ui">Software</span> under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> and try again. That one setting accounts for most of it.</p>
+
+<p><span class="ui">Unable to play this content right now</span> means the app asked for the file and got nothing playable back, a title the provider lists but no longer serves will do this, and no setting will change it. <span class="ui">Something went wrong. Please try again later.</span> is the other one you may see, and it is worth taking at face value: try the same title again later before changing anything. <a href="/troubleshooting/channel-wont-play/">A channel that will not play</a> covers the same ground in more depth, and most of it applies here.</p>

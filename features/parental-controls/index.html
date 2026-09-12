@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -228,7 +279,7 @@ gtag('config', 'G-KRV4ERFF8F');
     <header class="doc-head">
       <p class="doc-kicker">Features</p>
       <h1>Parental controls</h1>
-      <p class="doc-lede">This feature locks configuration, not content. Knowing that before you turn it on saves you setting it up for a job it does not do — and it is genuinely good at the job it does do.</p>
+      <p class="doc-lede">This feature locks configuration, not content. Knowing that before you turn it on saves you setting it up for a job it does not do. It is genuinely good at the job it does do.</p>
       <p class="doc-updated">Last updated <time datetime="2026-09-07">7 September 2026</time></p>
     </header>
     <div class="doc-grid">
@@ -253,11 +304,11 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>So the honest description is a configuration lock. It stops a playlist being swapped for another one, stops your guide setup being undone, and stops the lock itself being switched off &mdash; which is a real and useful thing on a shared television. It is not a content filter, and it cannot become one: the app knows a stream's name and its group, and nothing whatever about what is inside it.</p>
+<p>So the honest description is a configuration lock. It stops a playlist being swapped for another one, stops your guide setup being undone, and stops the lock itself being switched off, which is a real and useful thing on a shared television. It is not a content filter, and it cannot become one: the app knows a stream's name and its group, and nothing whatever about what is inside it.</p>
 
 <div class="note note--warn">
   <p class="note-label">If you need content restriction</p>
-  <p>Restrict what gets onto the device instead of what the player shows. A playlist limited to the categories you are willing to have in the house, requested from your provider, is the only approach that actually works &mdash; and it survives the app being replaced with a different one.</p>
+  <p>Restrict what gets onto the device instead of what the player shows. A playlist limited to the categories you are willing to have in the house, requested from your provider, is the only approach that actually works, and it survives the app being replaced with a different one.</p>
 </div>
 
 <h2 id="setting-up">Setting it up</h2>
@@ -287,7 +338,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>The last two are switches for the group and channel menu rows that are laid out but not yet connected &mdash; there is nothing behind them to protect, so the gate has nothing to gate. Leave them alone; turning them on changes nothing and turning them off loses you nothing.</p>
+<p>The last two are switches for the group and channel menu rows that are laid out but not yet connected; there is nothing behind them to protect, so the gate has nothing to gate. Leave them alone; turning them on changes nothing and turning them off loses you nothing.</p>
 
 <p>Notice also that <span class="ui">Settings</span> and the two below it are deliberately exclusive. Switch <span class="ui">Settings</span> on and the app greys out <span class="ui">Settings | Playlists</span> and <span class="ui">Settings | TV Guide</span>, because locking the whole screen already covers both. Switch it off and the two become available again for a narrower lock.</p>
 
@@ -318,7 +369,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Write the PIN down somewhere that is not the device.</p>
 
-<p>There is no recovery path, and this is not an oversight. The app has no account, contacts no server about your configuration, and stores a hash rather than the number &mdash; so there is nobody who can look it up for you and nothing on the device that could be read back. <span class="ui">Change PIN</span> asks for the current one first, and reaching that screen at all needs the current one, so a forgotten PIN cannot be replaced from inside the app.</p>
+<p>There is no recovery path, and this is not an oversight. The app has no account, contacts no server about your configuration, and stores a hash rather than the number, so there is nobody who can look it up for you and nothing on the device that could be read back. <span class="ui">Change PIN</span> asks for the current one first, and reaching that screen at all needs the current one, so a forgotten PIN cannot be replaced from inside the app.</p>
 
 <p>With <span class="ui">Require PIN for</span> &rsaquo; <span class="ui">Settings</span> switched on, forgetting it locks you out of every setting permanently. Playback still works and the channels you already have keep playing, but you cannot add a playlist, fix the guide, remap a key or turn the lock off. Clearing the app's data through Android's own app settings is the only way back, and that takes your playlists, favourites and key mappings with it.</p>
 
@@ -328,7 +379,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>Open <span class="ui">Settings</span> &rsaquo; <span class="ui">Parental controls</span>, enter the PIN, and switch <span class="ui">On</span> off. Any active unlock is dropped at the same moment, so nothing stays open behind you.</p>
 
-<p>The PIN itself is kept. Switching the feature back on later reuses it rather than asking for a new one, and <span class="ui">Change PIN</span> is how you replace it &mdash; it asks for the current PIN, then the new one twice. There is no row that removes the PIN outright, which is worth knowing if you were expecting the feature to reset itself completely when switched off.</p>
+<p>The PIN itself is kept. Switching the feature back on later reuses it rather than asking for a new one, and <span class="ui">Change PIN</span> is how you replace it. It asks for the current PIN, then the new one twice. There is no row that removes the PIN outright, which is worth knowing if you were expecting the feature to reset itself completely when switched off.</p>
         <section class="faq" aria-labelledby="faq-h">
           <h2 id="faq-h">Questions people ask</h2>
           <div class="faq-list">

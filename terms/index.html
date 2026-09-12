@@ -40,14 +40,65 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6161953663322185" crossorigin="anonymous"></script>
+
 
 <script type="application/ld+json">
 {
@@ -137,7 +188,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="what-you-supply">Playlists, credentials and your data</h2>
 
-<p>Playlists, Xtream credentials and Stalker portal details you enter are stored on your device, in the app's private storage. They are not sent to us. We hold no account for you, because there is no account to hold &mdash; the app has no sign&#8209;up.</p>
+<p>Playlists, Xtream credentials and Stalker portal details you enter are stored on your device, in the app's private storage. They are not sent to us. We hold no account for you, because there is no account to hold: the app has no sign&#8209;up.</p>
 
 <p>The practical consequence is that recovery is your job. If you clear the app's data, reset the device, or reinstall without a backup, your playlists and settings are gone and we cannot restore them. The app can export a backup file; the <a href="/guides/backup-and-restore/">backup guide</a> covers where it goes and how to bring it back.</p>
 
@@ -152,7 +203,7 @@ gtag('config', 'G-KRV4ERFF8F');
   <li>Features can change or be removed between versions. Where a change alters behaviour you rely on, it is described on the page for that feature.</li>
 </ul>
 
-<p>To the fullest extent the law allows, we are not liable for loss arising from your use of the app &mdash; including lost recordings, lost settings, charges from a provider, or a device that misbehaves. Nothing here removes rights you have under consumer law that cannot be excluded.</p>
+<p>To the fullest extent the law allows, we are not liable for loss arising from your use of the app. Including lost recordings, lost settings, charges from a provider, or a device that misbehaves. Nothing here removes rights you have under consumer law that cannot be excluded.</p>
 
 <h2 id="third-parties">Third parties</h2>
 
@@ -174,7 +225,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <h2 id="contact-terms">Questions about these terms</h2>
 
-<p>Write to <a href="mailto:support@inoxtv.com">support@inoxtv.com</a>. Copyright notices have their own route and their own requirements &mdash; use the <a href="/dmca/">copyright and takedown page</a> for those, as a notice sent to the general address takes longer to reach the right place.</p>
+<p>Write to <a href="mailto:support@inoxtv.com">support@inoxtv.com</a>. Copyright notices have their own route and their own requirements. Use the <a href="/dmca/">copyright and takedown page</a> for those, as a notice sent to the general address takes longer to reach the right place.</p>
       
     </div>
   </div>

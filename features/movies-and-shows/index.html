@@ -40,10 +40,61 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@600..700&display=swap">
 <link rel="stylesheet" href="/docs.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
 <script>
+// Google Consent Mode v2. This has to run BEFORE any measurement command or
+// ad script, because both read the defaults when they initialise - if gtag.js
+// or adsbygoogle.js lands first, it has already made its own decision and this
+// block can no longer change it.
+//
+// Nothing here shows a banner or asks anyone anything. It states the starting
+// position, and Google's own consent message - the certified CMP switched on
+// in the account - calls gtag('consent','update',...) once the visitor answers
+// it. A self-written banner would not be a certified CMP and would be worse
+// than no banner at all, so there deliberately is not one.
+//
+// The EEA, the UK and Switzerland start denied. Consent is the legal basis for
+// advertising there, so denying until told otherwise is both the correct
+// default and the thing that makes the privacy policy's account of consent
+// true rather than aspirational. Everywhere else starts granted: consent is not
+// the basis for it, and denying by default would suppress measurement for
+// visitors who were never asked and never refused.
+//
+// The region list is ISO 3166-2, so "EEA" is not a value that can be used -
+// the 27 member states are spelled out - plus the UK and Switzerland, which
+// fall under the same requirement without being members. Specificity decides
+// which default applies, not the order they appear in.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+  'region': [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+    'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO',
+    'GB','CH'
+  ]
+});
+gtag('consent', 'default', {
+  'ad_storage': 'granted',
+  'ad_user_data': 'granted',
+  'ad_personalization': 'granted',
+  'analytics_storage': 'granted'
+});
+// url_passthrough carries the identifiers in the link when advertising cookies
+// are unavailable, so measurement keeps working for a visitor who has not
+// consented. ads_data_redaction withholds the ad-click identifiers in that
+// case. Both apply only to denied traffic; neither switches anything off for
+// visitors who are outside the consent regions.
+gtag('set', 'url_passthrough', true);
+gtag('set', 'ads_data_redaction', true);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRV4ERFF8F"></script>
+<script>
 gtag('js', new Date());
 gtag('config', 'G-KRV4ERFF8F');
 </script>
@@ -120,7 +171,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Does it remember where I stopped?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Resume appears on the item, and for a series it names the episode — Resume S2 E4 — so you can tell at a glance what continuing will play."
+        "text": "Yes. Resume appears on the item, and for a series it names the episode, Resume S2 E4, so you can tell at a glance what continuing will play."
       }
     },
     {
@@ -144,7 +195,7 @@ gtag('config', 'G-KRV4ERFF8F');
       "name": "Why does an episode play but the film beside it does not?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "On-demand files vary in format more than live streams do. Try the software video decoder under Settings, Playback — that is the setting that fixes most single-title failures."
+        "text": "On-demand files vary in format more than live streams do. Try the software video decoder under Settings, Playback. That is the setting that fixes most single-title failures."
       }
     }
   ]
@@ -211,7 +262,7 @@ gtag('config', 'G-KRV4ERFF8F');
   </table>
 </div>
 
-<p>That last row is the answer to most reports of an empty catalogue. It is not a setting and not a fault &mdash; an M3U is a flat list of streams with no structure to read. If your provider offers Xtream Codes, the credentials are often <a href="/guides/add-xtream-codes-playlist/">already inside the M3U link you have</a>, and switching gets you the library with no new subscription.</p>
+<p>That last row is the answer to most reports of an empty catalogue. It is not a setting and not a fault, an M3U is a flat list of streams with no structure to read. If your provider offers Xtream Codes, the credentials are often <a href="/guides/add-xtream-codes-playlist/">already inside the M3U link you have</a>, and switching gets you the library with no new subscription.</p>
 
 <h2 id="browsing">Browsing</h2>
 
@@ -239,11 +290,11 @@ gtag('config', 'G-KRV4ERFF8F');
   <li><span class="ui">Open in external player</span> is present but locked in the current build, showing <span class="ui">Available for premium users</span>. Nothing on this page depends on it.</li>
 </ul>
 
-<p>A series shows <span class="ui">Seasons</span> and <span class="ui">Episodes</span> with a count per season. Each card carries a progress bar for how much of it you have watched &mdash; per episode inside a season, and across the whole series on the series card &mdash; which is the point of the screen for anyone working through a long run of something.</p>
+<p>A series shows <span class="ui">Seasons</span> and <span class="ui">Episodes</span> with a count per season. Each card carries a progress bar for how much of it you have watched (per episode inside a season, and across the whole series on the series card), which is the point of the screen for anyone working through a long run of something.</p>
 
 <h2 id="resuming">Resuming, and My List</h2>
 
-<p>Playback position is remembered per title, on this device. There is no account and no server, so a film you started on a phone does not appear as half&#8209;watched on the television &mdash; the two devices keep separate records. Before you have started anything, the resume row reads <span class="ui">Nothing to resume yet</span>.</p>
+<p>Playback position is remembered per title, on this device. There is no account and no server, so a film you started on a phone does not appear as half&#8209;watched on the television, the two devices keep separate records. Before you have started anything, the resume row reads <span class="ui">Nothing to resume yet</span>.</p>
 
 <p><span class="ui">My List</span> is the more important of the two features, and it is the one people ignore at first. A provider catalogue is not curated for you and is often enormous; a shortlist you built yourself is the only version of it that is quick to use. Add a title the moment you notice it rather than trusting yourself to find it again.</p>
 
@@ -262,7 +313,7 @@ gtag('config', 'G-KRV4ERFF8F');
 
 <p>On&#8209;demand files vary in container and codec far more than live streams do, so a single title failing while everything else works is common and is usually decoding rather than the network. Switch <span class="ui">Video decoder</span> to <span class="ui">Software</span> under <span class="ui">Settings</span> &rsaquo; <span class="ui">Playback</span> and try again. That one setting accounts for most of it.</p>
 
-<p><span class="ui">Unable to play this content right now</span> means the app asked for the file and got nothing playable back &mdash; a title the provider lists but no longer serves will do this, and no setting will change it. <span class="ui">Something went wrong. Please try again later.</span> is the other one you may see, and it is worth taking at face value: try the same title again later before changing anything. <a href="/troubleshooting/channel-wont-play/">A channel that will not play</a> covers the same ground in more depth, and most of it applies here.</p>
+<p><span class="ui">Unable to play this content right now</span> means the app asked for the file and got nothing playable back, a title the provider lists but no longer serves will do this, and no setting will change it. <span class="ui">Something went wrong. Please try again later.</span> is the other one you may see, and it is worth taking at face value: try the same title again later before changing anything. <a href="/troubleshooting/channel-wont-play/">A channel that will not play</a> covers the same ground in more depth, and most of it applies here.</p>
         <section class="faq" aria-labelledby="faq-h">
           <h2 id="faq-h">Questions people ask</h2>
           <div class="faq-list">
@@ -272,7 +323,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>Does it remember where I stopped?</summary>
-              <div>Yes. Resume appears on the item, and for a series it names the episode — Resume S2 E4 — so you can tell at a glance what continuing will play.</div>
+              <div>Yes. Resume appears on the item, and for a series it names the episode, Resume S2 E4, so you can tell at a glance what continuing will play.</div>
             </details>
             <details>
               <summary>What is My List?</summary>
@@ -284,7 +335,7 @@ gtag('config', 'G-KRV4ERFF8F');
             </details>
             <details>
               <summary>Why does an episode play but the film beside it does not?</summary>
-              <div>On-demand files vary in format more than live streams do. Try the software video decoder under Settings, Playback — that is the setting that fixes most single-title failures.</div>
+              <div>On-demand files vary in format more than live streams do. Try the software video decoder under Settings, Playback. That is the setting that fixes most single-title failures.</div>
             </details>
           </div>
         </section>
