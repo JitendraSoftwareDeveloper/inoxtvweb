@@ -1130,6 +1130,46 @@ class Builder:
                     continue
                 self.warn("%s: links to %s, which does not exist" % (page["slug"], target))
 
+    def privacy_lastmod(self) -> str:
+        """The date privacy.html itself claims, read from the page.
+
+        privacy.html is PROTECTED, so it has no front matter to carry an
+        "updated" field and the sitemap used to hold a hardcoded date instead.
+        That went stale the first time the policy changed: the page said 12
+        September 2026 while the sitemap still said 23 May. A crawler comparing
+        the two sees a page whose own text contradicts its declared lastmod,
+        which is a bad signal on the one page a reviewer is most likely to read
+        closely.
+
+        Parsing what the page shows means the two cannot disagree again. If the
+        markup is ever reworded the warning fires rather than a wrong date
+        shipping silently.
+        """
+        raw = read(os.path.join(ROOT, "privacy.html"))
+        m = re.search(
+            r'class="privacy-effective">\s*Effective date:\s*<strong>\s*'
+            r"(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})",
+            raw,
+        )
+        if not m:
+            self.warn(
+                "privacy.html: cannot read the effective date, so sitemap "
+                "lastmod falls back to today. Check the privacy-effective markup."
+            )
+            return date.today().isoformat()
+
+        day, month_name, year = m.groups()
+        months = [
+            "january", "february", "march", "april", "may", "june",
+            "july", "august", "september", "october", "november", "december",
+        ]
+        try:
+            month = months.index(month_name.lower()) + 1
+        except ValueError:
+            self.warn("privacy.html: '%s' is not a month name" % month_name)
+            return date.today().isoformat()
+        return date(int(year), month, int(day)).isoformat()
+
     def sitemap(self) -> None:
         today = date.today().isoformat()
         rows = [("/", today, "1.0")]
@@ -1141,7 +1181,7 @@ class Builder:
         for page in self.pages:
             pri = "0.5" if page["section"] == "policy" else "0.7"
             rows.append((page["url"], page["meta"]["updated"], pri))
-        rows.append(("/privacy.html", "2026-05-23", "0.5"))
+        rows.append(("/privacy.html", self.privacy_lastmod(), "0.5"))
 
         body = "\n".join(
             "  <url>\n    <loc>%s%s</loc>\n    <lastmod>%s</lastmod>\n"
