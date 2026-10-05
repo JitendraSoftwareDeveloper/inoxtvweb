@@ -1,3 +1,4 @@
+google.com, pub-5889298706423519, DIRECT, f08c47fec0942fa0
 google.com, pub-6161953663322185, DIRECT, f08c47fec0942fa0
 facebook.com, 1959779897999258, DIRECT, c3e20eee3f780d68
 pubmatic.com, 159856, DIRECT, 5d62403b186f2ace
