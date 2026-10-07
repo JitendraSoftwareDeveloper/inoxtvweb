@@ -5,5 +5,8 @@ pubmatic.com, 159856, DIRECT, 5d62403b186f2ace
 inmobi.com, d21d7bf360844e1b991ed02c92f7747f, DIRECT, 83e75a7ae333ca9d
 onetag.com, 97ce5e0b1f41462, DIRECT
 onetag.com, 97ce5e0b1f41462-OB, DIRECT
+onetag.com, 9819a3f58b236c0, DIRECT
+onetag.com, 9819a3f58b236c0-OB, DIRECT
 unity.com, 147880280, DIRECT, 96cabb5fbdde37a7
 openx.com, 597827129, DIRECT, 6a698e2ec38604c6
+openx.com, 622115492, DIRECT, 6a698e2ec38604c6
